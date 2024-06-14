@@ -5,18 +5,17 @@ using UnityEngine;
 public enum UnitCode
 {
     None,
-    Sp,
-    Smg,
-    Ar,
-    Sg,
-    Hg
+    A,
+    B,
+    C
 }
 public enum WeaponCode
 {
     None,
-    Sp,
+    Sr,
     Smg,
     Ar,
     Sg,
-    Hg
+    Hg,
+    Mg
 }

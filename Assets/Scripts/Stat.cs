@@ -29,6 +29,25 @@ public class Stat
     // 사정거리
     public int Range {  get; set; }
 
+    public Stat()
+    {
 
-
+    }
+    public Stat(UnitCode unitCode, WeaponCode weaponCode, string name, int maxHp, int atk, int def, int accuracyRate, int dodge, int criticalRate, float criticalDamage, int range)
+    {
+        UnitCode = unitCode;
+        WeaponCode = weaponCode;
+        Name = name;
+        MaxHp = maxHp;
+        CurHp = maxHp;
+        Atk = atk;
+        Def = def;
+        AccuracyRate = accuracyRate;
+        Dodge = dodge;
+        CriticalRate = criticalRate;
+        CriticalDamage = criticalDamage;
+        Range = range;
+    }
 }
+
+

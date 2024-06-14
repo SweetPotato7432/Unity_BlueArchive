@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class CharacterMove : MonoBehaviour
+public class Character : MonoBehaviour
 {// Start is called before the first frame update
 
+    // 스탯 생성
+    private Stat stat;
+    
+    // 현재 상태
     enum States
     {
         None,
@@ -25,12 +29,17 @@ public class CharacterMove : MonoBehaviour
 
     [SerializeField]
     private GameObject closestTarget;
+    [SerializeField]
     private float closestDistance;
 
     private LayerMask targetLayer;
 
+    public Collider[] cols;
+
     private void Awake()
     {
+        // 캐릭터 스탯 구현
+        stat = new Stat(UnitCode.A, WeaponCode.Sr, "Aru", 2505, 451, 19, 905, 201, 201, 200.0f, 750);
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -39,50 +48,18 @@ public class CharacterMove : MonoBehaviour
 
         currentState = States.Move;
         targetLayer = LayerMask.NameToLayer("Enemy");
+
     }
 
     // Update is called once per frame
     void Update()
     {
+        
         switch (currentState)
         {
             case States.Move:
                 {
-                    if (agent.isStopped)
-                    {
-                        agent.isStopped = false;
-                    }
-                    closestDistance = Mathf.Infinity;
-                    closestTarget = null;
-
-                    // 이동
-                    agent.SetDestination(target.position);
-
-                    // 적 탐지
-                    int layerMask = (1 << targetLayer);
-
-                    Collider[] cols = Physics.OverlapSphere(transform.position, 15, layerMask);
-                    foreach (Collider col in cols)
-                    {
-                        float distance = Vector3.Distance(col.transform.position, transform.position);
-                        if (distance < closestDistance)
-                        {
-                            closestDistance = distance;
-                            closestTarget = col.gameObject;
-                        }
-                    }
-                    if (cols.Length >= 1)
-                    {
-                        // 엄폐 가능 확인
-
-                        // 엄폐 확인 후 공격
-                        currentState = States.Attack;
-                        if (!agent.isStopped)
-                        {
-                            agent.isStopped = true;
-                        }
-                        
-                    }
+                    Move();
                     break;
                 }
             case States.Cover:
@@ -105,6 +82,45 @@ public class CharacterMove : MonoBehaviour
                     // 재장전
                     break;
                 }
+        }
+    }
+
+    private void Move()
+    {
+        if (agent.isStopped)
+        {
+            agent.isStopped = false;
+        }
+        closestDistance = Mathf.Infinity;
+        closestTarget = null;
+
+        // 이동
+        agent.SetDestination(new Vector3(target.position.x, transform.position.y, transform.position.z));
+
+        // 적 탐지
+        int layerMask = (1 << targetLayer);
+
+        cols = Physics.OverlapSphere(transform.position, 15, layerMask);
+        foreach (Collider col in cols)
+        {
+            float distance = Vector3.Distance(col.transform.position, transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestTarget = col.gameObject;
+            }
+        }
+        if (cols.Length >= 1)
+        {
+            // 엄폐 가능 확인
+
+            // 엄폐 확인 후 공격
+            currentState = States.Attack;
+            if (!agent.isStopped)
+            {
+                agent.isStopped = true;
+            }
+
         }
     }
 }
