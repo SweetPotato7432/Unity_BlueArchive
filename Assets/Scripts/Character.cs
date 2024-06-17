@@ -48,7 +48,6 @@ public class Character : MonoBehaviour
 
         currentState = States.Move;
         targetLayer = LayerMask.NameToLayer("Enemy");
-
     }
 
     // Update is called once per frame

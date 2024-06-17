@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class CameraMove : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject target;
-
-    private float offsetX = -11.0f;
-    private float offsetY = 9.0f;
-    private float offsetZ = -21.0f;
+    //private float offsetX = -11.0f;
+    //private float offsetY = 9.0f;
+    //private float offsetZ = -21.0f;
 
     [SerializeField]
     private float CameraSpeed = 10.0f;
-
+    // 현재 줌 속도 저장
     private float zoomSpeed;
 
     private Vector3 targetPos;
@@ -22,6 +19,8 @@ public class CameraMove : MonoBehaviour
 
     [SerializeField]
     private Camera mainCamera;
+
+    private GameManager gameManager;
 
     private void Awake()
     {
@@ -32,6 +31,7 @@ public class CameraMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameManager = (GameObject.Find("GameManager")).GetComponent<GameManager>();
         // 카메라 초기 위치 및 크기 설정
         FindAveragePosAndSize();
         transform.position = targetPos;
@@ -53,27 +53,15 @@ public class CameraMove : MonoBehaviour
     private void FindAveragePosAndSize()
     {
         Vector3 averagePos = new Vector3();
-        int numTargets = 0;
+        //int numTargets = 0;
 
         float size = 0f;
 
         GameObject[] characters = GameObject.FindGameObjectsWithTag("Character");
 
         // 카메라 위치 설정
-        for(int i = 0; i < characters.Length; i++)
-        {
-            if (!characters[i].gameObject.activeSelf)
-                continue;
+        averagePos = gameManager.AveragePos(ref characters);
 
-            averagePos += characters[i].transform.position;
-            numTargets++;
-
-        }
-
-        if(numTargets>0)
-        {
-            averagePos/=numTargets;
-        }
         averagePos.x -= 10;
         averagePos.y = transform.position.y;
         averagePos.z = transform.position.z;
