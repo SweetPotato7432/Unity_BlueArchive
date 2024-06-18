@@ -47,7 +47,7 @@ public class Character : MonoBehaviour
     {
 
         currentState = States.Move;
-        targetLayer = LayerMask.NameToLayer("Enemy");
+        targetLayer = LayerMask.NameToLayer("Character");
     }
 
     // Update is called once per frame
@@ -102,14 +102,18 @@ public class Character : MonoBehaviour
         cols = Physics.OverlapSphere(transform.position, 15, layerMask);
         foreach (Collider col in cols)
         {
-            float distance = Vector3.Distance(col.transform.position, transform.position);
-            if (distance < closestDistance)
+            if(col.tag == "Enemy")
             {
-                closestDistance = distance;
-                closestTarget = col.gameObject;
+                float distance = Vector3.Distance(col.transform.position, transform.position);
+                if (distance < closestDistance)
+                {
+                    closestDistance = distance;
+                    closestTarget = col.gameObject;
+                }
             }
+            
         }
-        if (cols.Length >= 1)
+        if (closestTarget != null)
         {
             // 엄폐 가능 확인
 

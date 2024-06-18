@@ -57,7 +57,14 @@ public class CameraMove : MonoBehaviour
 
         float size = 0f;
 
-        GameObject[] characters = GameObject.FindGameObjectsWithTag("Character");
+        GameObject[] charactersAlly = GameObject.FindGameObjectsWithTag("Ally");
+        GameObject[] charactersEnemy = GameObject.FindGameObjectsWithTag("Enemy");
+
+        List<GameObject> combinedList = new List<GameObject>();
+        combinedList.AddRange(charactersAlly);
+        combinedList.AddRange(charactersEnemy);
+
+        GameObject[] characters = combinedList.ToArray();
 
         // 카메라 위치 설정
         averagePos = gameManager.AveragePos(ref characters);

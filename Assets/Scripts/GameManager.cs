@@ -28,22 +28,8 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        GameObject[] characters = GameObject.FindGameObjectsWithTag("Character");
-        List<GameObject> alliesList = new List<GameObject>();
-        List<GameObject> enemyList = new List<GameObject>();
-        foreach(GameObject character in characters)
-        {
-            if(character.layer == alleyLayer)
-            {
-                alliesList.Add(character);
-            }
-            else
-            {
-                enemyList.Add(character);
-            }
-        }
-        allies = alliesList.ToArray();
-        enemies = enemyList.ToArray();
+        allies = GameObject.FindGameObjectsWithTag("Ally");
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
         alliesAveragePos =  AveragePos(ref allies);
         

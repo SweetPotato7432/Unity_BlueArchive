@@ -669,9 +669,9 @@ GameObject:
   - component: {fileID: 919572567}
   - component: {fileID: 919572566}
   - component: {fileID: 919572565}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Capsule (1)
-  m_TagString: Character
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -976,9 +976,9 @@ GameObject:
   - component: {fileID: 1862865116}
   - component: {fileID: 1862865115}
   - component: {fileID: 1862865114}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Capsule (3)
-  m_TagString: Character
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1123,9 +1123,9 @@ GameObject:
   - component: {fileID: 1901330076}
   - component: {fileID: 1901330075}
   - component: {fileID: 1901330074}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Enemy
-  m_TagString: Character
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1254,9 +1254,9 @@ GameObject:
   - component: {fileID: 1945619255}
   - component: {fileID: 1945619254}
   - component: {fileID: 1945619259}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Capsule
-  m_TagString: Character
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1402,9 +1402,9 @@ GameObject:
   - component: {fileID: 2059595478}
   - component: {fileID: 2059595477}
   - component: {fileID: 2059595476}
-  m_Layer: 7
+  m_Layer: 3
   m_Name: Capsule (2)
-  m_TagString: Character
+  m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
