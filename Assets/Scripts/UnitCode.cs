@@ -5,9 +5,12 @@ using UnityEngine;
 public enum UnitCode
 {
     None,
-    A,
-    B,
-    C
+    Aru,
+    Kasumi,
+    Hoshino,
+    Haruna,
+    Serina,
+    Yoshimi
 }
 public enum WeaponCode
 {
@@ -18,4 +21,10 @@ public enum WeaponCode
     Sg,
     Hg,
     Mg
+}
+public enum TypeCode
+{
+    None,
+    Striker,
+    Special
 }

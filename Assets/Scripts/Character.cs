@@ -8,6 +8,9 @@ public class Character : MonoBehaviour
 
     // 스탯 생성
     private Stat stat;
+
+    [SerializeField]
+    private UnitCode unitCode;
     
     // 현재 상태
     enum States
@@ -39,7 +42,10 @@ public class Character : MonoBehaviour
     private void Awake()
     {
         // 캐릭터 스탯 구현
-        stat = new Stat(UnitCode.A, WeaponCode.Sr, "Aru", 2505, 451, 19, 905, 201, 201, 200.0f, 750);
+        stat = new Stat();
+        stat.setUnitStat(unitCode);
+
+
         agent = GetComponent<NavMeshAgent>();
     }
 
@@ -115,15 +121,14 @@ public class Character : MonoBehaviour
         }
         if (closestTarget != null)
         {
-            // 엄폐 가능 확인
-
-            // 엄폐 확인 후 공격
-            currentState = States.Attack;
             if (!agent.isStopped)
             {
                 agent.isStopped = true;
             }
+            // 엄폐 가능 확인
 
+            // 엄폐 확인 후 공격
+            currentState = States.Attack;
         }
     }
 }

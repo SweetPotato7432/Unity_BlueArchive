@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
         
         if(alliesAveragePos.x > spawnPoint.transform.position.x)
         {
+            // Å×½ºÆ®
             enemy.SetActive(true);
         }
 
