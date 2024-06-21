@@ -690,10 +690,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitCode: 2
   currentState: 0
-  target: {fileID: 273523655}
+  destination: {fileID: 273523655}
   closestTarget: {fileID: 0}
   closestDistance: 0
-  cols: []
 --- !u!195 &919572566
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -998,10 +997,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitCode: 4
   currentState: 0
-  target: {fileID: 273523655}
+  destination: {fileID: 273523655}
   closestTarget: {fileID: 0}
   closestDistance: 0
-  cols: []
 --- !u!195 &1862865115
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1387,10 +1385,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitCode: 1
   currentState: 0
-  target: {fileID: 273523655}
+  destination: {fileID: 273523655}
   closestTarget: {fileID: 0}
   closestDistance: 0
-  cols: []
 --- !u!1 &2059595475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1426,10 +1423,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   unitCode: 3
   currentState: 0
-  target: {fileID: 273523655}
+  destination: {fileID: 273523655}
   closestTarget: {fileID: 0}
   closestDistance: 0
-  cols: []
 --- !u!195 &2059595477
 NavMeshAgent:
   m_ObjectHideFlags: 0

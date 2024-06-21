@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
     private NavMeshAgent agent;
 
     [SerializeField]
-    private Transform target;
+    private Transform destination;
 
     [SerializeField]
     private GameObject closestTarget;
@@ -37,13 +37,19 @@ public class Character : MonoBehaviour
 
     private LayerMask targetLayer;
 
-    public Collider[] cols;
+    private Collider[] cols;
+
+    // 사거리
+    private float range;
+
+    // 공격 쿨타임
+    private float attackCooltime = 0f;
 
     private void Awake()
     {
         // 캐릭터 스탯 구현
         stat = new Stat();
-        stat.setUnitStat(unitCode);
+        stat = stat.setUnitStat(unitCode);
 
 
         agent = GetComponent<NavMeshAgent>();
@@ -54,12 +60,16 @@ public class Character : MonoBehaviour
 
         currentState = States.Move;
         targetLayer = LayerMask.NameToLayer("Character");
+        range = stat.Range * 0.025f;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (closestTarget != null)
+        {
+            closestDistance = Vector3.Distance(closestTarget.transform.position, transform.position);
+        }
         switch (currentState)
         {
             case States.Move:
@@ -74,12 +84,8 @@ public class Character : MonoBehaviour
             case States.Attack:
                 {
                     // 공격
-
-                    // 탐색으로 전환
-                    if (closestTarget == null)
-                    {
-                        currentState = States.Move;
-                    }
+                    Attack();
+                    
                     break;
                 }
             case States.Reload:
@@ -100,12 +106,12 @@ public class Character : MonoBehaviour
         closestTarget = null;
 
         // 이동
-        agent.SetDestination(new Vector3(target.position.x, transform.position.y, transform.position.z));
+        agent.SetDestination(new Vector3(destination.position.x, transform.position.y, transform.position.z));
 
         // 적 탐지
         int layerMask = (1 << targetLayer);
 
-        cols = Physics.OverlapSphere(transform.position, 15, layerMask);
+        cols = Physics.OverlapSphere(transform.position, range, layerMask);
         foreach (Collider col in cols)
         {
             if(col.tag == "Enemy")
@@ -128,7 +134,36 @@ public class Character : MonoBehaviour
             // 엄폐 가능 확인
 
             // 엄폐 확인 후 공격
-            currentState = States.Attack;
+            if (stat.CurMag <= 0)
+            {
+                currentState = States.Reload;
+            }
+            else
+            {
+                currentState = States.Attack;
+            }
+        }
+    }
+
+    private void Attack()
+    {
+        attackCooltime += Time.deltaTime;
+        if(attackCooltime >= stat.AttackCoolTime)
+        {
+            // 적에게 대미지
+            
+            attackCooltime -= stat.AttackCoolTime;
+            // 탄약 제외
+            stat.CurMag--;
+            Debug.Log(stat.Name + "이 " + stat.Atk + "의 데미지, 남은 장탄수 : " + stat.CurMag);
+
+        }
+
+        // 탐색으로 전환
+        if (closestTarget == null || closestDistance > range || stat.CurMag <= 0)
+        {
+            attackCooltime = 0f;
+            currentState = States.Move;
         }
     }
 }
