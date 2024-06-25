@@ -692,7 +692,7 @@ MonoBehaviour:
   currentState: 0
   destination: {fileID: 273523655}
   closestTarget: {fileID: 0}
-  closestDistance: 0
+  targetDistance: 0
 --- !u!195 &919572566
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -999,7 +999,7 @@ MonoBehaviour:
   currentState: 0
   destination: {fileID: 273523655}
   closestTarget: {fileID: 0}
-  closestDistance: 0
+  targetDistance: 0
 --- !u!195 &1862865115
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1123,6 +1123,7 @@ GameObject:
   - component: {fileID: 1901330076}
   - component: {fileID: 1901330075}
   - component: {fileID: 1901330074}
+  - component: {fileID: 1901330079}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Enemy
@@ -1240,6 +1241,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1901330079
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1901330073}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f3590bdddddcd2468adaf4dee042f18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  unitCode: 1
+  currentState: 0
+  destination: {fileID: 1763112812}
+  closestTarget: {fileID: 0}
+  targetDistance: 0
 --- !u!1 &1945619252
 GameObject:
   m_ObjectHideFlags: 0
@@ -1387,7 +1405,7 @@ MonoBehaviour:
   currentState: 0
   destination: {fileID: 273523655}
   closestTarget: {fileID: 0}
-  closestDistance: 0
+  targetDistance: 0
 --- !u!1 &2059595475
 GameObject:
   m_ObjectHideFlags: 0
@@ -1425,7 +1443,7 @@ MonoBehaviour:
   currentState: 0
   destination: {fileID: 273523655}
   closestTarget: {fileID: 0}
-  closestDistance: 0
+  targetDistance: 0
 --- !u!195 &2059595477
 NavMeshAgent:
   m_ObjectHideFlags: 0

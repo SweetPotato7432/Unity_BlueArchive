@@ -5,7 +5,7 @@ using UnityEngine;
 public enum UnitCode
 {
     None,
-    Aru,
+    Azusa,
     Kasumi,
     Hoshino,
     Haruna,
