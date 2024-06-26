@@ -52,12 +52,16 @@ public class Character : MonoBehaviour
     // 타겟 태그
     private string targetTag;
 
+    float damageRatio;
+
     private void Awake()
     {
         // 캐릭터 스탯 구현
         stat = new Stat();
         stat = stat.setUnitStat(unitCode);
 
+        // 데미지 비율 미리 계산
+        damageRatio = 1f / (1f + stat.Def / (1000f / 0.6f));
 
         agent = GetComponent<NavMeshAgent>();
     }
@@ -150,6 +154,11 @@ public class Character : MonoBehaviour
             }
             
         }
+        if(targetDistance > range)
+        {
+            closestTarget = null;
+        }
+
         if (closestTarget != null)
         {
             if (!agent.isStopped)
@@ -229,7 +238,7 @@ public class Character : MonoBehaviour
             }
 
             // 최종 대미지 계산
-            float damageRatio = 1f / (1f + stat.Def / (1000f / 0.6f));
+            
             float damage = attakerStat.Atk*damageRatio;
             if (isCritical)
             {
@@ -237,6 +246,7 @@ public class Character : MonoBehaviour
             }
             stat.CurHp -= damage;
             Debug.Log(stat.Name+" "+stat.CurHp);
+            Debug.Log($"{attakerStat.Name}이 {stat.Name}에게 입힌 최종 대미지 {damage}");
 
         }
         else

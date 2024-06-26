@@ -66,13 +66,19 @@ public class Stat
         switch(weaponCode)
         {
             case WeaponCode.Sr:
-                AttackCoolTime = 2f;
+                AttackCoolTime = 3f;
                 break;
             case WeaponCode.Sg:
                 AttackCoolTime = 1f;
                 break;
             case WeaponCode.Hg:
                 AttackCoolTime = 1.2f;
+                break;
+            case WeaponCode.Ar:
+                AttackCoolTime = 2f;
+                break;
+            case WeaponCode.Smg:
+                AttackCoolTime = 1.5f;
                 break;
             default:
                 AttackCoolTime = 1f;
@@ -90,7 +96,7 @@ public class Stat
         {
             //                  유닛코드, 무기타입,     , 포지션           ,이름,   체력 ,공격,방어,명중,회피,치명,치뎀,사거리,탄,엄폐
             case UnitCode.Azusa:
-                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Striker, "아즈사", 2496f, 231, 19, 706, 792, 201, 2.0f, 650, 30, true);
+                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Striker, "아즈사", 2496f, 231, 19, 706, 792, 201, 2.0f, 650, 15, true);
                 break;
             case UnitCode.Kasumi:
                 stat = new Stat(unitCode, WeaponCode.Hg, TypeCode.Striker, "카스미", 2412f, 254, 19, 104, 1053, 208, 2.0f, 550, 8, true);
@@ -107,6 +113,13 @@ public class Stat
             case UnitCode.Yoshimi:
                 stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "요시미", 2232f, 268, 19, 705, 806, 201, 2.0f,1000, 30, false);
                 break;
+            case UnitCode.SukebanSmg:
+                stat = new Stat(UnitCode, WeaponCode.Smg,TypeCode.Striker, "불량배(SMG)", 3200f, 36, 30, 98, 1416, 196, 2.0f, 350, 15, false); 
+                break;
+            case UnitCode.SukebanAr:
+                stat = new Stat(UnitCode, WeaponCode.Ar, TypeCode.Striker, "불량배(AR)", 2500f, 46, 19, 706, 792, 201, 2.0f, 650, 15, true);
+                break;
+
         }
 
         return stat;

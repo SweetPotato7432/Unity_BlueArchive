@@ -10,7 +10,11 @@ public enum UnitCode
     Hoshino,
     Haruna,
     Serina,
-    Yoshimi
+    Yoshimi,
+
+    EnemyCode=100,
+    SukebanSmg,
+    SukebanAr
 }
 public enum WeaponCode
 {
@@ -20,7 +24,6 @@ public enum WeaponCode
     Ar,
     Sg,
     Hg,
-    Mg
 }
 public enum TypeCode
 {

@@ -69,7 +69,7 @@ public class CameraMove : MonoBehaviour
         // 카메라 위치 설정
         averagePos = gameManager.AveragePos(ref characters);
 
-        averagePos.x -= 10;
+        averagePos.x -= 12;
         averagePos.y = transform.position.y;
         averagePos.z = transform.position.z;
 
@@ -90,7 +90,7 @@ public class CameraMove : MonoBehaviour
             size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.y));
             size = Mathf.Max(size,Mathf.Abs((desiredPosToTarget.x)/mainCamera.aspect));
         }
-        size -= 4f;
+        size -= 2f;
 
         size = Mathf.Max(size, 6.5f);
 
