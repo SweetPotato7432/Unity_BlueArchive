@@ -38,6 +38,8 @@ public class Stat
     public int MaxMag { get; set; }
     // 현재 장탄 수
     public int CurMag { get; set; }
+    // 재장전 시간
+    public float ReloadTime { get; set; }
 
     public Stat()
     {
@@ -67,21 +69,27 @@ public class Stat
         {
             case WeaponCode.Sr:
                 AttackCoolTime = 3f;
+                ReloadTime = 2.3f;
                 break;
             case WeaponCode.Sg:
                 AttackCoolTime = 1f;
+                ReloadTime = 2f;
                 break;
             case WeaponCode.Hg:
                 AttackCoolTime = 1.2f;
+                ReloadTime = 1.8f;
                 break;
             case WeaponCode.Ar:
                 AttackCoolTime = 2f;
+                ReloadTime = 2f;
                 break;
             case WeaponCode.Smg:
                 AttackCoolTime = 1.5f;
+                ReloadTime = 2f;
                 break;
             default:
                 AttackCoolTime = 1f;
+                ReloadTime = 2f;
                 break;
         }
 
@@ -114,10 +122,10 @@ public class Stat
                 stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "요시미", 2232f, 268, 19, 705, 806, 201, 2.0f,1000, 30, false);
                 break;
             case UnitCode.SukebanSmg:
-                stat = new Stat(UnitCode, WeaponCode.Smg,TypeCode.Striker, "불량배(SMG)", 3200f, 36, 30, 98, 1416, 196, 2.0f, 350, 15, false); 
+                stat = new Stat(UnitCode, WeaponCode.Smg,TypeCode.Striker, "불량배(SMG)", 320f, 18, 30, 98, 1416, 196, 2.0f, 350, 15, false); 
                 break;
             case UnitCode.SukebanAr:
-                stat = new Stat(UnitCode, WeaponCode.Ar, TypeCode.Striker, "불량배(AR)", 2500f, 46, 19, 706, 792, 201, 2.0f, 650, 15, true);
+                stat = new Stat(UnitCode, WeaponCode.Ar, TypeCode.Striker, "불량배(AR)", 250f, 23, 19, 706, 792, 201, 2.0f, 650, 15, true);
                 break;
 
         }

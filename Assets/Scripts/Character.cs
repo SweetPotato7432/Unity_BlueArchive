@@ -52,7 +52,8 @@ public class Character : MonoBehaviour
     // 타겟 태그
     private string targetTag;
 
-    float damageRatio;
+    
+
 
     private void Awake()
     {
@@ -60,8 +61,7 @@ public class Character : MonoBehaviour
         stat = new Stat();
         stat = stat.setUnitStat(unitCode);
 
-        // 데미지 비율 미리 계산
-        damageRatio = 1f / (1f + stat.Def / (1000f / 0.6f));
+        
 
         agent = GetComponent<NavMeshAgent>();
     }
@@ -69,7 +69,7 @@ public class Character : MonoBehaviour
     void Start()
     {
         currentState = States.Move;
-        targetLayer = LayerMask.NameToLayer("Character");
+        targetLayer = 1 << LayerMask.NameToLayer("Character");
         range = stat.Range * 0.025f;
 
         if(this.tag == "Enemy")
@@ -136,10 +136,8 @@ public class Character : MonoBehaviour
         // 이동
         agent.SetDestination(new Vector3(destination.position.x, transform.position.y, transform.position.z));
 
-        // 적 탐지
-        int layerMask = (1 << targetLayer);
 
-        cols = Physics.OverlapSphere(transform.position, range, layerMask);
+        cols = Physics.OverlapSphere(transform.position, range, targetLayer);
         foreach (Collider col in cols)
         {
             if(col.tag == targetTag)
@@ -154,12 +152,8 @@ public class Character : MonoBehaviour
             }
             
         }
-        if(targetDistance > range)
-        {
-            closestTarget = null;
-        }
 
-        if (closestTarget != null)
+        if (closestTarget != null && targetDistance <= range)
         {
             if (!agent.isStopped)
             {
@@ -182,9 +176,9 @@ public class Character : MonoBehaviour
     private void Attack()
     {
         attackCooltime += Time.deltaTime;
-        if(attackCooltime >= stat.AttackCoolTime)
+        if (attackCooltime >= stat.AttackCoolTime)
         {
-            
+
             attackCooltime -= stat.AttackCoolTime;
             // 탄약 제외
             stat.CurMag--;
@@ -197,7 +191,7 @@ public class Character : MonoBehaviour
         // 탐색으로 전환
         if (closestTarget == null || targetDistance > range || stat.CurMag <= 0)
         {
-            attackCooltime = 0f;
+            //attackCooltime = 0f;
             currentState = States.Move;
         }
     }
@@ -238,7 +232,10 @@ public class Character : MonoBehaviour
             }
 
             // 최종 대미지 계산
-            
+
+            // 데미지 비율 계산
+            float damageRatio = 1f / (1f + stat.Def / (1000f / 0.6f));
+
             float damage = attakerStat.Atk*damageRatio;
             if (isCritical)
             {
@@ -259,4 +256,11 @@ public class Character : MonoBehaviour
 
         
     }
+
+    private void Reload()
+    {
+        stat.CurMag = stat.MaxMag;
+
+    }
+
 }
