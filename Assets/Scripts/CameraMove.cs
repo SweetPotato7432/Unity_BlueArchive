@@ -66,10 +66,25 @@ public class CameraMove : MonoBehaviour
 
         GameObject[] characters = combinedList.ToArray();
 
-        // 카메라 위치 설정
-        averagePos = gameManager.AveragePos(ref characters);
+        if (characters.Length == 0)
+        {
+            return;
+        }
 
-        averagePos.x -= 12;
+        Bounds bounds = new Bounds(characters[0].transform.position, Vector3.zero);
+
+        for (int i = 0; i < characters.Length; i++)
+        {
+            if (!characters[i].gameObject.activeSelf) continue;
+
+            bounds.Encapsulate(characters[i].transform.position);
+        }
+
+        // 카메라 위치 설정
+        //averagePos = gameManager.AveragePos(ref characters);
+        averagePos = bounds.center;
+
+        averagePos.x -= 10;
         averagePos.y = transform.position.y;
         averagePos.z = transform.position.z;
 
@@ -90,7 +105,9 @@ public class CameraMove : MonoBehaviour
             size = Mathf.Max(size, Mathf.Abs(desiredPosToTarget.y));
             size = Mathf.Max(size,Mathf.Abs((desiredPosToTarget.x)/mainCamera.aspect));
         }
-        size -= 2f;
+        size -= 3f;
+
+        //size += bounds.extents.magnitude / 2f;
 
         size = Mathf.Max(size, 6.5f);
 

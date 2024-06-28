@@ -28,7 +28,7 @@ public class Character : MonoBehaviour
     private NavMeshAgent agent;
 
     [SerializeField]
-    private Transform destination;
+    private Vector3 destination;
 
     // 가장 가까운 목표
     [SerializeField]
@@ -47,7 +47,7 @@ public class Character : MonoBehaviour
     private float range;
 
     // 공격 쿨타임
-    private float attackCooltime = 0f;
+    private float calCooltime = 0f;
 
     // 타겟 태그
     private string targetTag;
@@ -114,6 +114,7 @@ public class Character : MonoBehaviour
             case States.Reload:
                 {
                     // 재장전
+                    Reload();
                     break;
                 }
         }
@@ -134,7 +135,7 @@ public class Character : MonoBehaviour
         closestTarget = null;
 
         // 이동
-        agent.SetDestination(new Vector3(destination.position.x, transform.position.y, transform.position.z));
+        agent.SetDestination(destination);
 
 
         cols = Physics.OverlapSphere(transform.position, range, targetLayer);
@@ -173,13 +174,18 @@ public class Character : MonoBehaviour
         }
     }
 
+    public void SetDestination(Vector3 destination)
+    {
+        this.destination = destination;
+    }
+
     private void Attack()
     {
-        attackCooltime += Time.deltaTime;
-        if (attackCooltime >= stat.AttackCoolTime)
+        calCooltime += Time.deltaTime;
+        if (calCooltime >= stat.AttackCoolTime)
         {
 
-            attackCooltime -= stat.AttackCoolTime;
+            calCooltime -= stat.AttackCoolTime;
             // 탄약 제외
             stat.CurMag--;
             targetCharacter.TakeDamage(stat);
@@ -191,7 +197,7 @@ public class Character : MonoBehaviour
         // 탐색으로 전환
         if (closestTarget == null || targetDistance > range || stat.CurMag <= 0)
         {
-            //attackCooltime = 0f;
+            calCooltime = 0f;
             currentState = States.Move;
         }
     }
@@ -232,7 +238,6 @@ public class Character : MonoBehaviour
             }
 
             // 최종 대미지 계산
-
             // 데미지 비율 계산
             float damageRatio = 1f / (1f + stat.Def / (1000f / 0.6f));
 
@@ -242,14 +247,14 @@ public class Character : MonoBehaviour
                 damage *= attakerStat.CriticalDamage;
             }
             stat.CurHp -= damage;
-            Debug.Log(stat.Name+" "+stat.CurHp);
-            Debug.Log($"{attakerStat.Name}이 {stat.Name}에게 입힌 최종 대미지 {damage}");
+            //Debug.Log(stat.Name+" "+stat.CurHp);
+            //Debug.Log($"{attakerStat.Name}이 {stat.Name}에게 입힌 최종 대미지 {damage}");
 
         }
         else
         {
             // 회피
-            Debug.Log($"{stat.Name}가 {attakerStat.Name}의 공격에 회피");
+            //Debug.Log($"{stat.Name}가 {attakerStat.Name}의 공격에 회피");
         }
         
         
@@ -259,8 +264,18 @@ public class Character : MonoBehaviour
 
     private void Reload()
     {
-        stat.CurMag = stat.MaxMag;
+        
+        calCooltime += Time.deltaTime;
+        Debug.Log($"{stat.Name} 재장전 중...");
+        if( calCooltime >= stat.ReloadTime)
+        {
+            stat.CurMag = stat.MaxMag;
+            calCooltime = 0f;
+            currentState = States.Move;
+            Debug.Log($"{stat.Name} 재장전 완료!");
+        }
 
     }
 
+    
 }
