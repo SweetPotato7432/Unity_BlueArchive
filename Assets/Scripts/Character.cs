@@ -74,13 +74,20 @@ public class Character : MonoBehaviour
 
         if(this.tag == "Enemy")
         {
+            // 목표 설정
             targetTag = "Ally";
+
+            // 목적지 설정
+            destination = new Vector3(transform.position.x - 50, transform.position.y,transform.position.z);
         }
         else if(this.tag == "Ally")
         {
+            // 목표 설정
             targetTag = "Enemy";
+
+            // 목적지 설정
+            destination = new Vector3(transform.position.x + 50, transform.position.y, transform.position.z);
         }
-        
     }
 
     // Update is called once per frame
@@ -135,10 +142,11 @@ public class Character : MonoBehaviour
         closestTarget = null;
 
         // 이동
-        agent.SetDestination(destination);
+        
+        
 
-
-        cols = Physics.OverlapSphere(transform.position, range, targetLayer);
+        // 25만큼의 거리로 적 탐지
+        cols = Physics.OverlapSphere(transform.position, 25, targetLayer);
         foreach (Collider col in cols)
         {
             if(col.tag == targetTag)
@@ -150,8 +158,15 @@ public class Character : MonoBehaviour
                     closestTarget = col.gameObject;
                     targetCharacter = closestTarget.GetComponent<Character>();
                 }
-            }
-            
+            }   
+        }
+        if (closestTarget == null)
+        {
+            agent.SetDestination(destination);
+        }
+        else
+        {
+            agent.SetDestination((Vector3)closestTarget.transform.position);
         }
 
         if (closestTarget != null && targetDistance <= range)
