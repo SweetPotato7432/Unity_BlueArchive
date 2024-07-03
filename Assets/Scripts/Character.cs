@@ -25,7 +25,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     private States currentState;
 
-    private NavMeshAgent agent;
+    private NavMeshAgent nav;
 
     [SerializeField]
     private Vector3 destination;
@@ -63,14 +63,14 @@ public class Character : MonoBehaviour
 
         
 
-        agent = GetComponent<NavMeshAgent>();
+        nav = GetComponent<NavMeshAgent>();
     }
 
     void Start()
     {
         currentState = States.Move;
         targetLayer = 1 << LayerMask.NameToLayer("Character");
-        range = stat.Range * 0.025f;
+        range = stat.Range * 0.035f;
 
         if(this.tag == "Enemy")
         {
@@ -78,7 +78,7 @@ public class Character : MonoBehaviour
             targetTag = "Ally";
 
             // 목적지 설정
-            destination = new Vector3(transform.position.x - 50, transform.position.y,transform.position.z);
+            destination = new Vector3(transform.position.x - 100, transform.position.y,transform.position.z);
         }
         else if(this.tag == "Ally")
         {
@@ -86,7 +86,7 @@ public class Character : MonoBehaviour
             targetTag = "Enemy";
 
             // 목적지 설정
-            destination = new Vector3(transform.position.x + 50, transform.position.y, transform.position.z);
+            destination = new Vector3(transform.position.x + 100, transform.position.y, transform.position.z);
         }
     }
 
@@ -134,9 +134,10 @@ public class Character : MonoBehaviour
 
     private void Move()
     {
-        if (agent.isStopped)
+        
+        if (nav.isStopped)
         {
-            agent.isStopped = false;
+            nav.isStopped = false;
         }
         targetDistance = Mathf.Infinity;
         closestTarget = null;
@@ -162,19 +163,22 @@ public class Character : MonoBehaviour
         }
         if (closestTarget == null)
         {
-            agent.SetDestination(destination);
+            nav.SetDestination(destination);
         }
         else
         {
-            agent.SetDestination((Vector3)closestTarget.transform.position);
+            nav.SetDestination((Vector3)closestTarget.transform.position);
         }
 
-        if (closestTarget != null && targetDistance <= range)
+        if (closestTarget != null && targetDistance <= range*0.8f)
         {
-            if (!agent.isStopped)
+            if (!nav.isStopped)
             {
-                agent.isStopped = true;
+                nav.isStopped = true;
+                nav.velocity = Vector3.zero;
+                
             }
+            
             // 엄폐 가능 확인
 
             // 엄폐 확인 후 공격
@@ -286,7 +290,7 @@ public class Character : MonoBehaviour
         {
             stat.CurMag = stat.MaxMag;
             calCooltime = 0f;
-            currentState = States.Move;
+            currentState = States.Attack;
             Debug.Log($"{stat.Name} 재장전 완료!");
         }
 
