@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Enemy
   - Ally
+  - Cover
   layers:
   - Default
   - TransparentFX
@@ -13,7 +14,7 @@ TagManager:
   - Character
   - Water
   - UI
-  - 
+  - Cover
   - 
   - 
   - 

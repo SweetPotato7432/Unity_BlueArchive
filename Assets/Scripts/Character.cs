@@ -27,6 +27,9 @@ public class Character : MonoBehaviour
 
     private NavMeshAgent nav;
 
+    private Transform allyDestination;
+    private Transform enemyDestination; 
+
     [SerializeField]
     private Vector3 destination;
 
@@ -40,6 +43,7 @@ public class Character : MonoBehaviour
     private Character targetCharacter;
 
     private LayerMask targetLayer;
+    private LayerMask coverLayer;
 
     private Collider[] cols;
 
@@ -52,25 +56,24 @@ public class Character : MonoBehaviour
     // 타겟 태그
     private string targetTag;
 
-    
-
-
     private void Awake()
     {
         // 캐릭터 스탯 구현
         stat = new Stat();
         stat = stat.setUnitStat(unitCode);
-
-        
-
-        nav = GetComponent<NavMeshAgent>();
     }
 
     void Start()
     {
+        nav = GetComponent<NavMeshAgent>();
+
         currentState = States.Move;
         targetLayer = 1 << LayerMask.NameToLayer("Character");
+        coverLayer = 1 << LayerMask.NameToLayer("Cover");
         range = stat.Range * 0.035f;
+
+        allyDestination = GameObject.Find("AllyDestination").transform;
+        enemyDestination = GameObject.Find("EnemyDestination").transform;
 
         if(this.tag == "Enemy")
         {
@@ -78,7 +81,7 @@ public class Character : MonoBehaviour
             targetTag = "Ally";
 
             // 목적지 설정
-            destination = new Vector3(transform.position.x - 100, transform.position.y,transform.position.z);
+            destination = new Vector3(enemyDestination.position.x, transform.position.y,transform.position.z);
         }
         else if(this.tag == "Ally")
         {
@@ -86,7 +89,7 @@ public class Character : MonoBehaviour
             targetTag = "Enemy";
 
             // 목적지 설정
-            destination = new Vector3(transform.position.x + 100, transform.position.y, transform.position.z);
+            destination = new Vector3(allyDestination.position.x, transform.position.y, transform.position.z);
         }
     }
 
@@ -109,6 +112,7 @@ public class Character : MonoBehaviour
             case States.Cover:
                 {
                     // 엄폐시도
+                    cover();
                     break;
                 }
             case States.Attack:
@@ -191,11 +195,6 @@ public class Character : MonoBehaviour
                 currentState = States.Attack;
             }
         }
-    }
-
-    public void SetDestination(Vector3 destination)
-    {
-        this.destination = destination;
     }
 
     private void Attack()
@@ -296,5 +295,20 @@ public class Character : MonoBehaviour
 
     }
 
-    
+    private void cover()
+    {
+        // 25만큼의 거리로 장애물 탐지
+        cols = Physics.OverlapSphere(transform.position, 13, coverLayer);
+
+        List<CoverObject> covers = new List<CoverObject>();
+
+        foreach (Collider col in cols)
+        {
+            CoverObject cover = col.GetComponent<CoverObject>();
+            if(cover !=null && !cover.isOccupied)
+            {
+
+            }
+        }
+    }
 }

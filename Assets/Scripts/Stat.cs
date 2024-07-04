@@ -40,6 +40,8 @@ public class Stat
     public int CurMag { get; set; }
     // 재장전 시간
     public float ReloadTime { get; set; }
+    // 엄폐 성공 확률(30%)
+    public float CoverRate { get; set; }
 
     public Stat()
     {
@@ -64,6 +66,7 @@ public class Stat
         MaxMag = maxMag;
         CurMag = maxMag;
         IsCoverAvailable = isCoverAvailable;
+        CoverRate = 0.3f;
 
         switch(weaponCode)
         {
