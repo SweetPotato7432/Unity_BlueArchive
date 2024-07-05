@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -43,9 +44,9 @@ public class Character : MonoBehaviour
     private Character targetCharacter;
 
     private LayerMask targetLayer;
-    private LayerMask coverLayer;
 
-    private Collider[] cols;
+    [SerializeField]
+    private LayerMask coverLayer;
 
     // 사거리
     private float range;
@@ -56,6 +57,7 @@ public class Character : MonoBehaviour
     // 타겟 태그
     private string targetTag;
 
+    public Collider[] coltest;
     private void Awake()
     {
         // 캐릭터 스탯 구현
@@ -68,8 +70,8 @@ public class Character : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
 
         currentState = States.Move;
-        targetLayer = 1 << LayerMask.NameToLayer("Character");
-        coverLayer = 1 << LayerMask.NameToLayer("Cover");
+        targetLayer = LayerMask.GetMask("Character");
+        coverLayer = LayerMask.GetMask("Cover");
         range = stat.Range * 0.035f;
 
         allyDestination = GameObject.Find("AllyDestination").transform;
@@ -112,7 +114,8 @@ public class Character : MonoBehaviour
             case States.Cover:
                 {
                     // 엄폐시도
-                    cover();
+                    Cover();
+
                     break;
                 }
             case States.Attack:
@@ -143,64 +146,61 @@ public class Character : MonoBehaviour
         {
             nav.isStopped = false;
         }
-        targetDistance = Mathf.Infinity;
-        closestTarget = null;
-
-        // 이동
-        
         
 
-        // 25만큼의 거리로 적 탐지
-        cols = Physics.OverlapSphere(transform.position, 25, targetLayer);
-        foreach (Collider col in cols)
+        UpdateTarget(25);
+        
+        if (closestTarget != null)
         {
-            if(col.tag == targetTag)
+            if ( targetDistance <= range * 0.8f)
             {
-                float distance = Vector3.Distance(col.transform.position, transform.position);
-                if (distance < targetDistance)
+                if (!nav.isStopped)
                 {
-                    targetDistance = distance;
-                    closestTarget = col.gameObject;
-                    targetCharacter = closestTarget.GetComponent<Character>();
+                    nav.isStopped = true;
+                    nav.velocity = Vector3.zero;
                 }
-            }   
-        }
-        if (closestTarget == null)
-        {
-            nav.SetDestination(destination);
-        }
-        else
-        {
-            nav.SetDestination((Vector3)closestTarget.transform.position);
-        }
+                // 엄폐 가능 확인
 
-        if (closestTarget != null && targetDistance <= range*0.8f)
-        {
-            if (!nav.isStopped)
-            {
-                nav.isStopped = true;
-                nav.velocity = Vector3.zero;
-                
-            }
-            
-            // 엄폐 가능 확인
-
-            // 엄폐 확인 후 공격
-            if (stat.CurMag <= 0)
-            {
-                currentState = States.Reload;
+                if (stat.IsCoverAvailable)
+                {
+                    currentState = States.Cover;
+                }
+                // 엄폐 확인 후 공격
+                else if (stat.CurMag <= 0)
+                {
+                    currentState = States.Reload;
+                }
+                else
+                {
+                    currentState = States.Attack;
+                }
             }
             else
             {
-                currentState = States.Attack;
+                nav.SetDestination(closestTarget.transform.position);
             }
+        }
+        else
+        {
+            nav.SetDestination(destination);
         }
     }
 
     private void Attack()
     {
+        if(closestTarget == null || targetDistance > range)
+        {
+            UpdateTarget(range);
+            if (closestTarget == null)
+            {
+                calCooltime = 0f;
+                currentState = States.Move;
+                return;
+            }
+        }
+        
         calCooltime += Time.deltaTime;
-        if (calCooltime >= stat.AttackCoolTime)
+        if (calCooltime >= stat.AttackCoolTime && targetDistance<=range)
         {
 
             calCooltime -= stat.AttackCoolTime;
@@ -208,15 +208,13 @@ public class Character : MonoBehaviour
             stat.CurMag--;
             targetCharacter.TakeDamage(stat);
             //Debug.Log(stat.Name + "이 " + stat.Atk + "의 데미지, 남은 장탄수 : " + stat.CurMag);
-            // 적에게 대미지
+            
+            if(closestTarget == null || targetDistance>range|| stat.CurMag <= 0)
+            {
+                calCooltime = 0f;
+                currentState = States.Move;
+            }
 
-        }
-
-        // 탐색으로 전환
-        if (closestTarget == null || targetDistance > range || stat.CurMag <= 0)
-        {
-            calCooltime = 0f;
-            currentState = States.Move;
         }
     }
 
@@ -295,20 +293,66 @@ public class Character : MonoBehaviour
 
     }
 
-    private void cover()
+    private void Cover()
     {
-        // 25만큼의 거리로 장애물 탐지
-        cols = Physics.OverlapSphere(transform.position, 13, coverLayer);
+        // 13만큼의 거리로 장애물 탐지
+        Collider[] cols = Physics.OverlapSphere(transform.position, 13, coverLayer);
 
-        List<CoverObject> covers = new List<CoverObject>();
+        List<GameObject> covers = new List<GameObject>();
 
         foreach (Collider col in cols)
         {
+            Debug.Log("Detected cover object: " + col.gameObject.name);
             CoverObject cover = col.GetComponent<CoverObject>();
-            if(cover !=null && !cover.isOccupied)
-            {
 
+            if (cover != null && !cover.isOccupied)
+            {
+                covers.Add(col.gameObject);
+                Debug.Log("Detected cover object: " + col.gameObject.name);
             }
         }
+        // 거리순으로 정렬
+        covers.Sort((a, b) => Vector3.Distance(transform.position, a.transform.position).CompareTo(Vector3.Distance(transform.position, b.transform.position)));
+        if(covers.Count > 0 )
+        {
+            //Debug.Log($"{this.gameObject.name}가장 가까운 엄폐물{covers[0].gameObject.name}");
+            
+            foreach(GameObject tryCoverObject in covers)
+            {
+                // 장애물에서 가장 가까운 적의 거리가 사거리보다 짧은지 확인
+            }
+        }
+    }
+
+    private void UpdateTarget(float range)
+    {
+        targetDistance = Mathf.Infinity;
+        closestTarget = null;
+        GameObject closestEnemy = null;
+
+        // 이동
+
+        //25만큼의 거리로 적 탐지
+        Collider[] cols = Physics.OverlapSphere(transform.position, range, targetLayer);
+        foreach (Collider col in cols)
+        {
+            if (col.tag == targetTag)
+            {
+                float distance = Vector3.Distance(col.transform.position, transform.position);
+                if (distance < targetDistance)
+                {
+                    targetDistance = distance;
+                    closestEnemy = col.gameObject;
+                    //targetCharacter = closestTarget.GetComponent<Character>();
+                }
+            }
+        }
+        if (closestEnemy != closestTarget)
+        {
+            closestTarget = closestEnemy;
+            targetCharacter = closestEnemy != null ? closestTarget.GetComponent<Character>() : null;
+        }
+
+
     }
 }

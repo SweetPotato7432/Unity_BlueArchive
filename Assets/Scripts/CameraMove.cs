@@ -1,3 +1,5 @@
+using Cinemachine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,23 +21,29 @@ public class CameraMove : MonoBehaviour
 
     [SerializeField]
     private Camera mainCamera;
+    private CinemachineVirtualCamera virtualCamera;
 
-    private GameManager gameManager;
+    //private GameManager gameManager;
 
     private void Awake()
     {
         mainCamera = GetComponentInChildren<Camera>();
+        virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
         
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        gameManager = (GameObject.Find("GameManager")).GetComponent<GameManager>();
+        //gameManager = (GameObject.Find("GameManager")).GetComponent<GameManager>();
         // 카메라 초기 위치 및 크기 설정
         FindAveragePosAndSize();
         transform.position = targetPos;
         mainCamera.orthographicSize = requiredSize;
+
+        //// 시네머신 카메라 초기 설정
+        virtualCamera.transform.position = transform.position;
+        virtualCamera.m_Lens.OrthographicSize = requiredSize;
     }
 
     // Update is called once per frame
@@ -48,7 +56,11 @@ public class CameraMove : MonoBehaviour
 
         // 카메라 줌
         mainCamera.orthographicSize = Mathf.SmoothDamp(mainCamera.orthographicSize, requiredSize, ref zoomSpeed, 0.5f);
+
+        UpdateVirtualCamera();
     }
+
+    
 
     private void FindAveragePosAndSize()
     {
@@ -114,6 +126,16 @@ public class CameraMove : MonoBehaviour
         requiredSize = size;
     }
 
-    
+    private void UpdateVirtualCamera()
+    {
+        if(virtualCamera != null) 
+        {
+            virtualCamera.transform.position = transform.position;
+            virtualCamera.m_Lens.Orthographic = mainCamera.orthographic;
+            virtualCamera.m_Lens.OrthographicSize = Mathf.SmoothDamp(virtualCamera.m_Lens.OrthographicSize, requiredSize, ref zoomSpeed, 0.5f);
+        }
+    }
+
+
 
 }

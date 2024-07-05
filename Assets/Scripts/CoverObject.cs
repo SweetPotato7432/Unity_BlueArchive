@@ -14,9 +14,13 @@ public class CoverObject : MonoBehaviour
     // 엄폐자 있는지 체크
     public bool isOccupied;
 
+    private GameObject instance;
+
     // Start is called before the first frame update
     void Start()
     {
+        
+
         isOccupied = false;
     }
 
