@@ -34,4 +34,9 @@ public class CoverObject : MonoBehaviour
     {
 
     }
+
+    // 엄폐물에서 사격 가능한지 확인
+
+    // 엄폐물에서 가장 가까운 적 확인
+    
 }

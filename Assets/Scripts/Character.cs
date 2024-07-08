@@ -115,14 +115,12 @@ public class Character : MonoBehaviour
                 {
                     // 엄폐시도
                     Cover();
-
                     break;
                 }
             case States.Attack:
                 {
                     // 공격
                     Attack();
-                    
                     break;
                 }
             case States.Reload:
@@ -302,20 +300,34 @@ public class Character : MonoBehaviour
 
         foreach (Collider col in cols)
         {
-            Debug.Log("Detected cover object: " + col.gameObject.name);
             CoverObject cover = col.GetComponent<CoverObject>();
 
             if (cover != null && !cover.isOccupied)
             {
-                covers.Add(col.gameObject);
-                Debug.Log("Detected cover object: " + col.gameObject.name);
+                // 탐지된 엄폐물에 향하는 방향 벡터
+                Vector3 directionToTarget = col.transform.position - transform.position;
+
+                // 방향 벡터 정규화
+                directionToTarget.Normalize();
+
+                // 전방 방향 벡터
+                Vector3 forward = transform.forward;
+
+                float dotProduct = Vector3.Dot(forward, directionToTarget);
+
+                // 전방의 각도만 탐지하고 뒤에 있는 엄폐물을 탐지 하지 않게 설정
+                if (dotProduct >= 0)
+                {
+                    covers.Add(col.gameObject);
+                    //Debug.Log("Detected cover object: " + col.gameObject.name);
+                }
             }
         }
         // 거리순으로 정렬
         covers.Sort((a, b) => Vector3.Distance(transform.position, a.transform.position).CompareTo(Vector3.Distance(transform.position, b.transform.position)));
         if(covers.Count > 0 )
         {
-            //Debug.Log($"{this.gameObject.name}가장 가까운 엄폐물{covers[0].gameObject.name}");
+            Debug.Log($"{this.gameObject.name}가장 가까운 엄폐물{covers[0].gameObject.name}");
             
             foreach(GameObject tryCoverObject in covers)
             {
