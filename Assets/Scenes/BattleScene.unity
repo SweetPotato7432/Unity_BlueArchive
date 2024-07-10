@@ -560,9 +560,9 @@ Transform:
   - {fileID: 1409956782}
   - {fileID: 948414831}
   - {fileID: 1602032207}
+  - {fileID: 410647982}
   - {fileID: 2138173747}
   - {fileID: 1964650005}
-  - {fileID: 410647982}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &273523654
@@ -634,6 +634,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &372606487
 NavMeshAgent:
@@ -1210,6 +1213,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &722806981
 NavMeshAgent:
@@ -1369,6 +1375,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &879076689
 NavMeshAgent:
@@ -1518,6 +1527,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &917817403
 NavMeshAgent:
@@ -1652,6 +1664,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &919572566
 NavMeshAgent:
@@ -2026,6 +2041,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &1313802393
 NavMeshAgent:
@@ -2190,6 +2208,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &1348271367
 NavMeshAgent:
@@ -2344,6 +2365,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &1475571789
 NavMeshAgent:
@@ -2552,7 +2576,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7123696945951345164, guid: 792516728f3cf99438d3363333c36eb6, type: 3}
       propertyPath: m_Name
-      value: Box_1
+      value: Box_1 (2)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2669,6 +2693,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &1721767370
 NavMeshAgent:
@@ -2896,6 +2923,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &1862865115
 NavMeshAgent:
@@ -3060,6 +3090,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &1868756390
 NavMeshAgent:
@@ -3361,6 +3394,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!4 &1964650005 stripped
 Transform:
@@ -3420,6 +3456,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &1983148759
 NavMeshAgent:
@@ -3569,6 +3608,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &2019097394
 NavMeshAgent:
@@ -3703,6 +3745,9 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
   coltest: []
 --- !u!195 &2059595477
 NavMeshAgent:

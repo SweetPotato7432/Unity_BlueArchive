@@ -14,14 +14,30 @@ public class CoverObject : MonoBehaviour
     // 엄폐자 있는지 체크
     public bool isOccupied;
 
-    private GameObject instance;
+    // 캐릭터 탐지 레이어
+    private LayerMask targetLayer;
+
+    // 가까운 목표와의 거리
+    private float targetDistance;
+
+    // 엄폐 위치
+    [SerializeField]
+    private GameObject backSpot;
+    [SerializeField]
+    private GameObject frontSpot;
+
+    public GameObject coverSpot;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        targetLayer = LayerMask.GetMask("Character");
 
         isOccupied = false;
+
+        // 위치 저장
+        backSpot = transform.GetChild(0).gameObject;
+        frontSpot = transform.GetChild(1).gameObject;
     }
 
     // Update is called once per frame
@@ -30,13 +46,59 @@ public class CoverObject : MonoBehaviour
         
     }
 
-    public void TryCover()
+    // 엄폐 위치 지정
+    private GameObject SelectSpot(Transform characterTransform)
     {
+        GameObject spot;
 
+        float backDistance = Vector3.Distance(characterTransform.position, backSpot.transform.position);
+        float frontDistance = Vector3.Distance(characterTransform.position, frontSpot.transform.position);
+        if (backDistance < frontDistance)
+        {
+            spot = backSpot;
+        }
+        else
+        {
+            spot = frontSpot;
+        }
+        return spot;
     }
 
     // 엄폐물에서 사격 가능한지 확인
 
     // 엄폐물에서 가장 가까운 적 확인
-    
+    public bool CanCover(GameObject coverUser, Stat userStat, string targetTag)
+    {
+        targetDistance = Mathf.Infinity;
+        // 엄폐 위치
+        coverSpot = SelectSpot(coverUser.transform);
+
+        // 가까운 적 확인
+        GameObject closestEnemy = null;
+
+        Collider[] cols = Physics.OverlapSphere(coverSpot.transform.position, userStat.Range, targetLayer);
+        foreach (Collider col in cols)
+        {
+            if (col.tag == targetTag)
+            {
+                float distance = Vector3.Distance(col.transform.position, transform.position);
+                if (distance < targetDistance)
+                {
+                    targetDistance = distance;
+                    closestEnemy = col.gameObject;
+                    //targetCharacter = closestTarget.GetComponent<Character>();
+                }
+            }
+        }
+        if (closestEnemy == null)
+        {
+            Debug.Log("이동X");
+            return false;
+        }
+        else
+        {
+            Debug.Log("이동");
+            return true;
+        }
+    }
 }

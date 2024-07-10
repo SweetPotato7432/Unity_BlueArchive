@@ -29,7 +29,7 @@ public class Stat
     // 치명타 데미지 퍼센트
     public float CriticalDamage { get; set; }
     // 사정거리
-    public int Range { get; set; }
+    public float Range { get; set; }
     // 엄폐 가능 여부
     public bool IsCoverAvailable { get; set; }
     // 공격속도
@@ -48,7 +48,7 @@ public class Stat
 
     }
     public Stat(UnitCode unitCode, WeaponCode weaponCode,TypeCode typeCode, string name, float maxHp, int atk, int def, int accuracyRate,
-        int dodge, int criticalRate, float criticalDamage, int range,int maxMag, bool isCoverAvailable)
+        int dodge, int criticalRate, float criticalDamage, float range,int maxMag, bool isCoverAvailable)
     {
         UnitCode = unitCode;
         WeaponCode = weaponCode;
@@ -62,7 +62,7 @@ public class Stat
         Dodge = dodge;
         CriticalRate = criticalRate;
         CriticalDamage = criticalDamage;
-        Range = range;
+        Range = range * 0.035f;
         MaxMag = maxMag;
         CurMag = maxMag;
         IsCoverAvailable = isCoverAvailable;
@@ -107,28 +107,28 @@ public class Stat
         {
             //                  유닛코드, 무기타입,     , 포지션           ,이름,   체력 ,공격,방어,명중,회피,치명,치뎀,사거리,탄,엄폐
             case UnitCode.Azusa:
-                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Striker, "아즈사", 2496f, 231, 19, 706, 792, 201, 2.0f, 650, 15, true);
+                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Striker, "아즈사", 2496f, 231, 19, 706, 792, 201, 2.0f, 650f, 15, true);
                 break;
             case UnitCode.Kasumi:
-                stat = new Stat(unitCode, WeaponCode.Hg, TypeCode.Striker, "카스미", 2412f, 254, 19, 104, 1053, 208, 2.0f, 550, 8, true);
+                stat = new Stat(unitCode, WeaponCode.Hg, TypeCode.Striker, "카스미", 2412f, 254, 19, 104, 1053, 208, 2.0f, 550f, 8, true);
                 break;
             case UnitCode.Hoshino:
-                stat = new Stat(unitCode, WeaponCode.Sg, TypeCode.Striker, "호시노", 3275f, 213, 175, 615, 246, 205, 2.0f, 350, 8, false);
+                stat = new Stat(unitCode, WeaponCode.Sg, TypeCode.Striker, "호시노", 3275f, 213, 175, 615, 246, 205, 2.0f, 350f, 8, false);
                 break;
             case UnitCode.Haruna:
-                stat = new Stat(unitCode, WeaponCode.Sr, TypeCode.Striker, "하루나", 2451f, 457, 19, 924, 205, 205, 2.0f,750, 5, true);
+                stat = new Stat(unitCode, WeaponCode.Sr, TypeCode.Striker, "하루나", 2451f, 457, 19, 924, 205, 205, 2.0f,750f, 5, true);
                 break;
             case UnitCode.Serina:
-                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "세리나", 2482f, 167, 24, 704, 805, 201, 2.0f, 1000, 30, false);
+                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "세리나", 2482f, 167, 24, 704, 805, 201, 2.0f, 1000f, 30, false);
                 break;
             case UnitCode.Yoshimi:
-                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "요시미", 2232f, 268, 19, 705, 806, 201, 2.0f,1000, 30, false);
+                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "요시미", 2232f, 268, 19, 705, 806, 201, 2.0f,1000f, 30, false);
                 break;
             case UnitCode.SukebanSmg:
-                stat = new Stat(UnitCode, WeaponCode.Smg,TypeCode.Striker, "불량배(SMG)", 320f, 18, 30, 98, 1416, 196, 2.0f, 350, 15, false); 
+                stat = new Stat(UnitCode, WeaponCode.Smg,TypeCode.Striker, "불량배(SMG)", 320f, 18, 30, 98, 1416, 196, 2.0f, 350f, 15, false); 
                 break;
             case UnitCode.SukebanAr:
-                stat = new Stat(UnitCode, WeaponCode.Ar, TypeCode.Striker, "불량배(AR)", 250f, 23, 19, 706, 792, 201, 2.0f, 650, 15, true);
+                stat = new Stat(UnitCode, WeaponCode.Ar, TypeCode.Striker, "불량배(AR)", 250f, 23, 19, 706, 792, 201, 2.0f, 650f, 15, true);
                 break;
 
         }

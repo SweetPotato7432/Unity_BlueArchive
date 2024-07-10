@@ -72,7 +72,7 @@ public class Character : MonoBehaviour
         currentState = States.Move;
         targetLayer = LayerMask.GetMask("Character");
         coverLayer = LayerMask.GetMask("Cover");
-        range = stat.Range * 0.035f;
+        range = stat.Range;
 
         allyDestination = GameObject.Find("AllyDestination").transform;
         enemyDestination = GameObject.Find("EnemyDestination").transform;
@@ -152,11 +152,7 @@ public class Character : MonoBehaviour
         {
             if ( targetDistance <= range * 0.8f)
             {
-                if (!nav.isStopped)
-                {
-                    nav.isStopped = true;
-                    nav.velocity = Vector3.zero;
-                }
+                
                 // 엄폐 가능 확인
 
                 if (stat.IsCoverAvailable)
@@ -166,10 +162,22 @@ public class Character : MonoBehaviour
                 // 엄폐 확인 후 공격
                 else if (stat.CurMag <= 0)
                 {
+                    // 정지
+                    if (!nav.isStopped)
+                    {
+                        nav.isStopped = true;
+                        nav.velocity = Vector3.zero;
+                    }
                     currentState = States.Reload;
                 }
                 else
                 {
+                    // 정지
+                    if (!nav.isStopped)
+                    {
+                        nav.isStopped = true;
+                        nav.velocity = Vector3.zero;
+                    }
                     currentState = States.Attack;
                 }
             }
@@ -327,12 +335,25 @@ public class Character : MonoBehaviour
         covers.Sort((a, b) => Vector3.Distance(transform.position, a.transform.position).CompareTo(Vector3.Distance(transform.position, b.transform.position)));
         if(covers.Count > 0 )
         {
-            Debug.Log($"{this.gameObject.name}가장 가까운 엄폐물{covers[0].gameObject.name}");
+            //Debug.Log($"{this.gameObject.name}가장 가까운 엄폐물{covers[0].gameObject.name}");
             
             foreach(GameObject tryCoverObject in covers)
             {
+                Debug.Log("탐색");
+                CoverObject coverObject = tryCoverObject.GetComponent<CoverObject>();
                 // 장애물에서 가장 가까운 적의 거리가 사거리보다 짧은지 확인
+                if(coverObject.CanCover(this.gameObject,stat,targetTag))
+                {
+                    Debug.Log("이동!");
+                    nav.SetDestination(coverObject.coverSpot.transform.position);
+                    break;
+                }
+                else
+                {
+                    Debug.Log("못찾음!");
+                }
             }
+
         }
     }
 
