@@ -45,8 +45,11 @@ public class Character : MonoBehaviour
 
     private LayerMask targetLayer;
 
-    [SerializeField]
     private LayerMask coverLayer;
+
+    // 엄폐를 시도하는 목표물
+    [SerializeField]
+    private CoverObject currentCoverObject;
 
     // 사거리
     private float range;
@@ -57,7 +60,6 @@ public class Character : MonoBehaviour
     // 타겟 태그
     private string targetTag;
 
-    public Collider[] coltest;
     private void Awake()
     {
         // 캐릭터 스탯 구현
@@ -77,15 +79,15 @@ public class Character : MonoBehaviour
         allyDestination = GameObject.Find("AllyDestination").transform;
         enemyDestination = GameObject.Find("EnemyDestination").transform;
 
-        if(this.tag == "Enemy")
+        if (this.tag == "Enemy")
         {
             // 목표 설정
             targetTag = "Ally";
 
             // 목적지 설정
-            destination = new Vector3(enemyDestination.position.x, transform.position.y,transform.position.z);
+            destination = new Vector3(enemyDestination.position.x, transform.position.y, transform.position.z);
         }
-        else if(this.tag == "Ally")
+        else if (this.tag == "Ally")
         {
             // 목표 설정
             targetTag = "Enemy";
@@ -113,8 +115,24 @@ public class Character : MonoBehaviour
                 }
             case States.Cover:
                 {
-                    // 엄폐시도
-                    Cover();
+                    if (nav.pathPending == false && nav.remainingDistance <= nav.stoppingDistance)
+                    {
+                        if (nav.hasPath || nav.velocity.sqrMagnitude == 0f)
+                        {
+                            OnReachCover();
+                        }
+                    }
+
+                    if(currentCoverObject != null && currentCoverObject.isOccupied)
+                    {
+                        currentCoverObject = null;
+                        nav.SetDestination(destination);
+                    }
+                    else
+                    {
+                        // 엄폐시도
+                        TryCover();
+                    }
                     break;
                 }
             case States.Attack:
@@ -125,6 +143,7 @@ public class Character : MonoBehaviour
                 }
             case States.Reload:
                 {
+                    
                     // 재장전
                     Reload();
                     break;
@@ -140,6 +159,7 @@ public class Character : MonoBehaviour
     private void Move()
     {
         
+
         if (nav.isStopped)
         {
             nav.isStopped = false;
@@ -162,22 +182,11 @@ public class Character : MonoBehaviour
                 // 엄폐 확인 후 공격
                 else if (stat.CurMag <= 0)
                 {
-                    // 정지
-                    if (!nav.isStopped)
-                    {
-                        nav.isStopped = true;
-                        nav.velocity = Vector3.zero;
-                    }
+                    
                     currentState = States.Reload;
                 }
                 else
                 {
-                    // 정지
-                    if (!nav.isStopped)
-                    {
-                        nav.isStopped = true;
-                        nav.velocity = Vector3.zero;
-                    }
                     currentState = States.Attack;
                 }
             }
@@ -194,7 +203,12 @@ public class Character : MonoBehaviour
 
     private void Attack()
     {
-        if(closestTarget == null || targetDistance > range)
+        if (!nav.isStopped)
+        {
+            nav.isStopped = true;
+            nav.velocity = Vector3.zero;
+        }
+        if (closestTarget == null || targetDistance > range)
         {
             UpdateTarget(range);
             if (closestTarget == null)
@@ -286,7 +300,12 @@ public class Character : MonoBehaviour
 
     private void Reload()
     {
-        
+        // 정지
+        if (!nav.isStopped)
+        {
+            nav.isStopped = true;
+            nav.velocity = Vector3.zero;
+        }
         calCooltime += Time.deltaTime;
         Debug.Log($"{stat.Name} 재장전 중...");
         if( calCooltime >= stat.ReloadTime)
@@ -299,8 +318,12 @@ public class Character : MonoBehaviour
 
     }
 
-    private void Cover()
+    private void TryCover()
     {
+        if (nav.isStopped)
+        {
+            nav.isStopped = false;
+        }
         // 13만큼의 거리로 장애물 탐지
         Collider[] cols = Physics.OverlapSphere(transform.position, 13, coverLayer);
 
@@ -346,14 +369,29 @@ public class Character : MonoBehaviour
                 {
                     Debug.Log("이동!");
                     nav.SetDestination(coverObject.coverSpot.transform.position);
+                    currentCoverObject = coverObject;
                     break;
                 }
                 else
                 {
                     Debug.Log("못찾음!");
+                   
                 }
             }
+        }
+        else
+        {
+            currentState = States.Attack;
+        }
+    }
 
+    private void OnReachCover()
+    {
+        if (currentCoverObject != null && !currentCoverObject.isOccupied)
+        {
+            currentCoverObject.isOccupied = true;
+            Debug.Log($"{gameObject.name}이 {currentCoverObject.gameObject.name}에 도착하여 엄폐를 사용 중입니다.");
+            currentState = States.Attack;
         }
     }
 

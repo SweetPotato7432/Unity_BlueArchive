@@ -64,8 +64,6 @@ public class CoverObject : MonoBehaviour
         return spot;
     }
 
-    // 엄폐물에서 사격 가능한지 확인
-
     // 엄폐물에서 가장 가까운 적 확인
     public bool CanCover(GameObject coverUser, Stat userStat, string targetTag)
     {
