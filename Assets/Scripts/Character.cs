@@ -20,7 +20,8 @@ public class Character : MonoBehaviour
         Move,
         Cover,
         Attack,
-        Reload
+        Reload,
+        Dead
     };
 
     [SerializeField]
@@ -95,6 +96,8 @@ public class Character : MonoBehaviour
             // 목적지 설정
             destination = new Vector3(allyDestination.position.x, transform.position.y, transform.position.z);
         }
+
+
     }
 
     // Update is called once per frame
@@ -102,7 +105,8 @@ public class Character : MonoBehaviour
     {
         if (stat.CurHp <= 0)
         {
-            Destroy(gameObject);
+            currentState = States.Dead;
+            CleanupAndDestroy();
         }
 
         switch (currentState)
@@ -158,7 +162,10 @@ public class Character : MonoBehaviour
 
     private void Move()
     {
-        
+        if (stat.IsCover)
+        {
+            stat.IsCover = false;
+        }
 
         if (nav.isStopped)
         {
@@ -241,6 +248,21 @@ public class Character : MonoBehaviour
     public void TakeDamage(Stat attakerStat)
     {
         bool isCritical;
+        //엄폐 성공 체크
+        if (stat.IsCover)
+        {
+            if(Random.Range(0f,1f)<=stat.CoverRate) 
+            {
+                // 엄폐 성공
+                Debug.Log("엄폐 성공");
+                return;
+            }
+            else
+            {
+                Debug.Log("엄폐 실패");
+            }
+        }
+        
         // 적중 체크
         int calDodge = stat.Dodge - attakerStat.AccuracyRate;
         if (calDodge < 0)
@@ -362,19 +384,19 @@ public class Character : MonoBehaviour
             
             foreach(GameObject tryCoverObject in covers)
             {
-                Debug.Log("탐색");
+                //Debug.Log("탐색");
                 CoverObject coverObject = tryCoverObject.GetComponent<CoverObject>();
                 // 장애물에서 가장 가까운 적의 거리가 사거리보다 짧은지 확인
                 if(coverObject.CanCover(this.gameObject,stat,targetTag))
                 {
-                    Debug.Log("이동!");
+                    //Debug.Log("이동!");
                     nav.SetDestination(coverObject.coverSpot.transform.position);
                     currentCoverObject = coverObject;
                     break;
                 }
                 else
                 {
-                    Debug.Log("못찾음!");
+                    //Debug.Log("못찾음!");
                    
                 }
             }
@@ -389,7 +411,8 @@ public class Character : MonoBehaviour
     {
         if (currentCoverObject != null && !currentCoverObject.isOccupied)
         {
-            currentCoverObject.isOccupied = true;
+            currentCoverObject.GetUsedCharacter(this.gameObject);
+            stat.IsCover = true;
             Debug.Log($"{gameObject.name}이 {currentCoverObject.gameObject.name}에 도착하여 엄폐를 사용 중입니다.");
             currentState = States.Attack;
         }
@@ -425,5 +448,25 @@ public class Character : MonoBehaviour
         }
 
 
+    }
+
+    private void CleanupAndDestroy()
+    {
+        // NavMeshAgent 정리
+        if (nav != null && nav.isOnNavMesh)
+        {
+            nav.isStopped = true;
+            nav.ResetPath();
+        }
+
+        Destroy(gameObject);
+    }
+
+    private void OnDestroy()
+    {
+        if(currentCoverObject != null)
+        {
+            currentCoverObject.isOccupied = false;
+        }
     }
 }

@@ -28,6 +28,9 @@ public class CoverObject : MonoBehaviour
 
     public GameObject coverSpot;
 
+    [SerializeField]
+    private GameObject useCharacter;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -90,13 +93,17 @@ public class CoverObject : MonoBehaviour
         }
         if (closestEnemy == null)
         {
-            Debug.Log("이동X");
             return false;
         }
         else
         {
-            Debug.Log("이동");
             return true;
         }
+    }
+
+    public void GetUsedCharacter(GameObject character)
+    {
+        isOccupied = true;
+        useCharacter = character;
     }
 }
