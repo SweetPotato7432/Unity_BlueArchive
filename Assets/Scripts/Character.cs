@@ -347,10 +347,6 @@ public class Character : MonoBehaviour
             // 회피
             //Debug.Log($"{stat.Name}가 {attakerStat.Name}의 공격에 회피");
         }
-        
-        
-
-        
     }
 
     private void Reload()
