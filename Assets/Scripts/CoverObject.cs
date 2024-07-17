@@ -106,4 +106,27 @@ public class CoverObject : MonoBehaviour
         isOccupied = true;
         useCharacter = character;
     }
+<<<<<<< Updated upstream
+=======
+
+    public bool CheckUser(GameObject character)
+    {
+        if(isOccupied && useCharacter == character)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+        
+    }
+
+    public void StopCover()
+    {
+        isOccupied = false;
+        useCharacter = null;
+        coverSpot = null;
+    }
+>>>>>>> Stashed changes
 }
