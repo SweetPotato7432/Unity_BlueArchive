@@ -20,8 +20,7 @@ public class Character : MonoBehaviour
         Move,
         Cover,
         Attack,
-        Reload,
-        Dead
+        Reload
     };
 
     [SerializeField]
@@ -102,8 +101,6 @@ public class Character : MonoBehaviour
             // ¸ñÀûÁö ¼³Á¤
             destination = new Vector3(allyDestination.position.x, transform.position.y, transform.position.z);
         }
-
-
     }
 
     // Update is called once per frame
@@ -112,8 +109,7 @@ public class Character : MonoBehaviour
         test = stat.IsCover;
         if (stat.CurHp <= 0)
         {
-            currentState = States.Dead;
-            CleanupAndDestroy();
+            Destroy(gameObject);
         }
 
         if (currentCoverObject != null && !currentCoverObject.CheckUser(gameObject))
@@ -176,10 +172,14 @@ public class Character : MonoBehaviour
 
     private void Move()
     {
+<<<<<<< HEAD
         //if (stat.IsCover)
         //{
         //    stat.IsCover = false;
         //}
+=======
+        
+>>>>>>> parent of 0940890 (ì—„í ê¸°ëŠ¥ êµ¬í˜„ ë° ìˆ˜ì •)
 
         if (nav.isStopped)
         {
@@ -263,21 +263,6 @@ public class Character : MonoBehaviour
     public void TakeDamage(Stat attakerStat)
     {
         bool isCritical;
-        //¾öÆó ¼º°ø Ã¼Å©
-        if (stat.IsCover)
-        {
-            if(Random.Range(0f,1f)<=stat.CoverRate) 
-            {
-                // ¾öÆó ¼º°ø
-                Debug.Log("¾öÆó ¼º°ø");
-                return;
-            }
-            else
-            {
-                Debug.Log("¾öÆó ½ÇÆĞ");
-            }
-        }
-        
         // ÀûÁß Ã¼Å©
         int calDodge = stat.Dodge - attakerStat.AccuracyRate;
         if (calDodge < 0)
@@ -387,19 +372,24 @@ public class Character : MonoBehaviour
             
             foreach(GameObject tryCoverObject in covers)
             {
-                //Debug.Log("Å½»ö");
+                Debug.Log("Å½»ö");
                 CoverObject coverObject = tryCoverObject.GetComponent<CoverObject>();
                 // Àå¾Ö¹°¿¡¼­ °¡Àå °¡±î¿î ÀûÀÇ °Å¸®°¡ »ç°Å¸®º¸´Ù ÂªÀºÁö È®ÀÎ
                 if(coverObject.CanCover(this.gameObject,stat,targetTag))
                 {
-                    //Debug.Log("ÀÌµ¿!");
+                    Debug.Log("ÀÌµ¿!");
                     nav.SetDestination(coverObject.coverSpot.transform.position);
                     currentCoverObject = coverObject;
                     break;
                 }
                 else
                 {
+<<<<<<< HEAD
                     //Debug.Log("¸øÃ£À½!");
+=======
+                    Debug.Log("¸øÃ£À½!");
+                   
+>>>>>>> parent of 0940890 (ì—„í ê¸°ëŠ¥ êµ¬í˜„ ë° ìˆ˜ì •)
                 }
             }
         }
@@ -414,10 +404,14 @@ public class Character : MonoBehaviour
         
         if (currentCoverObject != null)
         {
+<<<<<<< HEAD
             currentCoverObject.GetUsedCharacter(this.gameObject);
             coverPosition = transform.position;
 
             stat.IsCover = true;
+=======
+            currentCoverObject.isOccupied = true;
+>>>>>>> parent of 0940890 (ì—„í ê¸°ëŠ¥ êµ¬í˜„ ë° ìˆ˜ì •)
             Debug.Log($"{gameObject.name}ÀÌ {currentCoverObject.gameObject.name}¿¡ µµÂøÇÏ¿© ¾öÆó¸¦ »ç¿ë ÁßÀÔ´Ï´Ù.");
             currentState = States.Attack;
         }
@@ -469,6 +463,7 @@ public class Character : MonoBehaviour
 
 
     }
+<<<<<<< HEAD
 
     private void CleanupAndDestroy()
     {
@@ -497,4 +492,6 @@ public class Character : MonoBehaviour
     //    Gizmos.color = Color.green;
     //    Gizmos.DrawWireSphere(transform.position, 7);
     //}
+=======
+>>>>>>> parent of 0940890 (ì—„í ê¸°ëŠ¥ êµ¬í˜„ ë° ìˆ˜ì •)
 }

@@ -634,7 +634,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &372606487
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1210,7 +1213,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &722806981
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1369,7 +1375,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &879076689
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1518,7 +1527,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &917817403
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1652,7 +1664,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &919572566
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2026,7 +2041,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &1313802393
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2190,7 +2208,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &1348271367
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2344,7 +2365,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &1475571789
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2669,7 +2693,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &1721767370
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -2896,7 +2923,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &1862865115
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3060,7 +3090,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &1868756390
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3361,7 +3394,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!4 &1964650005 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8759980628384293896, guid: c95b7af2826076449b39831dfe087167, type: 3}
@@ -3420,7 +3456,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &1983148759
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3569,7 +3608,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &2019097394
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -3703,7 +3745,10 @@ MonoBehaviour:
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
   targetDistance: 0
-  currentCoverObject: {fileID: 0}
+  coverLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  coltest: []
 --- !u!195 &2059595477
 NavMeshAgent:
   m_ObjectHideFlags: 0

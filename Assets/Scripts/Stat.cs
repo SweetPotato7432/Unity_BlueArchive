@@ -42,8 +42,6 @@ public class Stat
     public float ReloadTime { get; set; }
     // 决企 己傍 犬伏(30%)
     public float CoverRate { get; set; }
-    // 决企 惑怕 犬牢
-    public bool IsCover { get; set; }
 
     public Stat()
     {
@@ -69,7 +67,6 @@ public class Stat
         CurMag = maxMag;
         IsCoverAvailable = isCoverAvailable;
         CoverRate = 0.3f;
-        IsCover = false;
 
         switch(weaponCode)
         {

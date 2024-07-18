@@ -28,9 +28,6 @@ public class CoverObject : MonoBehaviour
 
     public GameObject coverSpot;
 
-    [SerializeField]
-    private GameObject useCharacter;
-
     // Start is called before the first frame update
     void Start()
     {
@@ -93,13 +90,16 @@ public class CoverObject : MonoBehaviour
         }
         if (closestEnemy == null)
         {
+            Debug.Log("�̵�X");
             return false;
         }
         else
         {
+            Debug.Log("�̵�");
             return true;
         }
     }
+<<<<<<< HEAD
 
     public void GetUsedCharacter(GameObject character)
     {
@@ -127,4 +127,6 @@ public class CoverObject : MonoBehaviour
         useCharacter = null;
         coverSpot = null;
     }
+=======
+>>>>>>> parent of 0940890 (엄폐 기능 구현 및 수정)
 }
