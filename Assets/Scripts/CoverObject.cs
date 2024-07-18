@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// ¾öÆó¹°°ú °ü·ÃµÈ ½ºÅ©¸³Æ®
-
+// ¾öÆó¹°¿¡ ºÎÂøµÈ ½ºÅ©¸³Æ®
 public class CoverObject : MonoBehaviour
 {
     private GameObject coveredCharacter;
@@ -11,13 +10,13 @@ public class CoverObject : MonoBehaviour
     private float maxHp;
     private float curHp;
 
-    // ¾öÆóÀÚ ÀÖ´ÂÁö Ã¼Å©
+    // ¾öÆó¹°ÀÌ »ç¿ë ÁßÀÎÁö È®ÀÎ
     public bool isOccupied;
 
     // Ä³¸¯ÅÍ Å½Áö ·¹ÀÌ¾î
     private LayerMask targetLayer;
 
-    // °¡±î¿î ¸ñÇ¥¿ÍÀÇ °Å¸®
+    // Àû°úÀÇ °Å¸®
     private float targetDistance;
 
     // ¾öÆó À§Ä¡
@@ -28,14 +27,16 @@ public class CoverObject : MonoBehaviour
 
     public GameObject coverSpot;
 
+    [SerializeField]
+    private GameObject useCharacter;
+
     // Start is called before the first frame update
     void Start()
     {
         targetLayer = LayerMask.GetMask("Character");
-
         isOccupied = false;
 
-        // À§Ä¡ ÀúÀå
+        // À§Ä¡ ¼³Á¤
         backSpot = transform.GetChild(0).gameObject;
         frontSpot = transform.GetChild(1).gameObject;
     }
@@ -43,10 +44,10 @@ public class CoverObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
-    // ¾öÆó À§Ä¡ ÁöÁ¤
+    // ¾öÆó À§Ä¡ ¼±ÅÃ
     private GameObject SelectSpot(Transform characterTransform)
     {
         GameObject spot;
@@ -64,14 +65,14 @@ public class CoverObject : MonoBehaviour
         return spot;
     }
 
-    // ¾öÆó¹°¿¡¼­ °¡Àå °¡±î¿î Àû È®ÀÎ
+    // ¾öÆó¹°¿¡ ¾öÆó°¡ °¡´ÉÇÑÁö È®ÀÎ
     public bool CanCover(GameObject coverUser, Stat userStat, string targetTag)
     {
         targetDistance = Mathf.Infinity;
-        // ¾öÆó À§Ä¡
+        // ¾öÆó À§Ä¡ ¼±ÅÃ
         coverSpot = SelectSpot(coverUser.transform);
 
-        // °¡±î¿î Àû È®ÀÎ
+        // ¾öÆó °¡´É ¿©ºÎ È®ÀÎ
         GameObject closestEnemy = null;
 
         Collider[] cols = Physics.OverlapSphere(coverSpot.transform.position, userStat.Range, targetLayer);
@@ -84,22 +85,11 @@ public class CoverObject : MonoBehaviour
                 {
                     targetDistance = distance;
                     closestEnemy = col.gameObject;
-                    //targetCharacter = closestTarget.GetComponent<Character>();
                 }
             }
         }
-        if (closestEnemy == null)
-        {
-            Debug.Log("ÀÌµ¿X");
-            return false;
-        }
-        else
-        {
-            Debug.Log("ÀÌµ¿");
-            return true;
-        }
+        return closestEnemy != null;
     }
-<<<<<<< HEAD
 
     public void GetUsedCharacter(GameObject character)
     {
@@ -107,18 +97,9 @@ public class CoverObject : MonoBehaviour
         useCharacter = character;
     }
 
-
     public bool CheckUser(GameObject character)
     {
-        if(isOccupied && useCharacter == character)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-        
+        return isOccupied && useCharacter == character;
     }
 
     public void StopCover()
@@ -127,6 +108,4 @@ public class CoverObject : MonoBehaviour
         useCharacter = null;
         coverSpot = null;
     }
-=======
->>>>>>> parent of 0940890 (ì—„í ê¸°ëŠ¥ êµ¬í˜„ ë° ìˆ˜ì •)
 }
