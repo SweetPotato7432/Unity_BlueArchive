@@ -106,8 +106,7 @@ public class CoverObject : MonoBehaviour
         isOccupied = true;
         useCharacter = character;
     }
-<<<<<<< Updated upstream
-=======
+
 
     public bool CheckUser(GameObject character)
     {
@@ -128,5 +127,4 @@ public class CoverObject : MonoBehaviour
         useCharacter = null;
         coverSpot = null;
     }
->>>>>>> Stashed changes
 }

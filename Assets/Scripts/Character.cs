@@ -137,36 +137,18 @@ public class Character : MonoBehaviour
                 }
             case States.Cover:
                 {
-<<<<<<< Updated upstream
-                    if (nav.pathPending == false && nav.remainingDistance <= nav.stoppingDistance)
-=======
                     // 엄폐시도
                     if(currentCoverObject == null)
                     {
                         TryCover();
                     }
                     else if (nav.pathPending == false && nav.remainingDistance <= nav.stoppingDistance)
->>>>>>> Stashed changes
                     {
                         if (nav.hasPath || nav.velocity.sqrMagnitude == 0f)
                         {
                             OnReachCover();
                         }
                     }
-
-<<<<<<< Updated upstream
-                    if(currentCoverObject != null && currentCoverObject.isOccupied)
-                    {
-                        currentCoverObject = null;
-                        nav.SetDestination(destination);
-                    }
-                    else
-                    {
-                        // 엄폐시도
-                        TryCover();
-                    }
-=======
->>>>>>> Stashed changes
                     break;
                 }
             case States.Attack:
@@ -371,20 +353,10 @@ public class Character : MonoBehaviour
 
     private void TryCover()
     {
-<<<<<<< Updated upstream
-=======
-        
-
->>>>>>> Stashed changes
         if (nav.isStopped)
         {
             nav.isStopped = false;
         }
-<<<<<<< Updated upstream
-        // 13만큼의 거리로 장애물 탐지
-        Collider[] cols = Physics.OverlapSphere(transform.position, 13, coverLayer);
-=======
->>>>>>> Stashed changes
 
         // 10만큼의 거리로 장애물 탐지
         Collider[] cols = Physics.OverlapSphere(transform.position, 10, coverLayer);
@@ -397,31 +369,13 @@ public class Character : MonoBehaviour
 
             if (cover != null && !cover.isOccupied)
             {
-<<<<<<< Updated upstream
-                // 탐지된 엄폐물에 향하는 방향 벡터
-                Vector3 directionToTarget = col.transform.position - transform.position;
 
-                // 방향 벡터 정규화
-                directionToTarget.Normalize();
-
-                // 전방 방향 벡터
-                Vector3 forward = transform.forward;
-
-                float dotProduct = Vector3.Dot(forward, directionToTarget);
-
-                // 전방의 각도만 탐지하고 뒤에 있는 엄폐물을 탐지 하지 않게 설정
-                if (dotProduct >= 0)
-                {
-                    covers.Add(col.gameObject);
-                    //Debug.Log("Detected cover object: " + col.gameObject.name);
-=======
                 // X축 기준으로 적과 아군의 사이에 엄폐물이 있는지 확인
                 if(cover.transform.position.x>=Mathf.Min(closestTarget.transform.position.x,transform.position.x) 
                     && cover.transform.position.x <= Mathf.Max(closestTarget.transform.position.x, transform.position.x))
                 {
                     covers.Add(col.gameObject);
                     Debug.DrawLine(transform.position,col.transform.position);
->>>>>>> Stashed changes
                 }
             }
         }
@@ -457,20 +411,17 @@ public class Character : MonoBehaviour
 
     private void OnReachCover()
     {
-<<<<<<< Updated upstream
-        if (currentCoverObject != null && !currentCoverObject.isOccupied)
-        {
-            currentCoverObject.GetUsedCharacter(this.gameObject);
-=======
+        
         if (currentCoverObject != null)
         {
-            //currentCoverObject.GetUsedCharacter(this.gameObject);
+            currentCoverObject.GetUsedCharacter(this.gameObject);
             coverPosition = transform.position;
->>>>>>> Stashed changes
+
             stat.IsCover = true;
             Debug.Log($"{gameObject.name}이 {currentCoverObject.gameObject.name}에 도착하여 엄폐를 사용 중입니다.");
             currentState = States.Attack;
         }
+         
     }
 
     private void LeaveCover()
