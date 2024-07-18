@@ -55,9 +55,6 @@ public class Character : MonoBehaviour
     // »ç°Å¸®
     private float range;
 
-    // °ø°İ ÄğÅ¸ÀÓ
-    private float calCooltime = 0f;
-
     // Å¸°Ù ÅÂ±×
     private string targetTag;
 
@@ -119,8 +116,13 @@ public class Character : MonoBehaviour
         }
 
         // ¾öÆó À§Ä¡¸¦ ¹ş¾î³µ´ÂÁö È®ÀÎ
-        LeaveCover();
-
+        if (stat.IsCover && coverPosition != transform.position)
+        {
+            if (!nav.hasPath || nav.velocity.sqrMagnitude != 0f)
+            {
+                LeaveCover();
+            }
+        }
 
         switch (currentState)
         {
@@ -194,7 +196,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void Attack()
+   /* private void Attack()
     {
         if (!nav.isStopped)
         {
@@ -227,18 +229,65 @@ public class Character : MonoBehaviour
                 currentState = States.Move;
             }
         }
+
+    }*/
+    private void Attack()
+    {
+        if (!nav.isStopped)
+        {
+            nav.isStopped = true;
+            nav.velocity = Vector3.zero;
+        }
+
+        if (closestTarget == null || targetDistance > range)
+        {
+            UpdateTarget(range);
+            if (closestTarget == null)
+            {
+                CancelInvoke("InvokeAttack");
+                currentState = States.Move;
+                return;
+            }
+        }
+
+        if (!IsInvoking("InvokeAttack"))
+        {
+            InvokeRepeating("InvokeAttack", stat.AttackCoolTime, stat.AttackCoolTime);
+        }
     }
+
+    private void InvokeAttack()
+    {
+        if (closestTarget == null || targetDistance > range || stat.CurMag <= 0)
+        {
+            CancelInvoke("PerformAttack");
+            currentState = States.Move;
+            return;
+        }
+        Debug.Log($"{stat.Name} : Attack");
+        // Åº¾à Á¦¿Ü
+        stat.CurMag--;
+        transform.LookAt(targetCharacter.gameObject.transform);
+        targetCharacter.TakeDamage(stat);
+
+        if (stat.CurMag <= 0)
+        {
+            currentState = States.Reload;
+        }
+    }
+
 
     public void TakeDamage(Stat attakerStat)
     {
         bool isCritical;
         // ¾öÆó ¼º°ø Ã¼Å©
-        if (stat.IsCover)
+        if (stat.IsCover && currentCoverObject != null)
         {
             if (Random.Range(0f, 1f) <= stat.CoverRate)
             {
                 // ¾öÆó ¼º°ø
                 Debug.Log("¾öÆó ¼º°ø");
+                currentCoverObject.TakeDamage(attakerStat);
                 return;
             }
             else
@@ -291,7 +340,7 @@ public class Character : MonoBehaviour
         }
     }
 
-    private void Reload()
+    /*private void Reload()
     {
         if (!nav.isStopped)
         {
@@ -306,6 +355,26 @@ public class Character : MonoBehaviour
             calCooltime = 0f;
             currentState = States.Attack;
         }
+    }*/
+
+    private void Reload()
+    {
+        if (!nav.isStopped)
+        {
+            nav.isStopped = true;
+            nav.velocity = Vector3.zero;
+        }
+
+        if (!IsInvoking("InvokeReload"))
+        {
+            Invoke("InvokeReload", stat.ReloadTime);
+        }
+    }
+
+    private void InvokeReload()
+    {
+        stat.CurMag = stat.MaxMag;
+        currentState = States.Attack;
     }
 
     private void TryCover()
@@ -362,27 +431,28 @@ public class Character : MonoBehaviour
     {
         if (currentCoverObject != null)
         {
-            
-
             coverPosition = transform.position;
             stat.IsCover = true;
             Debug.Log($"{gameObject.name}ÀÌ {currentCoverObject.gameObject.name}¿¡ µµÂøÇÏ¿© ¾öÆó¸¦ »ç¿ë ÁßÀÔ´Ï´Ù.");
-            currentState = States.Attack;
+
+            if(stat.CurMag <= 0)
+            {
+                currentState = States.Reload;
+            }
+            else
+            {
+                currentState = States.Attack;
+            }
+            
         }
     }
 
-    private void LeaveCover()
+    public void LeaveCover()
     {
-        if (stat.IsCover && coverPosition != transform.position)
-        {
-            if (!nav.hasPath || nav.velocity.sqrMagnitude != 0f)
-            {
-                stat.IsCover = false;
-                Debug.Log($"{gameObject.name}ÀÌ ¾öÆó À§Ä¡¸¦ ¹ş¾î³µ½À´Ï´Ù.");
-                currentCoverObject.StopCover();
-                currentCoverObject = null;
-            }
-        }
+        stat.IsCover = false;
+        Debug.Log($"{gameObject.name}ÀÌ ¾öÆó À§Ä¡¸¦ ¹ş¾î³µ½À´Ï´Ù.");
+        currentCoverObject.StopCover();
+        currentCoverObject = null;
     }
 
     private void UpdateTarget(float range)

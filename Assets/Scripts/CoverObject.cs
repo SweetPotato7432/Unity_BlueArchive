@@ -7,7 +7,9 @@ public class CoverObject : MonoBehaviour
 {
     private GameObject coveredCharacter;
 
+    [SerializeField]
     private float maxHp;
+    [SerializeField]
     private float curHp;
 
     // 엄폐물이 사용 중인지 확인
@@ -39,12 +41,18 @@ public class CoverObject : MonoBehaviour
         // 위치 설정
         backSpot = transform.GetChild(0).gameObject;
         frontSpot = transform.GetChild(1).gameObject;
+
+        maxHp = 100f;
+        curHp = maxHp;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if(curHp <= 0)
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     // 엄폐 위치 선택
@@ -107,5 +115,23 @@ public class CoverObject : MonoBehaviour
         isOccupied = false;
         useCharacter = null;
         coverSpot = null;
+    }
+
+    public void TakeDamage(Stat attakerStat)
+    {
+        float damageRatio = 1f / (1f / (1000f / 0.6f));
+        float damage = attakerStat.Atk*damageRatio;
+        curHp -= damage;
+        Debug.Log("공격받음!");
+    }
+
+    private void OnDestroy()
+    {
+        if(useCharacter != null)
+        {
+            useCharacter.GetComponent<Character>().LeaveCover();
+        }
+        
+        StopCover();
     }
 }

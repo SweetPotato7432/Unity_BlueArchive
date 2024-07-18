@@ -110,7 +110,7 @@ public class Stat
         {
             //                  유닛코드, 무기타입,     , 포지션           ,이름,   체력 ,공격,방어,명중,회피,치명,치뎀,사거리,탄,엄폐
             case UnitCode.Azusa:
-                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Striker, "아즈사", 2496f, 231, 19, 706, 792, 201, 2.0f, 650f, 15, true);
+                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Striker, "아즈사", 2496f, 231, 19, 706, 792, 201, 2.0f, 650f, 10, true);
                 break;
             case UnitCode.Kasumi:
                 stat = new Stat(unitCode, WeaponCode.Hg, TypeCode.Striker, "카스미", 2412f, 254, 19, 104, 1053, 208, 2.0f, 550f, 8, true);
@@ -122,16 +122,16 @@ public class Stat
                 stat = new Stat(unitCode, WeaponCode.Sr, TypeCode.Striker, "하루나", 2451f, 457, 19, 924, 205, 205, 2.0f,750f, 5, true);
                 break;
             case UnitCode.Serina:
-                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "세리나", 2482f, 167, 24, 704, 805, 201, 2.0f, 1000f, 30, false);
+                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "세리나", 2482f, 167, 24, 704, 805, 201, 2.0f, 1000f, 10, false);
                 break;
             case UnitCode.Yoshimi:
-                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "요시미", 2232f, 268, 19, 705, 806, 201, 2.0f,1000f, 30, false);
+                stat = new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "요시미", 2232f, 268, 19, 705, 806, 201, 2.0f,1000f, 10, false);
                 break;
             case UnitCode.SukebanSmg:
-                stat = new Stat(UnitCode, WeaponCode.Smg,TypeCode.Striker, "불량배(SMG)", 320f, 18, 30, 98, 1416, 196, 2.0f, 350f, 15, false); 
+                stat = new Stat(UnitCode, WeaponCode.Smg,TypeCode.Striker, "불량배(SMG)", 320f, 18, 30, 98, 1416, 196, 2.0f, 350f, 10, false); 
                 break;
             case UnitCode.SukebanAr:
-                stat = new Stat(UnitCode, WeaponCode.Ar, TypeCode.Striker, "불량배(AR)", 250f, 23, 19, 706, 792, 201, 2.0f, 650f, 15, true);
+                stat = new Stat(UnitCode, WeaponCode.Ar, TypeCode.Striker, "불량배(AR)", 250f, 23, 19, 706, 792, 201, 2.0f, 650f, 10, true);
                 break;
 
         }
