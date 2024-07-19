@@ -76,6 +76,7 @@ GameObject:
   - component: {fileID: -9049135933986498992}
   - component: {fileID: 59308516462797716}
   - component: {fileID: 146963905458785948}
+  - component: {fileID: 4008756114209707430}
   m_Layer: 6
   m_Name: Road_Barrier1
   m_TagString: Cover
@@ -200,4 +201,27 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77be767eb67cb0748a77c15a630220c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHp: 12000
+  curHp: 0
   isOccupied: 0
+  backSpot: {fileID: 0}
+  frontSpot: {fileID: 0}
+  coverSpot: {fileID: 0}
+  useCharacter: {fileID: 0}
+--- !u!191 &4008756114209707430
+OffMeshLink:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3790575518210907982}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_AreaIndex: 2
+  m_AgentTypeID: 0
+  m_Start: {fileID: 6505351105271191938}
+  m_End: {fileID: 1727913397654043936}
+  m_CostOverride: 2
+  m_BiDirectional: 1
+  m_Activated: 1
+  m_AutoUpdatePositions: 1

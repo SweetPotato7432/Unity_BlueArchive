@@ -4,15 +4,17 @@ using UnityEngine;
 
 public enum UnitCode
 {
+    // 아군 코드
     None,
     Azusa,
-    Kasumi,
+    Kasumi, 
     Hoshino,
     Haruna,
     Serina,
     Yoshimi,
 
-    EnemyCode=100,
+    // 적군 코드
+    EnemyNone=100,
     SukebanSmg,
     SukebanAr
 }

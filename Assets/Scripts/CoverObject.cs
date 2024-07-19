@@ -5,30 +5,29 @@ using UnityEngine;
 // 엄폐물에 부착된 스크립트
 public class CoverObject : MonoBehaviour
 {
-    private GameObject coveredCharacter;
-
+    // 엄폐물의 최대 체력과 현재 체력
+    // 최대 체력은 Prefab에서 설정
     [SerializeField]
     private float maxHp;
     [SerializeField]
     private float curHp;
 
-    // 엄폐물이 사용 중인지 확인
+    // 엄폐물이 사용 중인지 여부
     public bool isOccupied;
 
     // 캐릭터 탐지 레이어
     private LayerMask targetLayer;
 
-    // 적과의 거리
-    private float targetDistance;
+    
 
     // 엄폐 위치
     [SerializeField]
     private GameObject backSpot;
     [SerializeField]
     private GameObject frontSpot;
-
     public GameObject coverSpot;
 
+    // 엄폐물 사용 캐릭터
     [SerializeField]
     private GameObject useCharacter;
 
@@ -42,7 +41,7 @@ public class CoverObject : MonoBehaviour
         backSpot = transform.GetChild(0).gameObject;
         frontSpot = transform.GetChild(1).gameObject;
 
-        maxHp = 100f;
+        // 체력 설정
         curHp = maxHp;
     }
 
@@ -58,35 +57,29 @@ public class CoverObject : MonoBehaviour
     // 엄폐 위치 선택
     private GameObject SelectSpot(Transform characterTransform)
     {
-        GameObject spot;
 
         float backDistance = Vector3.Distance(characterTransform.position, backSpot.transform.position);
         float frontDistance = Vector3.Distance(characterTransform.position, frontSpot.transform.position);
-        if (backDistance < frontDistance)
-        {
-            spot = backSpot;
-        }
-        else
-        {
-            spot = frontSpot;
-        }
-        return spot;
+
+        return (backDistance<frontDistance) ? backSpot:frontSpot;
     }
 
     // 엄폐물에 엄폐가 가능한지 확인
     public bool CanCover(GameObject coverUser, Stat userStat, string targetTag)
     {
-        targetDistance = Mathf.Infinity;
+        float targetDistance = Mathf.Infinity;
+        GameObject closestEnemy = null;
+
         // 엄폐 위치 선택
         coverSpot = SelectSpot(coverUser.transform);
 
         // 엄폐 가능 여부 확인
-        GameObject closestEnemy = null;
+        
 
         Collider[] cols = Physics.OverlapSphere(coverSpot.transform.position, userStat.Range, targetLayer);
         foreach (Collider col in cols)
         {
-            if (col.tag == targetTag)
+            if (col.CompareTag(targetTag))
             {
                 float distance = Vector3.Distance(col.transform.position, transform.position);
                 if (distance < targetDistance)
@@ -99,17 +92,20 @@ public class CoverObject : MonoBehaviour
         return closestEnemy != null;
     }
 
+    // 엄폐물 사용하는 캐릭터 설정
     public void GetUsedCharacter(GameObject character)
     {
         isOccupied = true;
         useCharacter = character;
     }
 
+    // 현재 엄폐물을 사용하는 캐릭터 확인
     public bool CheckUser(GameObject character)
     {
         return isOccupied && useCharacter == character;
     }
 
+    // 엄폐 종료 시점 호출
     public void StopCover()
     {
         isOccupied = false;
@@ -117,6 +113,7 @@ public class CoverObject : MonoBehaviour
         coverSpot = null;
     }
 
+    // 엄폐물이 피해를 받을때 사용
     public void TakeDamage(Stat attakerStat)
     {
         float damageRatio = 1f / (1f / (1000f / 0.6f));
@@ -125,6 +122,7 @@ public class CoverObject : MonoBehaviour
         Debug.Log("공격받음!");
     }
 
+    // 엄폐물 파괴
     private void OnDestroy()
     {
         if(useCharacter != null)

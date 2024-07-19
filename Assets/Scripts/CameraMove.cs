@@ -10,23 +10,28 @@ public class CameraMove : MonoBehaviour
     //private float offsetY = 9.0f;
     //private float offsetZ = -21.0f;
 
+    // 카메라 이동 속도
     [SerializeField]
-    private float CameraSpeed = 10.0f;
+    private float cameraSpeed = 10.0f;
+    // 카메라 줌 시간
+    [SerializeField]
+    private float zoomDampTime = 0.5f;
     // 현재 줌 속도 저장
     private float zoomSpeed;
 
+    // 카메라 목표 위치
     private Vector3 targetPos;
+    // 카메라 목표 사이즈
     private float requiredSize;
 
-
+    // 메인 카메라 및 시네머신 가상 카메라
     [SerializeField]
     private Camera mainCamera;
     private CinemachineVirtualCamera virtualCamera;
 
-    //private GameManager gameManager;
-
     private void Awake()
     {
+        // 카메라 컴포넌트 초기화
         mainCamera = GetComponentInChildren<Camera>();
         virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
         
@@ -35,48 +40,52 @@ public class CameraMove : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //gameManager = (GameObject.Find("GameManager")).GetComponent<GameManager>();
-        // 카메라 초기 위치 및 크기 설정
-        FindAveragePosAndSize();
-        transform.position = targetPos;
-        mainCamera.orthographicSize = requiredSize;
-
-        //// 시네머신 카메라 초기 설정
-        virtualCamera.transform.position = transform.position;
-        virtualCamera.m_Lens.OrthographicSize = requiredSize;
+        //카메라 초기 위치 및 크기 설정
+        InitializeCameraPosionAndSize();
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         // 캐릭터들의 중점과 적절한 사이즈 확인
         FindAveragePosAndSize();
         // 카메라 이동
-        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * CameraSpeed);
-
-        // 카메라 줌
-        mainCamera.orthographicSize = Mathf.SmoothDamp(mainCamera.orthographicSize, requiredSize, ref zoomSpeed, 0.5f);
-
+        MoveCamera();
+        // 시네머신 가상 카메라 업데이트
         UpdateVirtualCamera();
     }
 
-    
+    private void InitializeCameraPosionAndSize()
+    {
+        // 카메라 초기 위치 및 크기 설정
+        FindAveragePosAndSize();
+        transform.position = targetPos;
+        mainCamera.orthographicSize = requiredSize;
 
+        // 시네머신 카메라 초기 설정
+        if(virtualCamera != null)
+        {
+            virtualCamera.transform.position = transform.position;
+            virtualCamera.m_Lens.OrthographicSize = requiredSize;
+        }    
+    }
+
+    private void MoveCamera()
+    {
+        // 카메라 이동
+        transform.position = Vector3.Lerp(transform.position, targetPos, Time.deltaTime * cameraSpeed);
+
+        // 카메라 줌
+        mainCamera.orthographicSize = Mathf.SmoothDamp(mainCamera.orthographicSize, requiredSize, ref zoomSpeed, zoomDampTime);
+    }
+    
+    // 캐릭터들의 평균 위치와 카메라 크기 계산
     private void FindAveragePosAndSize()
     {
         Vector3 averagePos = new Vector3();
-        //int numTargets = 0;
 
         float size = 0f;
 
-        GameObject[] charactersAlly = GameObject.FindGameObjectsWithTag("Ally");
-        GameObject[] charactersEnemy = GameObject.FindGameObjectsWithTag("Enemy");
-
-        List<GameObject> combinedList = new List<GameObject>();
-        combinedList.AddRange(charactersAlly);
-        combinedList.AddRange(charactersEnemy);
-
-        GameObject[] characters = combinedList.ToArray();
+        GameObject[] characters = GetAllCharacters();
 
         if (characters.Length == 0)
         {
@@ -85,15 +94,14 @@ public class CameraMove : MonoBehaviour
 
         Bounds bounds = new Bounds(characters[0].transform.position, Vector3.zero);
 
-        for (int i = 0; i < characters.Length; i++)
+        foreach (GameObject character in characters)
         {
-            if (!characters[i].gameObject.activeSelf) continue;
+            if (!character.activeSelf) continue;
 
-            bounds.Encapsulate(characters[i].transform.position);
+            bounds.Encapsulate(character.transform.position);
         }
 
         // 카메라 위치 설정
-        //averagePos = gameManager.AveragePos(ref characters);
         averagePos = bounds.center;
 
         averagePos.x -= 10;
@@ -105,12 +113,12 @@ public class CameraMove : MonoBehaviour
         // 카메라 크기 설정
         Vector3 desiredLocalPos = transform.InverseTransformPoint(averagePos);
 
-        for(int i = 0;i < characters.Length;i++)
+        foreach(GameObject character in characters)
         {
-            if (!characters[i].gameObject.activeSelf)
+            if (!character.activeSelf)
                 continue;
 
-            Vector3 targetLocalPos = transform.InverseTransformPoint(characters[i].transform.position);
+            Vector3 targetLocalPos = transform.InverseTransformPoint(character.transform.position);
 
             Vector3 desiredPosToTarget = targetLocalPos-desiredLocalPos;
 
@@ -119,13 +127,25 @@ public class CameraMove : MonoBehaviour
         }
         size -= 3f;
 
-        //size += bounds.extents.magnitude / 2f;
-
         size = Mathf.Max(size, 6.5f);
 
         requiredSize = size;
     }
 
+    // 모든 캐릭터 리스트 화
+    private GameObject[] GetAllCharacters()
+    {
+        GameObject[] charactersAlly = GameObject.FindGameObjectsWithTag("Ally");
+        GameObject[] charactersEnemy = GameObject.FindGameObjectsWithTag("Enemy");
+
+        List<GameObject> combinedList = new List<GameObject>();
+        combinedList.AddRange(charactersAlly);
+        combinedList.AddRange(charactersEnemy);
+
+        return combinedList.ToArray();
+    }
+
+    // 시네머신 가상 카메라 업데이트
     private void UpdateVirtualCamera()
     {
         if(virtualCamera != null) 
