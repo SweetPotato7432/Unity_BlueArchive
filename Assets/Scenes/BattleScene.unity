@@ -640,7 +640,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &372606487
 NavMeshAgent:
@@ -910,7 +909,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 516675054877aeb4bb9e8503686ebb3d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraSpeed: 3
+  cameraSpeed: 1.5
+  zoomDampTime: 1
   mainCamera: {fileID: 0}
 --- !u!1001 &507370611
 PrefabInstance:
@@ -1219,7 +1219,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &722806981
 NavMeshAgent:
@@ -1381,7 +1380,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &879076689
 NavMeshAgent:
@@ -1533,7 +1531,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &917817403
 NavMeshAgent:
@@ -1670,7 +1667,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &919572566
 NavMeshAgent:
@@ -2047,7 +2043,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &1313802393
 NavMeshAgent:
@@ -2214,7 +2209,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &1348271367
 NavMeshAgent:
@@ -2371,7 +2365,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &1475571789
 NavMeshAgent:
@@ -2699,7 +2692,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &1721767370
 NavMeshAgent:
@@ -2929,7 +2921,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &1862865115
 NavMeshAgent:
@@ -3096,7 +3087,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &1868756390
 NavMeshAgent:
@@ -3400,7 +3390,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!4 &1964650005 stripped
 Transform:
@@ -3462,7 +3451,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &1983148759
 NavMeshAgent:
@@ -3614,7 +3602,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &2019097394
 NavMeshAgent:
@@ -3751,7 +3738,6 @@ MonoBehaviour:
   targetDistance: 0
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
-  test: 0
   isJumping: 0
 --- !u!195 &2059595477
 NavMeshAgent:

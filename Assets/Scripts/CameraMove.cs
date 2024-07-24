@@ -12,10 +12,10 @@ public class CameraMove : MonoBehaviour
 
     // 카메라 이동 속도
     [SerializeField]
-    private float cameraSpeed = 10.0f;
+    private float cameraSpeed;
     // 카메라 줌 시간
     [SerializeField]
-    private float zoomDampTime = 0.5f;
+    private float zoomDampTime;
     // 현재 줌 속도 저장
     private float zoomSpeed;
 
@@ -44,7 +44,7 @@ public class CameraMove : MonoBehaviour
         InitializeCameraPosionAndSize();
     }
 
-    void FixedUpdate()
+    void LateUpdate()
     {
         // 캐릭터들의 중점과 적절한 사이즈 확인
         FindAveragePosAndSize();
@@ -96,7 +96,7 @@ public class CameraMove : MonoBehaviour
 
         foreach (GameObject character in characters)
         {
-            if (!character.activeSelf) continue;
+            if (!character.gameObject.activeSelf) continue;
 
             bounds.Encapsulate(character.transform.position);
         }
@@ -115,7 +115,7 @@ public class CameraMove : MonoBehaviour
 
         foreach(GameObject character in characters)
         {
-            if (!character.activeSelf)
+            if (!character.gameObject.activeSelf)
                 continue;
 
             Vector3 targetLocalPos = transform.InverseTransformPoint(character.transform.position);
@@ -152,7 +152,7 @@ public class CameraMove : MonoBehaviour
         {
             virtualCamera.transform.position = transform.position;
             virtualCamera.m_Lens.Orthographic = mainCamera.orthographic;
-            virtualCamera.m_Lens.OrthographicSize = Mathf.SmoothDamp(virtualCamera.m_Lens.OrthographicSize, requiredSize, ref zoomSpeed, 0.5f);
+            virtualCamera.m_Lens.OrthographicSize = Mathf.SmoothDamp(virtualCamera.m_Lens.OrthographicSize, requiredSize, ref zoomSpeed, zoomDampTime);
         }
     }
 
