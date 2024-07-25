@@ -261,10 +261,14 @@ public class Character : MonoBehaviour
                 return;
             }
         }
-
+        
         // 만약 공격중이 아니라면
-        if (!IsInvoking("InvokeAttack"))
+        else if (!IsInvoking("InvokeAttack"))
         {
+            if (stat.CurMag <= 0)
+            {
+                currentState = States.Move;
+            }
             // 공격을 반복한다.
             InvokeRepeating("InvokeAttack", stat.AttackCoolTime, stat.AttackCoolTime);
         }
@@ -445,7 +449,15 @@ public class Character : MonoBehaviour
         // 엄폐물이 없다면
         else
         {
-            currentState = States.Attack;
+            if (stat.CurMag <= 0)
+            {
+                currentState = States.Reload;
+            }
+            else 
+            {
+                currentState = States.Attack;
+
+            }
         }
     }
     // 엄폐물에 도달시
