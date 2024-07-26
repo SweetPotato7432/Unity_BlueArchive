@@ -127,7 +127,7 @@ public class CoverObject : MonoBehaviour
     {
         if(useCharacter != null)
         {
-            useCharacter.GetComponent<Character>().LeaveCover();
+            useCharacter.GetComponent<StrikerCharacter>().LeaveCover();
         }
         
         StopCover();

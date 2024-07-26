@@ -142,6 +142,8 @@ public class CameraMove : MonoBehaviour
         combinedList.AddRange(charactersAlly);
         combinedList.AddRange(charactersEnemy);
 
+        combinedList.RemoveAll(character => character.GetComponent<SpecialCharacter>() != null);
+
         return combinedList.ToArray();
     }
 

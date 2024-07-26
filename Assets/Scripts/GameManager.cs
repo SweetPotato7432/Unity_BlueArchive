@@ -31,6 +31,9 @@ public class GameManager : MonoBehaviour
         allies = GameObject.FindGameObjectsWithTag("Ally");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
 
+        allies = FilterSpecialCharacters(allies);
+        enemies = FilterSpecialCharacters(enemies);
+
         alliesAveragePos =  AveragePos(ref allies);
         enemiesAveragePos = AveragePos(ref enemies);
 
@@ -65,5 +68,19 @@ public class GameManager : MonoBehaviour
         }
 
         return averagePos;
+    }
+
+    private GameObject[] FilterSpecialCharacters(GameObject[] characters)
+    {
+        List<GameObject> filteredList = new List<GameObject>();
+
+        foreach (GameObject character in characters)
+        {
+            if (character.GetComponent<SpecialCharacter>() == null)
+            {
+                filteredList.Add(character);
+            }
+        }
+        return filteredList.ToArray();
     }
 }

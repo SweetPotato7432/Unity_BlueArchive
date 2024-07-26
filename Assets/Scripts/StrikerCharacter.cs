@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Character : MonoBehaviour
+public class StrikerCharacter : MonoBehaviour
 {
     // 스탯 생성
     private Stat stat;
@@ -42,7 +42,7 @@ public class Character : MonoBehaviour
     [SerializeField]
     private float targetDistance;
     // 현재 목표의 Character 스크립트 컴포넌트
-    private Character targetCharacter;
+    private StrikerCharacter targetCharacter;
 
     private LayerMask targetLayer;
     private LayerMask coverLayer;
@@ -73,6 +73,8 @@ public class Character : MonoBehaviour
 
     void Start()
     {
+        // Special 학생 능력치 합산 (체력, 공격력, 방어력, 치유력)
+
         nav = GetComponent<NavMeshAgent>();
 
         // 초기 상태 설정 (Move)
@@ -512,8 +514,18 @@ public class Character : MonoBehaviour
         if (closestEnemy != closestTarget)
         {
             closestTarget = closestEnemy;
-            targetCharacter = closestEnemy != null ? closestTarget.GetComponent<Character>() : null;
+            targetCharacter = closestEnemy != null ? closestTarget.GetComponent<StrikerCharacter>() : null;
         }
+    }
+    //스페셜 학생 스탯 계산
+    public void SpecialCharacterStatCalculate(Stat stat)
+    {
+        Debug.Log($"{this.stat.Name}의 스탯 증가!");
+        Debug.Log($"{Mathf.FloorToInt(stat.MaxHp * 0.1f)}, {Mathf.FloorToInt(stat.MaxHp * 0.1f)},{Mathf.FloorToInt(stat.Atk * 0.1f)},{Mathf.FloorToInt(stat.Def * 0.05f)}");
+        this.stat.MaxHp += Mathf.FloorToInt(stat.MaxHp*0.1f);
+        this.stat.CurHp += Mathf.FloorToInt(stat.MaxHp*0.1f);
+        this.stat.Atk += Mathf.FloorToInt(stat.Atk * 0.1f);
+        this.stat.Def += Mathf.FloorToInt(stat.Def * 0.05f);
     }
     // 캐릭터 삭제
     private void CleanupAndDestroy()
