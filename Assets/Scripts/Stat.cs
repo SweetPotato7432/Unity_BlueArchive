@@ -9,7 +9,11 @@ public class Stat
     // 유닛이 사용하는 무기 코드
     public WeaponCode WeaponCode { get; set; }
     // 전투 타입코드
-    public TypeCode TypeCode {  get; set; }
+    public BattleTypeCode BattleTypeCode {  get; set; }
+    // 데미지 타입 코드
+    public AttackTypeCode DamageTypeCode { get; set; }
+    // 방어 타입 코드
+    public DefendTypeCode DefendTypeCode { get; set; }
     // 유닛의 이름
     public string Name { get; set; }
     // 최대 체력
@@ -51,12 +55,14 @@ public class Stat
 
     }
     // 초기화 생성자
-    public Stat(UnitCode unitCode, WeaponCode weaponCode,TypeCode typeCode, string name, float maxHp, int atk, int def, int accuracyRate,
+    public Stat(UnitCode unitCode, WeaponCode weaponCode,BattleTypeCode battleTypeCode,AttackTypeCode damageTypeCode, DefendTypeCode defendTypeCode, string name, float maxHp, int atk, int def, int accuracyRate,
         int dodge, int criticalRate, float criticalDamage, float range,int maxMag, bool isCoverAvailable)
     {
         UnitCode = unitCode;
         WeaponCode = weaponCode;
-        TypeCode = typeCode;
+        BattleTypeCode = battleTypeCode;
+        DamageTypeCode = damageTypeCode;
+        DefendTypeCode = defendTypeCode;
         Name = name;
         MaxHp = maxHp;
         CurHp = maxHp;
@@ -72,6 +78,8 @@ public class Stat
         IsCoverAvailable = isCoverAvailable;
         CoverRate = 0.3f;
         IsCover = false;
+
+
 
         SetWeaponProperties(WeaponCode);
 
@@ -115,14 +123,14 @@ public class Stat
         return unitCode switch
         {   
             //                         유닛코드, 무기타입,     , 포지션           ,이름,   체력 ,공격,방어,명중,회피,치명,치뎀,사거리,탄,엄폐
-            UnitCode.Azusa => new Stat(unitCode, WeaponCode.Ar, TypeCode.Striker, "아즈사", 2496f, 231, 19, 706, 792, 201, 2.0f, 650f, 10, true),
-            UnitCode.Kasumi => new Stat(unitCode, WeaponCode.Hg, TypeCode.Striker, "카스미", 2412f, 254, 19, 104, 1053, 208, 2.0f, 550f, 8, true),
-            UnitCode.Hoshino => new Stat(unitCode, WeaponCode.Sg, TypeCode.Striker, "호시노", 3275f, 213, 175, 615, 246, 205, 2.0f, 350f, 8, false),
-            UnitCode.Haruna => new Stat(unitCode, WeaponCode.Sr, TypeCode.Striker, "하루나", 2451f, 457, 19, 924, 205, 205, 2.0f, 750f, 5, true),
-            UnitCode.Serina => new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "세리나", 2482f, 167, 24, 704, 805, 201, 2.0f, 1000f, 10, false),
-            UnitCode.Yoshimi => new Stat(unitCode, WeaponCode.Ar, TypeCode.Special, "요시미", 2232f, 268, 19, 705, 806, 201, 2.0f, 1000f, 10, false),
-            UnitCode.SukebanSmg => new Stat(unitCode, WeaponCode.Smg, TypeCode.Striker, "불량배(SMG)", 320f, 18, 30, 98, 1416, 196, 2.0f, 350f, 10, false),
-            UnitCode.SukebanAr => new Stat(unitCode, WeaponCode.Ar, TypeCode.Striker, "불량배(AR)", 250f, 23, 19, 706, 792, 201, 2.0f, 650f, 10, true),
+            UnitCode.Azusa => new Stat(unitCode, WeaponCode.Ar, BattleTypeCode.Striker, AttackTypeCode.Explosive, DefendTypeCode.Heavy, "아즈사", 2496f, 231, 19, 706, 792, 201, 2.0f, 650f, 10, true),
+            UnitCode.Kasumi => new Stat(unitCode, WeaponCode.Hg, BattleTypeCode.Striker, AttackTypeCode.Sonic, DefendTypeCode.Heavy, "카스미", 2412f, 254, 19, 104, 1053, 208, 2.0f, 550f, 8, true),
+            UnitCode.Hoshino => new Stat(unitCode, WeaponCode.Sg, BattleTypeCode.Striker, AttackTypeCode.Piercing, DefendTypeCode.Heavy, "호시노", 3275f, 213, 175, 615, 246, 205, 2.0f, 350f, 8, false),
+            UnitCode.Haruna => new Stat(unitCode, WeaponCode.Sr, BattleTypeCode.Striker, AttackTypeCode.Mystic, DefendTypeCode.Heavy, "하루나", 2451f, 457, 19, 924, 205, 205, 2.0f, 750f, 5, true),
+            UnitCode.Serina => new Stat(unitCode, WeaponCode.Ar, BattleTypeCode.Special, AttackTypeCode.Mystic, DefendTypeCode.Light, "세리나", 2482f, 167, 24, 704, 805, 201, 2.0f, 1000f, 10, false),
+            UnitCode.Yoshimi => new Stat(unitCode, WeaponCode.Ar, BattleTypeCode.Special, AttackTypeCode.Explosive, DefendTypeCode.Heavy, "요시미", 2232f, 268, 19, 705, 806, 201, 2.0f, 1000f, 10, false),
+            UnitCode.SukebanSmg => new Stat(unitCode, WeaponCode.Smg, BattleTypeCode.Striker, AttackTypeCode.Normal, DefendTypeCode.Light, "불량배(SMG)", 320f, 18, 30, 98, 1416, 196, 2.0f, 350f, 10, false),
+            UnitCode.SukebanAr => new Stat(unitCode, WeaponCode.Ar, BattleTypeCode.Striker, AttackTypeCode.Normal, DefendTypeCode.Light, "불량배(AR)", 250f, 23, 19, 706, 792, 201, 2.0f, 650f, 10, true),
             _ => null,
 
         };

@@ -18,6 +18,27 @@ public enum UnitCode
     SukebanSmg,
     SukebanAr
 }
+
+public enum AttackTypeCode
+{
+    None,
+    Normal,
+    Explosive,
+    Piercing,
+    Mystic,
+    Sonic
+}
+
+public enum DefendTypeCode
+{
+    None,
+    Normal,
+    Light,
+    Heavy,
+    Special,
+    Elastic
+}
+
 public enum WeaponCode
 {
     None,
@@ -27,9 +48,17 @@ public enum WeaponCode
     Sg,
     Hg,
 }
-public enum TypeCode
+public enum BattleTypeCode
 {
     None,
     Striker,
     Special
+}
+public enum DamageCode
+{
+    None,
+    Resist,
+    Normal,
+    Effective,
+    Weak
 }

@@ -41,6 +41,7 @@ public class GameManager : MonoBehaviour
         {
             // Å×½ºÆ®
             enemy.SetActive(true);
+
         }
 
     }

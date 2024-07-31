@@ -300,6 +300,7 @@ public class StrikerCharacter : MonoBehaviour
     {
         // 치명타 체크
         bool isCritical;
+
         // 엄폐 성공 체크
         // 엄폐중이고, 가장 가까운 엄폐물이 존재할때
         if (stat.IsCover && currentCoverObject != null)
@@ -348,9 +349,31 @@ public class StrikerCharacter : MonoBehaviour
                 isCritical = false;
             }
 
+            // 공격, 방어 상성 계산
+            DamageCode damageEffective = TypeCompatibilityCal(attakerStat, this.stat);
+            float effectiveRatio = 1f;
+
+            switch (damageEffective)
+            {
+                case DamageCode.Normal:
+                    effectiveRatio = 1f; 
+                    break;
+                case DamageCode.Resist:
+                    effectiveRatio = 0.5f;
+                    break;
+                case DamageCode.Effective:
+                    effectiveRatio = 1.5f;
+                    break;
+                case DamageCode.Weak:
+                    effectiveRatio = 2f;
+                    break;
+                case DamageCode.None:
+                    effectiveRatio = 1f;
+                    break;
+            }
             // 최종 대미지 계산
             float damageRatio = 1f / (1f + stat.Def / (1000f / 0.6f));
-            float damage = attakerStat.Atk * damageRatio;
+            float damage = attakerStat.Atk * damageRatio * effectiveRatio;
             if (isCritical)
             {
                 damage *= attakerStat.CriticalDamage;
@@ -360,6 +383,84 @@ public class StrikerCharacter : MonoBehaviour
         else
         {
             // 회피
+        }
+    }
+    // 공격, 방어 상성 계산
+    private DamageCode TypeCompatibilityCal(Stat attakerStat, Stat defenderStat)
+    {
+        
+        switch (attakerStat.DamageTypeCode)
+        {
+            case AttackTypeCode.Normal:
+                return DamageCode.Normal;
+            case AttackTypeCode.Explosive:
+                switch (defenderStat.DefendTypeCode)
+                {
+                    case DefendTypeCode.Normal:
+                        return DamageCode.Normal;
+                    case DefendTypeCode.Light:
+                        return DamageCode.Weak;
+                    case DefendTypeCode.Heavy:
+                        return DamageCode.Normal;
+                    case DefendTypeCode.Special:
+                        return DamageCode.Resist;
+                    case DefendTypeCode.Elastic:
+                        return DamageCode.Resist;
+                    default:
+                        return DamageCode.None;
+                }
+            case AttackTypeCode.Piercing:
+                switch (defenderStat.DefendTypeCode)
+                {
+                    case DefendTypeCode.Normal:
+                        return DamageCode.Normal;
+                    case DefendTypeCode.Light:
+                        return DamageCode.Resist;
+                    case DefendTypeCode.Heavy:
+                        return DamageCode.Weak;
+                    case DefendTypeCode.Special:
+                        return DamageCode.Normal;
+                    case DefendTypeCode.Elastic:
+                        return DamageCode.Normal;
+                    default:
+                        return DamageCode.None;
+                }
+                
+            case AttackTypeCode.Mystic:
+                switch (defenderStat.DefendTypeCode)
+                {
+                    case DefendTypeCode.Normal:
+                        return DamageCode.Normal;
+                    case DefendTypeCode.Light:
+                        return DamageCode.Normal;
+                    case DefendTypeCode.Heavy:
+                        return DamageCode.Resist;
+                    case DefendTypeCode.Special:
+                        return DamageCode.Weak;
+                    case DefendTypeCode.Elastic:
+                        return DamageCode.Normal;
+                    default:
+                        return DamageCode.None;
+                }
+                
+            case AttackTypeCode.Sonic:
+                switch (defenderStat.DefendTypeCode)
+                {
+                    case DefendTypeCode.Normal:
+                        return DamageCode.Normal;
+                    case DefendTypeCode.Light:
+                        return DamageCode.Normal;
+                    case DefendTypeCode.Heavy:
+                        return DamageCode.Resist;
+                    case DefendTypeCode.Special:
+                        return DamageCode.Effective;
+                    case DefendTypeCode.Elastic:
+                        return DamageCode.Weak;
+                    default:
+                        return DamageCode.None;
+                }
+            default: 
+                return DamageCode.None;
         }
     }
     // 재장전
@@ -387,7 +488,11 @@ public class StrikerCharacter : MonoBehaviour
     // 엄폐
     private void Cover()
     {
-        if (currentCoverObject == null)
+        if(closestTarget == null)
+        {
+            currentState = States.Move;
+        }
+        else if (currentCoverObject == null)
         {
             TryCover();
         }
