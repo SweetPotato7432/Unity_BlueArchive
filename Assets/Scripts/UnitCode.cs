@@ -19,6 +19,18 @@ public enum UnitCode
     SukebanAr
 }
 
+// 현재 상태
+public enum States
+{
+    None,
+    Idle,
+    Move,
+    Cover,
+    Attack,
+    Reload,
+    Dead
+};
+
 public enum AttackTypeCode
 {
     None,

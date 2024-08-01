@@ -11,16 +11,7 @@ public class StrikerCharacter : MonoBehaviour
     [SerializeField]
     private UnitCode unitCode;
 
-    // 현재 상태
-    enum States
-    {
-        None,
-        Move,
-        Cover,
-        Attack,
-        Reload,
-        Dead
-    };
+    
 
   
     [SerializeField]
@@ -77,7 +68,7 @@ public class StrikerCharacter : MonoBehaviour
 
         nav = GetComponent<NavMeshAgent>();
 
-        // 초기 상태 설정 (Move)
+        // 초기 상태 설정 (Idle)
         currentState = States.Move; 
         targetLayer = LayerMask.GetMask("Character");
         coverLayer = LayerMask.GetMask("Cover");
@@ -105,6 +96,8 @@ public class StrikerCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+
         // 캐릭터의 체력이 0이되면 죽은 상태로 전환 및 삭제
         if (stat.CurHp <= 0)
         {
@@ -132,6 +125,9 @@ public class StrikerCharacter : MonoBehaviour
         // 현재 상태에 따라 행동 결정
         switch (currentState)
         {
+            case States.Idle:
+                Idle();
+                break;
             case States.Move:
                 // 이동
                 Move();
@@ -154,6 +150,17 @@ public class StrikerCharacter : MonoBehaviour
         if (closestTarget != null)
         {
             targetDistance = Vector3.Distance(closestTarget.transform.position, transform.position);
+        }
+    }
+
+    // 대기
+    private void Idle()
+    {
+        // 캐릭터를 정지시킨다.
+        if (!nav.isStopped)
+        {
+            nav.isStopped = true;
+            nav.velocity = Vector3.zero;
         }
     }
 
@@ -257,8 +264,9 @@ public class StrikerCharacter : MonoBehaviour
             // 그래도 목표물이 없다면
             if (closestTarget == null)
             {
-                // 공격을 종료하고 이동 상태로 전환한다.
                 CancelInvoke("InvokeAttack");
+                
+                
                 currentState = States.Move;
                 return;
             }
@@ -625,12 +633,34 @@ public class StrikerCharacter : MonoBehaviour
     //스페셜 학생 스탯 계산
     public void SpecialCharacterStatCalculate(Stat stat)
     {
-        Debug.Log($"{this.stat.Name}의 스탯 증가!");
-        Debug.Log($"{Mathf.FloorToInt(stat.MaxHp * 0.1f)}, {Mathf.FloorToInt(stat.MaxHp * 0.1f)},{Mathf.FloorToInt(stat.Atk * 0.1f)},{Mathf.FloorToInt(stat.Def * 0.05f)}");
+        //Debug.Log($"{this.stat.Name}의 스탯 증가!");
+        //Debug.Log($"{Mathf.FloorToInt(stat.MaxHp * 0.1f)}, {Mathf.FloorToInt(stat.MaxHp * 0.1f)},{Mathf.FloorToInt(stat.Atk * 0.1f)},{Mathf.FloorToInt(stat.Def * 0.05f)}");
         this.stat.MaxHp += Mathf.FloorToInt(stat.MaxHp*0.1f);
         this.stat.CurHp += Mathf.FloorToInt(stat.MaxHp*0.1f);
         this.stat.Atk += Mathf.FloorToInt(stat.Atk * 0.1f);
         this.stat.Def += Mathf.FloorToInt(stat.Def * 0.05f);
+    }
+    // 현 상태 전송
+    public bool IsIdle()
+    {
+        if(currentState == States.Idle)
+        {
+            return true;
+        }
+        else
+        {
+            //currentState = States.Idle;
+            return false;
+        }
+        
+    }
+    // 현 상태 변경
+    public void ChangeState(States state)
+    {
+        if(currentState != state)
+        {
+            currentState = state;
+        }
     }
     // 캐릭터 삭제
     private void CleanupAndDestroy()
