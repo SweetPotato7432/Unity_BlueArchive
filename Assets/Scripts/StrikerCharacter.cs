@@ -10,9 +10,6 @@ public class StrikerCharacter : MonoBehaviour
 
     [SerializeField]
     private UnitCode unitCode;
-
-    
-
   
     [SerializeField]
     private States currentState;   // 현재 상태
@@ -64,12 +61,10 @@ public class StrikerCharacter : MonoBehaviour
 
     void Start()
     {
-        // Special 학생 능력치 합산 (체력, 공격력, 방어력, 치유력)
-
         nav = GetComponent<NavMeshAgent>();
 
         // 초기 상태 설정 (Idle)
-        currentState = States.Move; 
+        currentState = States.Idle; 
         targetLayer = LayerMask.GetMask("Character");
         coverLayer = LayerMask.GetMask("Cover");
         range = stat.Range;
@@ -83,11 +78,13 @@ public class StrikerCharacter : MonoBehaviour
         // 캐릭터의 태그에 따라 목적지와 목표 설정
         if (this.tag == "Enemy")
         {
+            currentState = States.Move;
             targetTag = "Ally";
             destination = new Vector3(enemyDestination.position.x, transform.position.y, transform.position.z);
         }
         else if (this.tag == "Ally")
         {
+            
             targetTag = "Enemy";
             destination = new Vector3(allyDestination.position.x, transform.position.y, transform.position.z);
         }
@@ -96,7 +93,10 @@ public class StrikerCharacter : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        //if(this.tag == "Ally")
+        //{
+        //    Debug.Log($"{stat.Name} 인보크 여부 : {IsInvoking("InvokeReload")}");
+        //}
 
         // 캐릭터의 체력이 0이되면 죽은 상태로 전환 및 삭제
         if (stat.CurHp <= 0)
@@ -670,6 +670,8 @@ public class StrikerCharacter : MonoBehaviour
             nav.isStopped = true;
             nav.ResetPath();
         }
+
+        GameManager.Instance.CharacterDead(this.tag);
 
         Destroy(gameObject);
     }
