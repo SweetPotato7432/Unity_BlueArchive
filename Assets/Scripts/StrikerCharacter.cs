@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class StrikerCharacter : MonoBehaviour
 {
+    [SerializeField]
+    HpBar hpBar;
+
     // 스탯 생성
     private Stat stat;
 
@@ -57,11 +60,16 @@ public class StrikerCharacter : MonoBehaviour
         // 캐릭터 스탯 구현
         
         stat = Stat.setUnitStat(unitCode);
+        
     }
 
     void Start()
-    {
+    { 
+
         nav = GetComponent<NavMeshAgent>();
+
+        hpBar.SetHp(stat);
+
 
         // 초기 상태 설정 (Idle)
         currentState = States.Idle; 
@@ -387,6 +395,7 @@ public class StrikerCharacter : MonoBehaviour
                 damage *= attakerStat.CriticalDamage;
             }
             stat.CurHp -= damage;
+            hpBar.SetHp(stat);
         }
         else
         {

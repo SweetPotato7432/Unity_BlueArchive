@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3519065131830375796
+--- !u!1 &7039293700269667414
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,50 +8,50 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 5712091852522373486}
-  - component: {fileID: 2373494609564796026}
-  - component: {fileID: 4837255830833872695}
-  - component: {fileID: 4512160507735629934}
-  - component: {fileID: 134508498567510607}
-  - component: {fileID: 135124628859108576}
+  - component: {fileID: 180967516858018975}
+  - component: {fileID: 802646832681534332}
+  - component: {fileID: 4315476853385786530}
+  - component: {fileID: 7338195735351534913}
+  - component: {fileID: 8617067405038836882}
+  - component: {fileID: 286457179630292570}
   m_Layer: 3
-  m_Name: Kasumi
-  m_TagString: Ally
+  m_Name: Enemy(SMG)
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &5712091852522373486
+--- !u!4 &180967516858018975
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3519065131830375796}
+  m_GameObject: {fileID: 7039293700269667414}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 2218371888132835636}
+  - {fileID: 1442765046965514643}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &2373494609564796026
+--- !u!33 &802646832681534332
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3519065131830375796}
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
---- !u!23 &4837255830833872695
+  m_GameObject: {fileID: 7039293700269667414}
+  m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!23 &4315476853385786530
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3519065131830375796}
+  m_GameObject: {fileID: 7039293700269667414}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -87,13 +87,13 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &4512160507735629934
+--- !u!136 &7338195735351534913
 CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3519065131830375796}
+  m_GameObject: {fileID: 7039293700269667414}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -106,17 +106,17 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 0.5000001
   m_Height: 2
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!195 &134508498567510607
+  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
+--- !u!195 &8617067405038836882
 NavMeshAgent:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3519065131830375796}
+  m_GameObject: {fileID: 7039293700269667414}
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
@@ -132,20 +132,20 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &135124628859108576
+--- !u!114 &286457179630292570
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3519065131830375796}
+  m_GameObject: {fileID: 7039293700269667414}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f54973d046f5c4e46a8e6e448fde77fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBar: {fileID: 1084271585521794593}
-  unitCode: 2
+  hpBar: {fileID: 414503871494686342}
+  unitCode: 101
   currentState: 0
   destination: {x: 0, y: 0, z: 0}
   closestTarget: {fileID: 0}
@@ -153,14 +153,18 @@ MonoBehaviour:
   currentCoverObject: {fileID: 0}
   coverPosition: {x: 0, y: 0, z: 0}
   isJumping: 0
---- !u!1001 &5904585811000487884
+--- !u!1001 &6574635137980077931
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 5712091852522373486}
+    m_TransformParent: {fileID: 180967516858018975}
     m_Modifications:
+    - target: {fileID: 1465167615864172975, guid: 592d0f7de92364640bd2a15166c7a013, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4305547912687795630, guid: 592d0f7de92364640bd2a15166c7a013, type: 3}
       propertyPath: m_Name
       value: HP UI
@@ -250,10 +254,10 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 592d0f7de92364640bd2a15166c7a013, type: 3}
---- !u!114 &1084271585521794593 stripped
+--- !u!114 &414503871494686342 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6844722398913991149, guid: 592d0f7de92364640bd2a15166c7a013, type: 3}
-  m_PrefabInstance: {fileID: 5904585811000487884}
+  m_PrefabInstance: {fileID: 6574635137980077931}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
@@ -261,8 +265,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445ce9028b675bd47a442bcc79f8a400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &2218371888132835636 stripped
+--- !u!224 &1442765046965514643 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 5708436740052625144, guid: 592d0f7de92364640bd2a15166c7a013, type: 3}
-  m_PrefabInstance: {fileID: 5904585811000487884}
+  m_PrefabInstance: {fileID: 6574635137980077931}
   m_PrefabAsset: {fileID: 0}

@@ -67,7 +67,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 7b667a4fede5ea746af339505fcecd59, type: 3}
-  m_Type: 3
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
@@ -208,6 +208,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 445ce9028b675bd47a442bcc79f8a400, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  barImage: {fileID: 2544985542542478423}
 --- !u!1 &4405580692050213466
 GameObject:
   m_ObjectHideFlags: 0
@@ -275,7 +276,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: 7b667a4fede5ea746af339505fcecd59, type: 3}
-  m_Type: 3
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
