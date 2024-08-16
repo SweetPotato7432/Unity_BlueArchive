@@ -86,13 +86,14 @@ public class StrikerCharacter : MonoBehaviour
         // 캐릭터의 태그에 따라 목적지와 목표 설정
         if (this.tag == "Enemy")
         {
+            hpBar.setEnemyColor(stat);
             currentState = States.Move;
             targetTag = "Ally";
             destination = new Vector3(enemyDestination.position.x, transform.position.y, transform.position.z);
         }
         else if (this.tag == "Ally")
         {
-            
+            hpBar.setAllyColor();
             targetTag = "Enemy";
             destination = new Vector3(allyDestination.position.x, transform.position.y, transform.position.z);
         }
