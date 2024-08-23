@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -52,6 +53,9 @@ public class StrikerCharacter : MonoBehaviour
     // 타겟 태그
     private string targetTag;
 
+    // 데미지 UI 프리팹
+    private GameObject DamageUI;
+
     [SerializeField]
     bool isJumping = false;
 
@@ -60,7 +64,9 @@ public class StrikerCharacter : MonoBehaviour
         // 캐릭터 스탯 구현
         
         stat = Stat.setUnitStat(unitCode);
-        
+
+        DamageUI = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefaps/UI/Damage.prefab", typeof(GameObject));
+
     }
 
     void Start()
@@ -317,6 +323,8 @@ public class StrikerCharacter : MonoBehaviour
     {
         // 치명타 체크
         bool isCritical;
+        // 데미지 시각화
+        GameObject Damage;
 
         // 엄폐 성공 체크
         // 엄폐중이고, 가장 가까운 엄폐물이 존재할때
@@ -328,6 +336,8 @@ public class StrikerCharacter : MonoBehaviour
                 // 엄폐 성공하고 엄폐물이 공격을 대신 받는다.
                 // Debug.Log("엄폐 성공");
                 currentCoverObject.TakeDamage(attakerStat);
+                Damage = Instantiate(DamageUI);
+                Damage.transform.position = currentCoverObject.transform.position;
                 return;
             }
             else
@@ -396,10 +406,14 @@ public class StrikerCharacter : MonoBehaviour
                 damage *= attakerStat.CriticalDamage;
             }
             stat.CurHp -= damage;
+            Damage = Instantiate(DamageUI);
+            Damage.transform.position = transform.position;
             hpBar.SetHp(stat);
         }
         else
         {
+            Damage = Instantiate(DamageUI);
+            Damage.transform.position = transform.position;
             // 회피
         }
     }
