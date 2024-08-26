@@ -492,3 +492,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29196cebcc8119048b0ecff5e7acf9b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  damageText: {fileID: 8721578778749766887}
+  typeText: {fileID: 3386032227247361904}
+  criticalUI: {fileID: 1944154139399968660}
+  _materialAssets:
+  - ID: Normal
+    Mat: {fileID: 2100000, guid: 0a5c366fa834210498851db573ac2273, type: 2}
+  - ID: ResistNum
+    Mat: {fileID: 2100000, guid: c26a1cebafa6d1c46ac5815e2ecdc828, type: 2}
+  - ID: Resist
+    Mat: {fileID: 2100000, guid: 18710a661b17d3d49bc3ee7abf1d0ece, type: 2}
+  - ID: EffectiveNum
+    Mat: {fileID: 2100000, guid: 666b049e4aa5eaf48a9e527e223be13f, type: 2}
+  - ID: WeakNum
+    Mat: {fileID: 2100000, guid: eaede1f31e0b7ce4b88b13d0b10f69bc, type: 2}
+  - ID: Weak
+    Mat: {fileID: 2100000, guid: 58479387e2833de48a71739ad0c7762b, type: 2}

@@ -54,7 +54,7 @@ public class StrikerCharacter : MonoBehaviour
     private string targetTag;
 
     // 데미지 UI 프리팹
-    private GameObject DamageUI;
+    private GameObject damageUI;
 
     [SerializeField]
     bool isJumping = false;
@@ -65,7 +65,7 @@ public class StrikerCharacter : MonoBehaviour
         
         stat = Stat.setUnitStat(unitCode);
 
-        DamageUI = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefaps/UI/Damage.prefab", typeof(GameObject));
+        damageUI = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefaps/UI/Damage.prefab", typeof(GameObject));
 
     }
 
@@ -322,9 +322,9 @@ public class StrikerCharacter : MonoBehaviour
     public void TakeDamage(Stat attakerStat)
     {
         // 치명타 체크
-        bool isCritical;
+        bool isCritical = false;
         // 데미지 시각화
-        GameObject Damage;
+        GameObject DamagePrefab;
 
         // 엄폐 성공 체크
         // 엄폐중이고, 가장 가까운 엄폐물이 존재할때
@@ -336,8 +336,12 @@ public class StrikerCharacter : MonoBehaviour
                 // 엄폐 성공하고 엄폐물이 공격을 대신 받는다.
                 // Debug.Log("엄폐 성공");
                 currentCoverObject.TakeDamage(attakerStat);
-                Damage = Instantiate(DamageUI);
-                Damage.transform.position = currentCoverObject.transform.position;
+                DamagePrefab = Instantiate(damageUI);
+                DamagePrefab.transform.position = currentCoverObject.transform.position;
+                //DamagePrefab.transform.position = Camera.main.WorldToScreenPoint(currentCoverObject.transform.position);
+
+                DamageUI DamageScr = DamagePrefab.GetComponent<DamageUI>();
+                DamageScr.SetData("Block", isCritical, DamageCode.None);
                 return;
             }
             else
@@ -406,14 +410,22 @@ public class StrikerCharacter : MonoBehaviour
                 damage *= attakerStat.CriticalDamage;
             }
             stat.CurHp -= damage;
-            Damage = Instantiate(DamageUI);
-            Damage.transform.position = transform.position;
+            DamagePrefab = Instantiate(damageUI);
+            DamagePrefab.transform.position = transform.position;
+            //DamagePrefab.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+
+            DamageUI DamageScr = DamagePrefab.GetComponent<DamageUI>();
+            DamageScr.SetData(((int)damage).ToString(), isCritical, damageEffective);
+
             hpBar.SetHp(stat);
         }
         else
         {
-            Damage = Instantiate(DamageUI);
-            Damage.transform.position = transform.position;
+            DamagePrefab = Instantiate(damageUI);
+            DamagePrefab.transform.position = transform.position;
+            //DamagePrefab.transform.position = Camera.main.WorldToScreenPoint(transform.position);
+            DamageUI DamageScr = DamagePrefab.GetComponent<DamageUI>();
+            DamageScr.SetData("Miss", isCritical, DamageCode.None);
             // 회피
         }
     }
