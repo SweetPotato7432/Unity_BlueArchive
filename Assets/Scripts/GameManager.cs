@@ -25,6 +25,13 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private GameObject[] enemySpawn;
 
+    //MainUI
+    //추후에 프리팹으로 인스턴스 해 사용
+    [SerializeField]
+    private MainUI mainUI;
+
+    private float limitTime;
+
     // 싱글톤
     private static GameManager _instance;
     public static GameManager Instance
@@ -63,17 +70,19 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        limitTime = 180f;
         foreach(GameObject enemySpawn in enemySpawn)
         {
             enemyCount += enemySpawn.transform.childCount;
         }
+        mainUI.SetUIData("stage 1", enemyCount.ToString(), limitTime);
         
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(enemyCount == 0)
+        if(enemyCount == 0 || limitTime <= 0)
         {
             // 게임 종료
             GameEnd();
@@ -116,9 +125,13 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        
-        
-
+        // 제한시간 감소
+        limitTime -= Time.deltaTime;
+        if (limitTime <= 0)
+        {
+            limitTime = 0;
+        }
+        mainUI.SetTimeLimit(Mathf.Round(limitTime));
     }
 
     // 캐릭터들의 정 중앙 위치 설정 메서드
@@ -179,6 +192,8 @@ public class GameManager : MonoBehaviour
         if (tag == "Enemy")
         {
             enemyCount--;
+            mainUI.SetEnemyCount((enemyCount.ToString()));
+
         }
         else if (tag == "Ally")
         {

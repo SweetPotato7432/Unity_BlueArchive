@@ -13,10 +13,30 @@ public class MainUI : MonoBehaviour
     TMP_Text timeLimit;
 
 
-    public void SetUIData(string stageName, string enemyCount, string timeLimit)
+    public void SetUIData(string stageName, string enemyCount, float timeLimit)
     {
         this.stageName.text = stageName;
-        this.enemyCount.text = stageName;
-        this.timeLimit.text = stageName;
+        this.enemyCount.text = enemyCount;
+        this.timeLimit.text = Mathf.Round(timeLimit).ToString();
+    }
+
+    public void SetEnemyCount(string enemyCount)
+    {
+        this.enemyCount.text = enemyCount;
+    }
+    public void SetTimeLimit(float timeLimit)
+    {
+        int min = 0;
+        int sec=0;
+
+        while (timeLimit >= 60f)
+        {
+            timeLimit -= 60;
+            min += 1;
+        }
+        sec = (int)timeLimit;
+        
+
+        this.timeLimit.text = string.Format("{0:D2}:{1:D2}",min, sec);
     }
 }
