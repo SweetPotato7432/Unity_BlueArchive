@@ -12,6 +12,8 @@ public class MainUI : MonoBehaviour
     [SerializeField]
     TMP_Text timeLimit;
 
+    public GameObject pauseMenuUI;
+
 
     public void SetUIData(string stageName, string enemyCount, float timeLimit)
     {
@@ -39,4 +41,13 @@ public class MainUI : MonoBehaviour
 
         this.timeLimit.text = string.Format("{0:D2}:{1:D2}",min, sec);
     }
+
+    public void ActivePauseMenu(bool active)
+    {
+        if(pauseMenuUI.activeSelf != active)
+        {
+            pauseMenuUI.SetActive(active);
+        }
+    }
+
 }

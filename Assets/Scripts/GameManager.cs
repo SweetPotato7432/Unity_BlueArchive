@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.TextCore.Text;
 
 public class GameManager : MonoBehaviour
@@ -38,9 +40,9 @@ public class GameManager : MonoBehaviour
     {
         get
         {
-            if (!_instance)
+            if (_instance==null)
             {
-                _instance = FindObjectOfType(typeof(GameManager)) as GameManager;
+                _instance = FindObjectOfType<GameManager>();
 
                 if (_instance == null)
                 {
@@ -54,17 +56,18 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
-        if(_instance == null)
+        if(_instance != null && _instance != this)
         {
-            _instance = this;
+            Destroy(this.gameObject);
         }
         // 인스턴스가 존재하는 경우 새로 생기는 인스턴스 삭제
-        else if(_instance != this)
+        else
         {
-            Destroy(gameObject);
+            _instance = this;
+            // 씬 전환시 삭제 방지
+            DontDestroyOnLoad(gameObject);
         }
-        // 씬 전환시 삭제 방지
-        DontDestroyOnLoad(gameObject);
+
     }
 
     // Start is called before the first frame update
@@ -85,7 +88,7 @@ public class GameManager : MonoBehaviour
         if(enemyCount == 0 || limitTime <= 0)
         {
             // 게임 종료
-            GameEnd();
+            GameFinish();
         }
 
         allies = GameObject.FindGameObjectsWithTag("Ally");
@@ -200,12 +203,49 @@ public class GameManager : MonoBehaviour
 
         }
     }
-    
+
+    // 게임 일시 정지
+    public void PauseGame()
+    {
+        Debug.Log("pause");
+        Time.timeScale = 0f;
+        mainUI.ActivePauseMenu(true);
+    }
+
+    // 게임 완료 시점
+    private void GameFinish()
+    {
+        Debug.Log("게임 완료");
+        // 승패 구분
+
+    }
+
+    // 게임 일시 정지 해제
+    public void ResumeGame()
+    {
+        Debug.Log("Resume");
+        Time.timeScale = 1f;
+        mainUI.ActivePauseMenu(false);
+    }
+
+    // 게임 재시작
+    public void RestartGame()
+    {
+        Debug.Log("재시작");
+        ResetBattleData();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
+    private void ResetBattleData()
+    {
+    }
 
     // 게임 종료
-    private void GameEnd()
+    public void GameQuit()
     {
         Debug.Log("게임 종료");
+        Application.Quit();
     }
+
 
 }
