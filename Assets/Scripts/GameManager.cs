@@ -1,9 +1,7 @@
-using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.TextCore.Text;
 
 public class GameManager : MonoBehaviour
 {
@@ -17,7 +15,7 @@ public class GameManager : MonoBehaviour
     //private Vector3 enemiesAveragePos;
 
     [SerializeField]
-    private GameObject[] spawnPoint;
+    private Transform[] spawnPoint;
     private int spawnPointCount = 0;
 
     [SerializeField]
@@ -26,7 +24,6 @@ public class GameManager : MonoBehaviour
     //테스트 용
     [SerializeField]
     private GameObject[] enemySpawn;
-
     //MainUI
     //추후에 프리팹으로 인스턴스 해 사용
     [SerializeField]
@@ -34,58 +31,86 @@ public class GameManager : MonoBehaviour
 
     private float limitTime;
 
-    // 싱글톤
-    private static GameManager _instance;
-    public static GameManager Instance
-    {
-        get
-        {
-            if (_instance==null)
-            {
-                _instance = FindObjectOfType<GameManager>();
+    //// 싱글톤
+    //private static GameManager _instance;
+    //public static GameManager Instance
+    //{
+    //    get
+    //    {
+    //        if (_instance==null)
+    //        {
+    //            _instance = FindObjectOfType<GameManager>();
 
-                if (_instance == null)
-                {
-                    Debug.Log("No singleton obj");
-                }
-            }
-            return _instance;
-        }
+    //            if (_instance == null)
+    //            {
+    //                Debug.Log("No singleton obj");
+    //            }
+    //        }
+    //        return _instance;
+    //    }
 
-    }
+    //}
 
     private void Awake()
     {
-        if(_instance != null && _instance != this)
+
+        //if (_instance == null)
+        //{
+        //    _instance = this;
+        //    DontDestroyOnLoad(gameObject);
+        //}
+        //// 인스턴스 존재의 경우 인스턴스 삭제
+        //else if (_instance != this)
+        //{
+        //    Destroy(gameObject);
+        //}
+
+
+        mainUI = GameObject.Find("MainUI").GetComponent<MainUI>();
+
+        // 게임 제한 시간 설정
+        limitTime = 180f;
+
+        List<GameObject> result = new List<GameObject>();
+
+        // 적 스폰 지역 불러오기
+        foreach (Transform child in GameObject.Find("EnemySpawn").transform)
         {
-            Destroy(this.gameObject);
+            if (child.gameObject.CompareTag("Spawn"))
+            {
+                result.Add(child.gameObject);
+            }
         }
-        // 인스턴스가 존재하는 경우 새로 생기는 인스턴스 삭제
-        else
+        enemySpawn = result.ToArray();
+
+        // 적 스폰 시점 불러오기
+        spawnPoint = GameObject.Find("SpawnPoint").GetComponentsInChildren<Transform>();
+        spawnPoint = spawnPoint.Skip(1).ToArray();
+
+        // 각 적 스폰 지역에 있는 적 숫자 카운터 세기
+        foreach (GameObject enemySpawn in enemySpawn)
         {
-            _instance = this;
-            // 씬 전환시 삭제 방지
-            DontDestroyOnLoad(gameObject);
+            enemyCount += enemySpawn.transform.childCount;
         }
+        mainUI.SetUIData("stage 1", enemyCount.ToString(), limitTime);
+
+        Debug.Log(1);
 
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        limitTime = 180f;
-        foreach(GameObject enemySpawn in enemySpawn)
-        {
-            enemyCount += enemySpawn.transform.childCount;
-        }
-        mainUI.SetUIData("stage 1", enemyCount.ToString(), limitTime);
-        
+
+
+        Debug.Log(2);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(enemyCount == 0 || limitTime <= 0)
+        Debug.Log(3);
+        if (enemyCount == 0 || limitTime <= 0)
         {
             // 게임 종료
             GameFinish();
@@ -232,12 +257,16 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         Debug.Log("재시작");
-        ResetBattleData();
+        //ResetBattleData();
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     private void ResetBattleData()
     {
+        enemyCount = 0;
+        limitTime = 180f;
+        spawnPointCount = 0;
     }
 
     // 게임 종료

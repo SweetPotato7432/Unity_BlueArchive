@@ -6,6 +6,8 @@ using UnityEngine.AI;
 
 public class StrikerCharacter : MonoBehaviour
 {
+    GameManager gameManager;
+
     [SerializeField]
     HpBar hpBar;
 
@@ -62,7 +64,8 @@ public class StrikerCharacter : MonoBehaviour
     private void Awake()
     {
         // 캐릭터 스탯 구현
-        
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         stat = Stat.setUnitStat(unitCode);
 
         damageUI = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefaps/UI/Damage.prefab", typeof(GameObject));
@@ -707,7 +710,7 @@ public class StrikerCharacter : MonoBehaviour
             nav.ResetPath();
         }
 
-        GameManager.Instance.CharacterDead(this.tag);
+        gameManager.CharacterDead(this.tag);
 
         Destroy(gameObject);
     }
