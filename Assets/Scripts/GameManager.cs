@@ -31,41 +31,11 @@ public class GameManager : MonoBehaviour
 
     private float limitTime;
 
-    //// 싱글톤
-    //private static GameManager _instance;
-    //public static GameManager Instance
-    //{
-    //    get
-    //    {
-    //        if (_instance==null)
-    //        {
-    //            _instance = FindObjectOfType<GameManager>();
+    private GameSpeed gameSpeed;
 
-    //            if (_instance == null)
-    //            {
-    //                Debug.Log("No singleton obj");
-    //            }
-    //        }
-    //        return _instance;
-    //    }
-
-    //}
 
     private void Awake()
     {
-
-        //if (_instance == null)
-        //{
-        //    _instance = this;
-        //    DontDestroyOnLoad(gameObject);
-        //}
-        //// 인스턴스 존재의 경우 인스턴스 삭제
-        //else if (_instance != this)
-        //{
-        //    Destroy(gameObject);
-        //}
-
-
         mainUI = GameObject.Find("MainUI").GetComponent<MainUI>();
 
         // 게임 제한 시간 설정
@@ -94,7 +64,8 @@ public class GameManager : MonoBehaviour
         }
         mainUI.SetUIData("stage 1", enemyCount.ToString(), limitTime);
 
-        Debug.Log(1);
+        // 게임 속도 설정
+        gameSpeed = GameSpeed.Normal;
 
     }
 
@@ -102,14 +73,11 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
-
-        Debug.Log(2);
     }
 
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(3);
         if (enemyCount == 0 || limitTime <= 0)
         {
             // 게임 종료
@@ -262,11 +230,26 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    private void ResetBattleData()
+    public void ChageGameSpeed()
     {
-        enemyCount = 0;
-        limitTime = 180f;
-        spawnPointCount = 0;
+        // 1배속, 1.5배속, 2배속으로 변경
+        switch (gameSpeed)
+        {
+            case GameSpeed.Normal:
+                Time.timeScale = 1.5f;
+                gameSpeed = GameSpeed.Fast;
+                break;
+            case GameSpeed.Fast:
+                Time.timeScale = 2f;
+                gameSpeed = GameSpeed.Fastest;
+                break;
+            case GameSpeed.Fastest:
+                Time.timeScale = 1f;
+                gameSpeed = GameSpeed.Normal;
+                break;
+        }
+        // 배속 버튼 단계에 따른 버튼 색 변경
+        mainUI.ChangeSpeedButton(gameSpeed);
     }
 
     // 게임 종료

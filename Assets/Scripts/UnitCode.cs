@@ -74,3 +74,11 @@ public enum DamageCode
     Effective,
     Weak
 }
+
+public enum GameSpeed
+{
+    None,
+    Normal,
+    Fast,
+    Fastest
+}
