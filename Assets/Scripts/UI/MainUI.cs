@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class MainUI : MonoBehaviour
 {
     [SerializeField]
@@ -14,9 +14,10 @@ public class MainUI : MonoBehaviour
     [SerializeField]
     TMP_Text timeLimit;
 
-    public GameObject pauseMenuUI;
-
-    public GameObject speedButton;
+    [SerializeField]
+    private GameObject pauseMenuUI;
+    [SerializeField]
+    private GameObject speedButton;
 
 
     public void SetUIData(string stageName, string enemyCount, float timeLimit)
@@ -62,11 +63,42 @@ public class MainUI : MonoBehaviour
             case GameSpeed.None:
                 break;
             case GameSpeed.Normal:
-
+                speedButton.GetComponent<Image>().color = new Color(0.9f, 0.9f, 0.9f);
+                Debug.Log(speedButton.transform.childCount);
+                for(int i = 0; i < speedButton.transform.childCount; i++)
+                {
+                    speedButton.transform.GetChild(i).gameObject.SetActive(false);
+                    speedButton.transform.GetChild(i).GetComponent<Image>().color = new Color(0.1f, 0.2f, 0.3f);
+                }
+                speedButton.transform.GetChild(1).gameObject.SetActive(true);
                 break;
             case GameSpeed.Fast:
+                speedButton.GetComponent<Image>().color = new Color(0.4f, 1f, 1f);
+                Debug.Log(speedButton.transform.childCount);
+                for (int i = 0; i < speedButton.transform.childCount; i++)
+                {
+                    speedButton.transform.GetChild(i).gameObject.SetActive(false);
+                    speedButton.transform.GetChild(i).GetComponent<Image>().color = new Color(0.1f, 0.4f, 0.6f);
+                }
+                for (int i = 3; i < 5; i++)
+                {
+                    speedButton.transform.GetChild(i).gameObject.SetActive(true);
+
+                }
                 break;
             case GameSpeed.Fastest:
+                speedButton.GetComponent<Image>().color = new Color(1f, 0.9f, 0f);
+                Debug.Log(speedButton.transform.childCount);
+                for (int i = 0; i < speedButton.transform.childCount; i++)
+                {
+                    speedButton.transform.GetChild(i).gameObject.SetActive(false);
+                    speedButton.transform.GetChild(i).GetComponent<Image>().color = new Color(0.6f, 0.3f, 0f);
+                }
+                for(int i = 0; i<3; i++)
+                {
+                    speedButton.transform.GetChild(i).gameObject.SetActive(true);
+
+                }
                 break;
         }
     }

@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
 
         // 게임 속도 설정
         gameSpeed = GameSpeed.Normal;
+        mainUI.ChangeSpeedButton(gameSpeed);
 
     }
 
