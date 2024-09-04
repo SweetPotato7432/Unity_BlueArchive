@@ -19,6 +19,18 @@ public class MainUI : MonoBehaviour
     [SerializeField]
     private GameObject speedButton;
 
+    [SerializeField]
+    private Slider bgmSlider;
+    [SerializeField]
+    private Slider sfxSlider;
+
+    private void Start()
+    {
+        // 슬라이더 값을 불러온 값으로 초기화
+        bgmSlider.value = PlayerPrefs.GetFloat("BGM", 0.75f); // 기본값 0.75
+        sfxSlider.value = PlayerPrefs.GetFloat("SFX", 0.75f); // 기본값 0.75
+    }
+
 
     public void SetUIData(string stageName, string enemyCount, float timeLimit)
     {
@@ -101,5 +113,18 @@ public class MainUI : MonoBehaviour
                 }
                 break;
         }
+    }
+
+    public void SetBGMVolume()
+    {
+        float sound = bgmSlider.value;
+
+        GameSettingData.Instance.SetBGMVolume(sound);
+    }
+    public void SetSFXVolume()
+    {
+        float sound = sfxSlider.value;
+
+        GameSettingData.Instance.SetSFXVolume(sound);
     }
 }
