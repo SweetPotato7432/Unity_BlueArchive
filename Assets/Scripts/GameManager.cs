@@ -65,7 +65,9 @@ public class GameManager : MonoBehaviour
         mainUI.SetUIData("stage 1", enemyCount.ToString(), limitTime);
 
         // 게임 속도 설정
-        gameSpeed = GameSpeed.Normal;
+        //gameSpeed = GameSpeed.Normal;
+        gameSpeed = (GameSpeed)PlayerPrefs.GetInt("GameSpeed",1);
+        ChangeSpeed();
         mainUI.ChangeSpeedButton(gameSpeed);
 
     }
@@ -218,7 +220,7 @@ public class GameManager : MonoBehaviour
     public void ResumeGame()
     {
         Debug.Log("Resume");
-        Time.timeScale = 1f;
+        ChangeSpeed();
         mainUI.ActivePauseMenu(false);
     }
 
@@ -231,26 +233,38 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void ChageGameSpeed()
+    public void ChageGameSpeedOnClick()
     {
+        if(gameSpeed==GameSpeed.Fastest)
+        {
+            gameSpeed = GameSpeed.Normal;
+        }
+        else
+        {
+            gameSpeed++;
+        }
         // 1배속, 1.5배속, 2배속으로 변경
+        ChangeSpeed();
+
+        // 배속 버튼 단계에 따른 버튼 색 변경
+        mainUI.ChangeSpeedButton(gameSpeed);
+    }
+
+    private void ChangeSpeed()
+    {
         switch (gameSpeed)
         {
             case GameSpeed.Normal:
-                Time.timeScale = 1.5f;
-                gameSpeed = GameSpeed.Fast;
+                Time.timeScale = 1f;
                 break;
             case GameSpeed.Fast:
-                Time.timeScale = 2f;
-                gameSpeed = GameSpeed.Fastest;
+                Time.timeScale = 1.5f;
                 break;
             case GameSpeed.Fastest:
-                Time.timeScale = 1f;
-                gameSpeed = GameSpeed.Normal;
+                Time.timeScale = 2f;
+
                 break;
         }
-        // 배속 버튼 단계에 따른 버튼 색 변경
-        mainUI.ChangeSpeedButton(gameSpeed);
     }
 
     // 게임 종료
