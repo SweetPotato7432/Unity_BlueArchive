@@ -130,7 +130,7 @@ public class Stat
             UnitCode.Serina => new Stat(unitCode, WeaponCode.Ar, BattleTypeCode.Special, AttackTypeCode.Mystic, DefendTypeCode.Light, "세리나", 2482f, 167, 24, 704, 805, 201, 2.0f, 1000f, 10, false),
             UnitCode.Yoshimi => new Stat(unitCode, WeaponCode.Ar, BattleTypeCode.Special, AttackTypeCode.Explosive, DefendTypeCode.Heavy, "요시미", 2232f, 268, 19, 705, 806, 201, 2.0f, 1000f, 10, false),
             UnitCode.SukebanSmg => new Stat(unitCode, WeaponCode.Smg, BattleTypeCode.Striker, AttackTypeCode.Normal, DefendTypeCode.Light, "불량배(SMG)", 640f, 18, 30, 98, 1416, 196, 2.0f, 350f, 10, false),
-            UnitCode.SukebanAr => new Stat(unitCode, WeaponCode.Ar, BattleTypeCode.Striker, AttackTypeCode.Normal, DefendTypeCode.Light, "불량배(AR)", 500f, 23, 19, 706, 792, 201, 2.0f, 650f, 10, true),
+            UnitCode.SukebanAr => new Stat(unitCode, WeaponCode.Ar, BattleTypeCode.Striker, AttackTypeCode.Normal, DefendTypeCode.Heavy, "불량배(AR)", 500f, 23, 19, 706, 792, 201, 2.0f, 650f, 10, true),
             _ => null,
 
         };
