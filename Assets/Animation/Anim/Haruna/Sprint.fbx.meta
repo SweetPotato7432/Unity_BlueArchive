@@ -1,49 +1,9 @@
 fileFormatVersion: 2
-guid: e8075c780cd538e4a9bdd815d904a12e
+guid: 66c33ed1566489345bfed2bd3e509af4
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects:
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Haruna_Original_Body
-    second: {fileID: 2100000, guid: f5af5449c7980674ab8b7f4e80fa5edf, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Haruna_Original_EyeMouth
-    second: {fileID: 2100000, guid: fe94bbbb5862d364ba19d5c92a5bdc0b, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Haruna_Original_Eyebrow
-    second: {fileID: 2100000, guid: b7a15b2801f135d429e8605d7f929611, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Haruna_Original_Face
-    second: {fileID: 2100000, guid: 2e836bc9ce8f92947b7990184f0d29e2, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Haruna_Original_Fishshapedbun
-    second: {fileID: 2100000, guid: c683f97775f448a4eae5461973016722, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Haruna_Original_Hair
-    second: {fileID: 2100000, guid: 82c876886ac810c41a7baa702a82d291, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Haruna_Original_Orangebox
-    second: {fileID: 2100000, guid: ba12a01ac6b1efc41b40e51dffd69f09, type: 2}
-  - first:
-      type: UnityEngine:Material
-      assembly: UnityEngine.CoreModule
-      name: Haruna_Original_Weapon
-    second: {fileID: 2100000, guid: 108966eaa151044408a26b09aad189f3, type: 2}
+  externalObjects: {}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -71,7 +31,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Sprint Forward
+      takeName: mixamo.com
+      internalID: -203655887218126122
+      firstFrame: 0
+      lastFrame: 30
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []

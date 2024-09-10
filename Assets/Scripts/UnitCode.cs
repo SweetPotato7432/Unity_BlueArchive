@@ -7,7 +7,7 @@ public enum UnitCode
     // 아군 코드
     None,
     Azusa,
-    Kasumi, 
+    Renge, 
     Hoshino,
     Haruna,
     Serina,
