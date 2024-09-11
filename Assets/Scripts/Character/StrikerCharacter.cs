@@ -61,6 +61,10 @@ public class StrikerCharacter : MonoBehaviour
     [SerializeField]
     bool isJumping = false;
 
+    // 캐릭터 애니메이터
+    [SerializeField]
+    private Animator animator;
+
     private void Awake()
     {
         // 캐릭터 스탯 구현
@@ -74,6 +78,7 @@ public class StrikerCharacter : MonoBehaviour
 
     void Start()
     { 
+        animator = GetComponent<Animator>();
 
         nav = GetComponent<NavMeshAgent>();
 
@@ -144,9 +149,23 @@ public class StrikerCharacter : MonoBehaviour
         switch (currentState)
         {
             case States.Idle:
+                if (animator != null)
+                {
+                    animator.SetBool("IsIDLE", true);
+                    animator.SetBool("IsMove", false);
+                    animator.SetBool("IsAttack", false);
+                }
+
                 Idle();
                 break;
             case States.Move:
+                if (animator != null)
+                {
+                    animator.SetBool("IsIDLE", false);
+                    animator.SetBool("IsMove", true);
+                    animator.SetBool("IsAttack", false);
+
+                }
                 // 이동
                 Move();
                 break;
@@ -155,6 +174,13 @@ public class StrikerCharacter : MonoBehaviour
                 Cover();
                 break;
             case States.Attack:
+                if (animator != null)
+                {
+                    animator.SetBool("IsIDLE", false);
+                    animator.SetBool("IsMove", false);
+                    animator.SetBool("IsAttack", true);
+
+                }
                 // 공격
                 Attack();
                 break;
@@ -283,8 +309,6 @@ public class StrikerCharacter : MonoBehaviour
             if (closestTarget == null)
             {
                 CancelInvoke("InvokeAttack");
-                
-                
                 currentState = States.Move;
                 return;
             }
@@ -297,6 +321,8 @@ public class StrikerCharacter : MonoBehaviour
             {
                 currentState = States.Move;
             }
+            // 공격시 목표물을 바라본다.
+            transform.LookAt(targetCharacter.gameObject.transform);
             // 공격을 반복한다.
             InvokeRepeating("InvokeAttack", stat.AttackCoolTime, stat.AttackCoolTime);
         }
@@ -304,6 +330,7 @@ public class StrikerCharacter : MonoBehaviour
     // 공격 실행
     private void InvokeAttack()
     {
+        
         // 가장 가까운 목표물이 없거나 타겟과의 거리가 사거리보다 멀거나 탄창에 탄약이 없는 경우
         if (closestTarget == null || targetDistance > range || stat.CurMag <= 0)
         {
@@ -317,8 +344,18 @@ public class StrikerCharacter : MonoBehaviour
         stat.CurMag--;
         // 공격시 목표물을 바라본다.
         transform.LookAt(targetCharacter.gameObject.transform);
+        if(animator != null)
+        {
+            animator.Play("Firing Rifle", -1, 0f);
+        }
+        
         // 적에게 피해를 입힘
         targetCharacter.TakeDamage(stat);
+        if (animator != null)
+        {
+            
+        }
+        
 
     }
     // 피해를 입음
