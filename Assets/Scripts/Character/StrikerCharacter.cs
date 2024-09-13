@@ -65,6 +65,9 @@ public class StrikerCharacter : MonoBehaviour
     [SerializeField]
     private Animator animator;
 
+    // 재장전 시간
+    private float reloadTime;
+
     private void Awake()
     {
         // 캐릭터 스탯 구현
@@ -83,6 +86,12 @@ public class StrikerCharacter : MonoBehaviour
         nav = GetComponent<NavMeshAgent>();
 
         hpBar.SetHp(stat);
+
+        if(animator != null)
+        {
+            reloadTime = 1/(stat.ReloadTime / 3.3f);
+            animator.SetFloat("ReloadTime", reloadTime);
+        }
 
 
         // 초기 상태 설정 (Idle)
@@ -154,6 +163,7 @@ public class StrikerCharacter : MonoBehaviour
                     animator.SetBool("IsIDLE", true);
                     animator.SetBool("IsMove", false);
                     animator.SetBool("IsAttack", false);
+                    animator.SetBool("IsReload", false);
                 }
 
                 Idle();
@@ -164,7 +174,7 @@ public class StrikerCharacter : MonoBehaviour
                     animator.SetBool("IsIDLE", false);
                     animator.SetBool("IsMove", true);
                     animator.SetBool("IsAttack", false);
-
+                    animator.SetBool("IsReload", false);
                 }
                 // 이동
                 Move();
@@ -179,12 +189,13 @@ public class StrikerCharacter : MonoBehaviour
                     animator.SetBool("IsIDLE", false);
                     animator.SetBool("IsMove", false);
                     animator.SetBool("IsAttack", true);
-
+                    animator.SetBool("IsReload", false);
                 }
                 // 공격
                 Attack();
                 break;
             case States.Reload:
+                
                 // 재장전
                 Reload();
                 break;
@@ -351,11 +362,14 @@ public class StrikerCharacter : MonoBehaviour
         
         // 적에게 피해를 입힘
         targetCharacter.TakeDamage(stat);
-        if (animator != null)
+
+        if ((closestTarget != null || targetDistance <= range) && stat.CurMag <= 0)
         {
-            
+            // 공격을 종료하고 이동 상태로 전환 한다.
+            CancelInvoke("InvokeAttack");
+            currentState = States.Reload;
+            return;
         }
-        
 
     }
     // 피해를 입음
@@ -556,6 +570,13 @@ public class StrikerCharacter : MonoBehaviour
             nav.isStopped = true;
             nav.velocity = Vector3.zero;
         }
+        if (animator != null)
+        {
+            animator.SetBool("IsIDLE", false);
+            animator.SetBool("IsMove", false);
+            animator.SetBool("IsAttack", false);
+            animator.SetBool("IsReload", true);
+        }
         // 재장전하고 있지 않다면 재장전 시작
         if (!IsInvoking("InvokeReload"))
         {
@@ -658,6 +679,10 @@ public class StrikerCharacter : MonoBehaviour
         {
             coverPosition = transform.position;
             stat.IsCover = true;
+            if(animator != null)
+            {
+                animator.SetBool("IsCover", true);
+            }
             //Debug.Log($"{gameObject.name}이 {currentCoverObject.gameObject.name}에 도착하여 엄폐를 사용 중입니다.");
 
             if(stat.CurMag <= 0)
@@ -676,6 +701,10 @@ public class StrikerCharacter : MonoBehaviour
     {
         stat.IsCover = false;
         //Debug.Log($"{gameObject.name}이 엄폐 위치를 벗어났습니다.");
+        if (animator != null)
+        {
+            animator.SetBool("IsCover", false);
+        }
         currentCoverObject.StopCover();
         currentCoverObject = null;
     }
