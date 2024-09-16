@@ -304,6 +304,14 @@ public class StrikerCharacter : MonoBehaviour
     // 공격 돌입
     private void Attack()
     {
+        if (animator != null)
+        {
+            animator.SetBool("IsIDLE", false);
+            animator.SetBool("IsMove", false);
+            animator.SetBool("IsShoot", false);
+            animator.SetBool("IsReload", false);
+        }
+
         // 캐릭터를 정지시킨다.
         if (!nav.isStopped)
         {
@@ -319,8 +327,8 @@ public class StrikerCharacter : MonoBehaviour
             // 그래도 목표물이 없다면
             if (closestTarget == null)
             {
-                CancelInvoke("InvokeAttack");
-                currentState = States.Move;
+                //CancelInvoke("InvokeAttack");
+                //currentState = States.Move;
                 return;
             }
         }
@@ -355,22 +363,37 @@ public class StrikerCharacter : MonoBehaviour
         stat.CurMag--;
         // 공격시 목표물을 바라본다.
         transform.LookAt(targetCharacter.gameObject.transform);
-        if(animator != null)
+
+        if (animator != null)
         {
-            animator.Play("Firing Rifle", -1, 0f);
+            animator.SetBool("IsIDLE", false);
+            animator.SetBool("IsMove", false);
+            animator.SetBool("IsShoot", true);
+            animator.SetBool("IsReload", false);
         }
-        
+
+        //if (animator != null)
+        //{
+        //    if (stat.IsCover)
+        //    {
+        //        animator.Play("Firing Rifle", -1, 0f);
+        //    }
+        //    else
+        //    {
+        //        animator.Play("Firing Rifle", -1, 0f);
+        //    }
+        //}
         // 적에게 피해를 입힘
         targetCharacter.TakeDamage(stat);
 
-        if ((closestTarget != null || targetDistance <= range) && stat.CurMag <= 0)
-        {
-            // 공격을 종료하고 이동 상태로 전환 한다.
-            CancelInvoke("InvokeAttack");
-            currentState = States.Reload;
-            return;
-        }
-
+        //if ((closestTarget != null || targetDistance <= range) && stat.CurMag <= 0)
+        //{
+        //    // 공격을 종료하고 이동 상태로 전환 한다.
+        //    CancelInvoke("InvokeAttack");
+        //    currentState = States.Reload;
+        //    return;
+        //}
+        
     }
     // 피해를 입음
     public void TakeDamage(Stat attakerStat)
@@ -586,6 +609,7 @@ public class StrikerCharacter : MonoBehaviour
     // 재장전 실행
     private void InvokeReload()
     {
+        
         // 재장전 후 공격 상태 전환
         stat.CurMag = stat.MaxMag;
         currentState = States.Attack;
