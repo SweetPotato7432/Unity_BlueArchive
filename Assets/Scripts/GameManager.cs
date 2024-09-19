@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour
             Debug.Log(spawnPointCount);
 
         }
-
+        // 스폰된 적을 모두 처치시
         if (enemies.Length <= 0)
         {
             foreach (GameObject ally in allies)

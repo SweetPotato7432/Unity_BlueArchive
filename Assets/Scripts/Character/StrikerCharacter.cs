@@ -158,13 +158,13 @@ public class StrikerCharacter : MonoBehaviour
         switch (currentState)
         {
             case States.Idle:
-                if (animator != null)
-                {
-                    animator.SetBool("IsIDLE", true);
-                    animator.SetBool("IsMove", false);
-                    animator.SetBool("IsAttack", false);
-                    animator.SetBool("IsReload", false);
-                }
+                //if (animator != null)
+                //{
+                //    animator.SetBool("IsIDLE", true);
+                //    animator.SetBool("IsMove", false);
+                //    animator.SetBool("IsAttack", false);
+                //    animator.SetBool("IsReload", false);
+                //}
 
                 Idle();
                 break;
@@ -275,6 +275,12 @@ public class StrikerCharacter : MonoBehaviour
     private IEnumerator TryJump()
     {
         // 장애물 뛰어넘기
+        if (animator != null)
+        {
+            animator.SetBool("IsJumping", true);
+        }
+
+        nav.isStopped = true;
 
         isJumping = true;
 
@@ -286,20 +292,49 @@ public class StrikerCharacter : MonoBehaviour
         // 점프 거리 및 시간 계산
         float jumpDistance = Vector3.Distance(startPos, endPos);
         float jumpDuration = jumpDistance/nav.speed;
-        
+
+        if (animator != null)
+        {
+            animator.SetFloat("JumpTime", 1/(jumpDuration));
+        }
+
         // 점프 진행시간
         float time = 0f;
+
+        // 점프 초기 속도
+        float v0 = (endPos - startPos).y - (-3.81f);
+
+
         // 점프 이동
         while(time < jumpDuration)
         {
-            nav.transform.position = Vector3.Lerp(startPos, endPos, time/jumpDuration);
-            time+= Time.deltaTime;
+            //nav.transform.position = Vector3.Lerp(startPos, endPos, time/jumpDuration);
+            //time+= Time.deltaTime;
+            //yield return new WaitForEndOfFrame();
+
+            float percent = time/jumpDuration;
+
+            time += Time.deltaTime;
+            Vector3 position = Vector3.Lerp(startPos, endPos, percent);
+
+            // 포물선 운동
+            position.y = startPos.y + (v0 * percent) + ((-3.81f) * percent * percent);
+
+            transform.position = position;
+
             yield return new WaitForEndOfFrame();
+        }
+        if (animator != null)
+        {
+            animator.SetBool("IsJumping", false);
         }
         // 점프가 완료 되면 종료 위치로 캐릭터를 옮기고 점프를 종료한다.
         nav.transform.position = endPos;
         nav.CompleteOffMeshLink();
+        nav.isStopped = false;
         isJumping = false;
+        
+
     }
     // 공격 돌입
     private void Attack()
