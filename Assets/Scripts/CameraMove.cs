@@ -27,13 +27,16 @@ public class CameraMove : MonoBehaviour
     // 메인 카메라 및 시네머신 가상 카메라
     [SerializeField]
     private Camera mainCamera;
+    [SerializeField]
+    private Camera SubCamera;
+    [SerializeField]
     private CinemachineVirtualCamera virtualCamera;
 
     private void Awake()
     {
-        // 카메라 컴포넌트 초기화
-        mainCamera = GetComponentInChildren<Camera>();
-        virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+        //// 카메라 컴포넌트 초기화
+        //mainCamera = GetComponentInChildren<Camera>();
+        //virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
         
     }
 
@@ -76,6 +79,7 @@ public class CameraMove : MonoBehaviour
 
         // 카메라 줌
         mainCamera.orthographicSize = Mathf.SmoothDamp(mainCamera.orthographicSize, requiredSize, ref zoomSpeed, zoomDampTime);
+        SubCamera.orthographicSize = mainCamera.orthographicSize;
     }
     
     // 캐릭터들의 평균 위치와 카메라 크기 계산

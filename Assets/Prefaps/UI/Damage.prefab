@@ -404,7 +404,7 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: 0
+  m_SortingLayerID: -1862327051
   m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!225 &1319094531844371867
@@ -471,7 +471,7 @@ Animator:
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: aa5220887d5fa4042902dc07152a7e4e, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
@@ -508,3 +508,4 @@ MonoBehaviour:
     Mat: {fileID: 2100000, guid: eaede1f31e0b7ce4b88b13d0b10f69bc, type: 2}
   - ID: Weak
     Mat: {fileID: 2100000, guid: 58479387e2833de48a71739ad0c7762b, type: 2}
+  offset: 0.5

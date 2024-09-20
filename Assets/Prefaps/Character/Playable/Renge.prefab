@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 134508498567510607}
   - component: {fileID: 135124628859108576}
   m_Layer: 3
-  m_Name: Kasumi
+  m_Name: Renge
   m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

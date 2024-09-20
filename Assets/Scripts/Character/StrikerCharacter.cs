@@ -449,6 +449,7 @@ public class StrikerCharacter : MonoBehaviour
                 // Debug.Log("¾öÆó ¼º°ø");
                 currentCoverObject.TakeDamage(attakerStat);
                 DamagePrefab = Instantiate(damageUI);
+                //Vector3 randomOffset = new Vector3(Random.Range(-1f, 1f), Random.Range(0f, 1f), 0);
                 DamagePrefab.transform.position = currentCoverObject.transform.position;
                 //DamagePrefab.transform.position = Camera.main.WorldToScreenPoint(currentCoverObject.transform.position);
 

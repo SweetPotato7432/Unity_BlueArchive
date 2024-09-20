@@ -24,6 +24,16 @@ public class DamageUI : MonoBehaviour
     [SerializeField]
     private List<TMPMaterials> _materialAssets;
 
+    Camera mainCamera;
+    public float offset = 0.5f;
+
+    private void Start()
+    {
+        transform.position += new Vector3(0, 1, 0);
+        Vector3 randomOffset = new Vector3(Random.Range(-0.5f, 0.5f), Random.Range(0.1f, 0.5f), 0);
+        transform.position += randomOffset;
+    }
+
     // Update is called once per frame
     void LateUpdate()
     {
