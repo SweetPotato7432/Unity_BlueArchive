@@ -68,6 +68,10 @@ public class StrikerCharacter : MonoBehaviour
     // 재장전 시간
     private float reloadTime;
 
+    // 재장전 UI
+    [SerializeField]
+    private GameObject reloadUI;
+
     private void Awake()
     {
         // 캐릭터 스탯 구현
@@ -195,7 +199,13 @@ public class StrikerCharacter : MonoBehaviour
                 Attack();
                 break;
             case States.Reload:
-                
+                if (animator != null)
+                {
+                    animator.SetBool("IsIDLE", false);
+                    animator.SetBool("IsMove", false);
+                    animator.SetBool("IsAttack", false);
+                    animator.SetBool("IsReload", true);
+                }
                 // 재장전
                 Reload();
                 break;
@@ -629,23 +639,18 @@ public class StrikerCharacter : MonoBehaviour
             nav.isStopped = true;
             nav.velocity = Vector3.zero;
         }
-        if (animator != null)
-        {
-            animator.SetBool("IsIDLE", false);
-            animator.SetBool("IsMove", false);
-            animator.SetBool("IsAttack", false);
-            animator.SetBool("IsReload", true);
-        }
+        
         // 재장전하고 있지 않다면 재장전 시작
         if (!IsInvoking("InvokeReload"))
         {
+            reloadUI.SetActive(true);
             Invoke("InvokeReload", stat.ReloadTime);
         }
     }
     // 재장전 실행
     private void InvokeReload()
     {
-        
+        reloadUI.SetActive(false);
         // 재장전 후 공격 상태 전환
         stat.CurMag = stat.MaxMag;
         currentState = States.Attack;

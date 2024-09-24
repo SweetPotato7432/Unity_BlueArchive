@@ -1393,6 +1393,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1888771739135942731, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4528527600451678429, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
       propertyPath: m_ApplyRootMotion
       value: 0
@@ -1435,6 +1439,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4885911622275499587, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
+      propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8355640709317295500, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
@@ -3224,7 +3260,6 @@ GameObject:
   m_Component:
   - component: {fileID: 607830341}
   - component: {fileID: 607830343}
-  - component: {fileID: 607830342}
   m_Layer: 0
   m_Name: SubCamera
   m_TagString: Untagged
@@ -3247,14 +3282,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 503403459}
   m_LocalEulerAnglesHint: {x: 18, y: 27, z: 0}
---- !u!81 &607830342
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 607830340}
-  m_Enabled: 1
 --- !u!20 &607830343
 Camera:
   m_ObjectHideFlags: 0
@@ -11034,7 +11061,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2631310780717475868, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3854765289097710052, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -11200,7 +11227,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5498114135811369803, guid: c5b4ca6bcb58b49488394b497e067a6f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8201306030485917680, guid: c5b4ca6bcb58b49488394b497e067a6f, type: 3}
       propertyPath: m_PresetInfoIsWorld
@@ -11282,7 +11309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3519065131830375796, guid: 102d03f161348134d97b2606df2ef0a7, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5712091852522373486, guid: 102d03f161348134d97b2606df2ef0a7, type: 3}
       propertyPath: m_LocalPosition.x

@@ -37,8 +37,10 @@ public class DamageUI : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
+        // 정면을 바라보는 UI
+        Quaternion cameraRotation = Camera.main.transform.rotation;
 
-        this.gameObject.transform.eulerAngles = new Vector3(18, 27, 0);
+        transform.rotation = Quaternion.Euler(0, cameraRotation.eulerAngles.y, 0);
     }
 
     public void SetData(string Damage, bool isCritical, DamageCode damageEffective)

@@ -11,6 +11,7 @@ public class HpBar : MonoBehaviour
     [SerializeField]
     Image barImage;
 
+
     // Start is called before the first frame update
     void Start()
     {
@@ -20,8 +21,12 @@ public class HpBar : MonoBehaviour
     // Update is called once per frame
     void LateUpdate()
     {
-        
-        this.gameObject.transform.eulerAngles = new Vector3(18, 27, 0);
+        // 정면을 바라보는 UI
+        Quaternion cameraRotation = Camera.main.transform.rotation;
+
+        transform.rotation = Quaternion.Euler(0, cameraRotation.eulerAngles.y, 0);
+
+        //this.gameObject.transform.eulerAngles = new Vector3(18, 27, 0);
     }
 
     public void SetHp(Stat stat)

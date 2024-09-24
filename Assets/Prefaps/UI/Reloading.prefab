@@ -239,7 +239,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5974502942588772040
 RectTransform:
   m_ObjectHideFlags: 0
@@ -311,7 +311,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &5922237453388442960
 RectTransform:
   m_ObjectHideFlags: 0
@@ -383,7 +383,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &2170026322791171299
 RectTransform:
   m_ObjectHideFlags: 0
@@ -524,7 +524,7 @@ GameObject:
   - component: {fileID: 1017881980001653169}
   - component: {fileID: 4743443160018373405}
   - component: {fileID: 8896198271242650076}
-  - component: {fileID: 7431766377748928927}
+  - component: {fileID: 3305522086150111965}
   m_Layer: 5
   m_Name: Reloading
   m_TagString: Untagged
@@ -572,8 +572,8 @@ Canvas:
   m_VertexColorAlwaysGammaSpace: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
-  m_SortingLayerID: -1862327051
-  m_SortingOrder: 1
+  m_SortingLayerID: 0
+  m_SortingOrder: 0
   m_TargetDisplay: 0
 --- !u!225 &1319094531844371867
 CanvasGroup:
@@ -648,7 +648,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &7431766377748928927
+--- !u!114 &3305522086150111965
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -657,23 +657,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 8200510462367674770}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 29196cebcc8119048b0ecff5e7acf9b8, type: 3}
+  m_Script: {fileID: 11500000, guid: c3e01e56af023664fa2d91b853d334cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageText: {fileID: 0}
-  typeText: {fileID: 0}
-  criticalUI: {fileID: 1944154139399968660}
-  _materialAssets:
-  - ID: Normal
-    Mat: {fileID: 2100000, guid: 0a5c366fa834210498851db573ac2273, type: 2}
-  - ID: ResistNum
-    Mat: {fileID: 2100000, guid: c26a1cebafa6d1c46ac5815e2ecdc828, type: 2}
-  - ID: Resist
-    Mat: {fileID: 2100000, guid: 18710a661b17d3d49bc3ee7abf1d0ece, type: 2}
-  - ID: EffectiveNum
-    Mat: {fileID: 2100000, guid: 666b049e4aa5eaf48a9e527e223be13f, type: 2}
-  - ID: WeakNum
-    Mat: {fileID: 2100000, guid: eaede1f31e0b7ce4b88b13d0b10f69bc, type: 2}
-  - ID: Weak
-    Mat: {fileID: 2100000, guid: 58479387e2833de48a71739ad0c7762b, type: 2}
-  offset: 0.5
