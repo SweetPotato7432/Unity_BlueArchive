@@ -1441,38 +1441,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6006638778300493116, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8355640709317295500, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
       propertyPath: m_Name
       value: Haruna
