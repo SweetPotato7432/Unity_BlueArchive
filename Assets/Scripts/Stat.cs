@@ -96,7 +96,7 @@ public class Stat
                 ReloadTime = 2.3f;
                 break;
             case WeaponCode.Sg:
-                AttackCoolTime = 1f;
+                AttackCoolTime = 2f;
                 ReloadTime = 2f;
                 break;
             case WeaponCode.Hg:
@@ -123,7 +123,7 @@ public class Stat
         return unitCode switch
         {   
             //                         유닛코드, 무기타입,     , 포지션               ,  공격타입               , 방어타입             , 이름,   체력 ,공격,방어,명중,회피,치명,치뎀,사거리,탄,엄폐
-            UnitCode.Azusa => new Stat(unitCode, WeaponCode.Ar, BattleTypeCode.Striker, AttackTypeCode.Explosive, DefendTypeCode.Heavy, "아즈사", 2496f, 231, 19, 706, 792, 201, 2.0f, 650f, 10, true),
+            UnitCode.Kayoko => new Stat(unitCode, WeaponCode.Hg, BattleTypeCode.Striker, AttackTypeCode.Explosive, DefendTypeCode.Heavy, "카요코", 2386f, 116, 20, 98, 1088, 197, 2.0f, 550f, 15, true),
             UnitCode.Renge => new Stat(unitCode, WeaponCode.Sr, BattleTypeCode.Striker, AttackTypeCode.Sonic, DefendTypeCode.Heavy, "렌게", 2490f, 380, 19, 910, 197, 202, 2.0f, 750f, 5, true),
             UnitCode.Hoshino => new Stat(unitCode, WeaponCode.Sg, BattleTypeCode.Striker, AttackTypeCode.Piercing, DefendTypeCode.Heavy, "호시노", 3275f, 213, 175, 615, 246, 205, 2.0f, 350f, 8, false),
             UnitCode.Haruna => new Stat(unitCode, WeaponCode.Sr, BattleTypeCode.Striker, AttackTypeCode.Mystic, DefendTypeCode.Heavy, "하루나", 2451f, 457, 19, 924, 205, 205, 2.0f, 750f, 5, true),

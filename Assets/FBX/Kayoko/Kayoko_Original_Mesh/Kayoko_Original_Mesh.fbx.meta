@@ -3,7 +3,37 @@ guid: e55a853f05821c54dbe4772ef96f447f
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_Body
+    second: {fileID: 2100000, guid: 9a8e219b49bb3354d9af18690c396bf7, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_EyeMouth
+    second: {fileID: 2100000, guid: e401235cda6455347addb3221afe5419, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_Eyebrow
+    second: {fileID: 2100000, guid: a9f765cf59975c74fbf93c677218c425, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_Face
+    second: {fileID: 2100000, guid: a5b19e9a0b3c71647a26432c43c0cba4, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_Hair
+    second: {fileID: 2100000, guid: 64275371f8d85674db65ca21923e5e8e, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_Weapon
+    second: {fileID: 2100000, guid: 2a184e48e3527d94d9667f2e84ef8b53, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
@@ -24,7 +54,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -97,9 +127,9 @@ ModelImporter:
     skeletonHasParents: 1
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0

@@ -6,7 +6,7 @@ public enum UnitCode
 {
     // 아군 코드
     None,
-    Azusa,
+    Kayoko,
     Renge, 
     Hoshino,
     Haruna,

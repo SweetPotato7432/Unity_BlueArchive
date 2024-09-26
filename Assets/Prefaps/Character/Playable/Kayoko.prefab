@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6144147911421909522}
   - component: {fileID: 3629212542088420214}
   m_Layer: 3
-  m_Name: Azusa
+  m_Name: Kayoko
   m_TagString: Ally
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

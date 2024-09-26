@@ -3,7 +3,32 @@ guid: 2ece08f06d929944f8e4d6d022218668
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_Body_0Mat
+    second: {fileID: 2100000, guid: 67a03a9283368eb43aa8cba9d80182b0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_Body_1Mat
+    second: {fileID: 2100000, guid: d43832aa6d4819042b9eb6713afd7d9a, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_Body_2Mat
+    second: {fileID: 2100000, guid: 83bee971c13941149939f9a90363a5df, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_Body_3Mat
+    second: {fileID: 2100000, guid: 0028d604501b2754fa0d485733442089, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_Body_4Mat
+    second: {fileID: 2100000, guid: 185700ac54e7c6f499a6cee485a7458c, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
