@@ -3,7 +3,12 @@ guid: c1d0aac1c0b19984fad7798f3e75e375
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: Kayoko_Original_Halo_0Mat
+    second: {fileID: 2100000, guid: a843412f5b742734ab5c17c35db85925, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
