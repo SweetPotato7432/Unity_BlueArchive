@@ -106,20 +106,37 @@ public class GameManager : MonoBehaviour
         // 스폰된 적을 모두 처치시
         if (enemies.Length <= 0)
         {
+            bool result = true;
+
             foreach (GameObject ally in allies)
             {
-                StrikerCharacter allyStriker = ally.GetComponent<StrikerCharacter>();
+                if (InvokeCheck(ally))
+                {
+                    StrikerCharacter allyStriker = ally.GetComponent<StrikerCharacter>();
+                    allyStriker.ChangeState(States.Idle);
+                }
 
-                allyStriker.ChangeState(States.Idle);
             }
 
-            if (InvokeCheck(allies))
+            foreach (GameObject ally in allies)
+            {
+                
+                StrikerCharacter allyStriker = ally.GetComponent<StrikerCharacter>();
+                if (!allyStriker.IsIdle())
+                {
+                    result = false;
+                }
+
+            }
+
+            if (result)
             {
                 foreach (GameObject ally in allies)
                 {
                     StrikerCharacter allyStriker = ally.GetComponent<StrikerCharacter>();
-
                     allyStriker.ChangeState(States.Move);
+                
+
                 }
             }
         }
@@ -182,6 +199,16 @@ public class GameManager : MonoBehaviour
             {
                 return false;
             }
+        }
+        return true;
+    }
+    public bool InvokeCheck(GameObject character)
+    {
+        StrikerCharacter Striker = character.GetComponent<StrikerCharacter>();
+
+        if (Striker.IsInvoking())
+        {
+                return false;
         }
         return true;
     }

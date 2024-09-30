@@ -96,19 +96,19 @@ public class Stat
                 ReloadTime = 2.3f;
                 break;
             case WeaponCode.Sg:
-                AttackCoolTime = 2f;
+                AttackCoolTime = 2.5f;
                 ReloadTime = 2f;
                 break;
             case WeaponCode.Hg:
-                AttackCoolTime = 1.2f;
+                AttackCoolTime = 2.5f;
                 ReloadTime = 1.8f;
                 break;
             case WeaponCode.Ar:
-                AttackCoolTime = 2f;
+                AttackCoolTime = 2.5f;
                 ReloadTime = 2f;
                 break;
             case WeaponCode.Smg:
-                AttackCoolTime = 1.5f;
+                AttackCoolTime = 2f;
                 ReloadTime = 2f;
                 break;
             default:

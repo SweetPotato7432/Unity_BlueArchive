@@ -496,7 +496,7 @@ Transform:
   m_GameObject: {fileID: 52475264}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -18.52, y: 0, z: 0}
+  m_LocalPosition: {x: -3, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3015,7 +3015,7 @@ Transform:
   m_GameObject: {fileID: 523377159}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -37.19, y: 0, z: 0}
+  m_LocalPosition: {x: -21.669998, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -11017,7 +11017,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2631310780717475868, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
       propertyPath: m_Name
-      value: Azusa
+      value: Kayoko
       objectReference: {fileID: 0}
     - target: {fileID: 2631310780717475868, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
       propertyPath: m_IsActive
@@ -11037,7 +11037,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3854765289097710052, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3854765289097710052, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -11045,7 +11045,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3854765289097710052, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 3854765289097710052, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
       propertyPath: m_LocalRotation.z
@@ -11057,7 +11057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3854765289097710052, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 3854765289097710052, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z

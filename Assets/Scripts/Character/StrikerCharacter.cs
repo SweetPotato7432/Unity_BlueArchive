@@ -162,13 +162,13 @@ public class StrikerCharacter : MonoBehaviour
         switch (currentState)
         {
             case States.Idle:
-                //if (animator != null)
-                //{
-                //    animator.SetBool("IsIDLE", true);
-                //    animator.SetBool("IsMove", false);
-                //    animator.SetBool("IsAttack", false);
-                //    animator.SetBool("IsReload", false);
-                //}
+                if (animator != null)
+                {
+                    animator.SetBool("IsIDLE", true);
+                    animator.SetBool("IsMove", false);
+                    animator.SetBool("IsAttack", false);
+                    animator.SetBool("IsReload", false);
+                }
 
                 Idle();
                 break;
@@ -179,6 +179,7 @@ public class StrikerCharacter : MonoBehaviour
                     animator.SetBool("IsMove", true);
                     animator.SetBool("IsAttack", false);
                     animator.SetBool("IsReload", false);
+                    Debug.Log("aa");
                 }
                 // ¿Ãµø
                 Move();
