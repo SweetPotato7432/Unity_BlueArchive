@@ -108,7 +108,7 @@ public class CameraMove : MonoBehaviour
         // 카메라 위치 설정
         averagePos = bounds.center;
 
-        averagePos.x -= 10;
+        averagePos.x -= 12;
         averagePos.y = transform.position.y;
         averagePos.z = transform.position.z;
 

@@ -686,7 +686,7 @@ public class StrikerCharacter : MonoBehaviour
 
         // 가장 가까운 적 방향으로 엄폐물을 탐지
         Vector3 directionToTarget = closestTarget.transform.position - transform.position;
-        Collider[] cols = Physics.OverlapSphere(transform.position, 10, coverLayer);
+        Collider[] cols = Physics.OverlapSphere(transform.position, 8, coverLayer);
         List<GameObject> covers = new List<GameObject>();
 
         foreach (Collider col in cols)
