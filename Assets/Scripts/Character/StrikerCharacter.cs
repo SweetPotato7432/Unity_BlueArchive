@@ -72,6 +72,12 @@ public class StrikerCharacter : MonoBehaviour
     [SerializeField]
     private GameObject reloadUI;
 
+    //발사 SFX
+    [SerializeField]
+    private AudioClip gunShotSFX;
+    [SerializeField]
+    private AudioSource audioSource;
+
     private void Awake()
     {
         // 캐릭터 스탯 구현
@@ -146,6 +152,7 @@ public class StrikerCharacter : MonoBehaviour
         {
             currentCoverObject = null;
             nav.SetDestination(destination);
+            
             return;
         }
 
@@ -228,6 +235,9 @@ public class StrikerCharacter : MonoBehaviour
             nav.isStopped = true;
             nav.velocity = Vector3.zero;
         }
+        //currentCoverObject = null;
+        //coverPosition = Vector3.zero;
+
     }
 
     // 이동
@@ -384,8 +394,17 @@ public class StrikerCharacter : MonoBehaviour
         {
             if (stat.CurMag <= 0)
             {
-                currentState = States.Move;
+                if (stat.IsCover == true)
+                {
+                    currentState = States.Reload;
+                }
+                else
+                {
+                    currentState = States.Move;
+                }
+                
             }
+
             // 공격시 목표물을 바라본다.
             transform.LookAt(targetCharacter.gameObject.transform);
             // 공격을 반복한다.
@@ -401,7 +420,7 @@ public class StrikerCharacter : MonoBehaviour
         {
             // 공격을 종료하고 이동 상태로 전환 한다.
             CancelInvoke("InvokeAttack");
-            currentState = States.Move;
+            //currentState = States.Move;
             return;
         }
         //Debug.Log($"{stat.Name} : Attack");
@@ -417,28 +436,11 @@ public class StrikerCharacter : MonoBehaviour
             animator.SetBool("IsShoot", true);
             animator.SetBool("IsReload", false);
         }
-
-        //if (animator != null)
-        //{
-        //    if (stat.IsCover)
-        //    {
-        //        animator.Play("Firing Rifle", -1, 0f);
-        //    }
-        //    else
-        //    {
-        //        animator.Play("Firing Rifle", -1, 0f);
-        //    }
-        //}
         // 적에게 피해를 입힘
+
+        audioSource.PlayOneShot(gunShotSFX);
         targetCharacter.TakeDamage(stat);
 
-        //if ((closestTarget != null || targetDistance <= range) && stat.CurMag <= 0)
-        //{
-        //    // 공격을 종료하고 이동 상태로 전환 한다.
-        //    CancelInvoke("InvokeAttack");
-        //    currentState = States.Reload;
-        //    return;
-        //}
         
     }
     // 피해를 입음
@@ -686,7 +688,7 @@ public class StrikerCharacter : MonoBehaviour
 
         // 가장 가까운 적 방향으로 엄폐물을 탐지
         Vector3 directionToTarget = closestTarget.transform.position - transform.position;
-        Collider[] cols = Physics.OverlapSphere(transform.position, 8, coverLayer);
+        Collider[] cols = Physics.OverlapSphere(transform.position, 10, coverLayer);
         List<GameObject> covers = new List<GameObject>();
 
         foreach (Collider col in cols)
@@ -773,6 +775,7 @@ public class StrikerCharacter : MonoBehaviour
         }
         currentCoverObject.StopCover();
         currentCoverObject = null;
+        coverPosition = Vector3.zero;
     }
     // 가장 가까운 목표물 탐색
     private void UpdateTarget(float range)
@@ -832,6 +835,7 @@ public class StrikerCharacter : MonoBehaviour
         {
             currentState = state;
         }
+        
     }
     // 캐릭터 삭제
     private void CleanupAndDestroy()

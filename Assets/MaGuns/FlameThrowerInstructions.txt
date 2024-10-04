@@ -1,0 +1,6 @@
+1.- Use the FlameThrower start as a one shot.
+2.-0.5 seconds later use the TlameThrower loop, as a loop.
+3.- Whenever the sound must stop us a brief fade out (1 sec) accompanied with the
+FlameThrower end. 
+
+You are set to go. 

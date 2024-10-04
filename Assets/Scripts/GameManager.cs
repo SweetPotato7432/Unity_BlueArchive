@@ -81,11 +81,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemyCount == 0 || limitTime <= 0)
-        {
-            // 게임 종료
-            GameFinish();
-        }
+        
 
         allies = GameObject.FindGameObjectsWithTag("Ally");
         enemies = GameObject.FindGameObjectsWithTag("Enemy");
@@ -148,6 +144,15 @@ public class GameManager : MonoBehaviour
             limitTime = 0;
         }
         mainUI.SetTimeLimit(Mathf.Round(limitTime));
+    }
+
+    private void LateUpdate()
+    {
+        if (enemyCount == 0 || limitTime <= 0 || allies.Length == 0)
+        {
+            // 게임 종료
+            GameFinish();
+        }
     }
 
     // 캐릭터들의 정 중앙 위치 설정 메서드
@@ -239,8 +244,43 @@ public class GameManager : MonoBehaviour
     private void GameFinish()
     {
         Debug.Log("게임 완료");
-        // 승패 구분
 
+        if (enemies.Length <= 0)
+        {
+            foreach (GameObject ally in allies)
+            {
+
+                if (InvokeCheck(ally))
+                {
+                    StrikerCharacter allyStriker = ally.GetComponent<StrikerCharacter>();
+                    allyStriker.ChangeState(States.Idle);
+                }
+
+            }
+        }
+        
+        if(allies.Length <= 0)
+        {
+            foreach (GameObject enemy in enemies)
+            {
+                if (InvokeCheck(enemy))
+                {
+                    StrikerCharacter enemyStriker = enemy.GetComponent<StrikerCharacter>();
+                    enemyStriker.ChangeState(States.Idle);
+                }
+
+            }
+        }
+       
+        // 승패 구분
+        if (enemyCount != 0 || limitTime <= 0 ) 
+        {
+            Debug.Log("패배");
+        }
+        else
+        {
+            Debug.Log("승리");
+        }
     }
 
     // 게임 일시 정지 해제
