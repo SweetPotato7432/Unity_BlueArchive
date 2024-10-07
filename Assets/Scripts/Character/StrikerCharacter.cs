@@ -420,7 +420,7 @@ public class StrikerCharacter : MonoBehaviour
         {
             // 공격을 종료하고 이동 상태로 전환 한다.
             CancelInvoke("InvokeAttack");
-            //currentState = States.Move;
+            currentState = States.Move;
             return;
         }
         //Debug.Log($"{stat.Name} : Attack");
