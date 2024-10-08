@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -28,8 +29,12 @@ public class GameManager : MonoBehaviour
     //추후에 프리팹으로 인스턴스 해 사용
     [SerializeField]
     private MainUI mainUI;
+    [SerializeField]
+    private ResultUI resultUI;
 
     private float limitTime;
+
+    private bool gameFinish = false;
 
     private GameSpeed gameSpeed;
 
@@ -37,6 +42,8 @@ public class GameManager : MonoBehaviour
     private void Awake()
     {
         mainUI = GameObject.Find("MainUI").GetComponent<MainUI>();
+        resultUI = GameObject.Find("ResultUI").GetComponent<ResultUI>();
+        resultUI.gameObject.SetActive(false);
 
         // 게임 제한 시간 설정
         limitTime = 180f;
@@ -137,13 +144,17 @@ public class GameManager : MonoBehaviour
             }
         }
 
-        // 제한시간 감소
-        limitTime -= Time.deltaTime;
-        if (limitTime <= 0)
+        if (!gameFinish)
         {
-            limitTime = 0;
+            // 제한시간 감소
+            limitTime -= Time.deltaTime;
+            if (limitTime <= 0)
+            {
+                limitTime = 0;
+            }
+            mainUI.SetTimeLimit(Mathf.Round(limitTime));
         }
-        mainUI.SetTimeLimit(Mathf.Round(limitTime));
+        
     }
 
     private void LateUpdate()
@@ -243,6 +254,13 @@ public class GameManager : MonoBehaviour
     // 게임 완료 시점
     private void GameFinish()
     {
+        if (!gameFinish)
+        {
+            mainUI.gameObject.SetActive(false);
+            gameFinish = true;
+            StartCoroutine(RestoreGameSpeed());
+        }
+
         Debug.Log("게임 완료");
 
         if (enemies.Length <= 0)
@@ -280,6 +298,7 @@ public class GameManager : MonoBehaviour
         else
         {
             Debug.Log("승리");
+            
         }
     }
 
@@ -332,6 +351,25 @@ public class GameManager : MonoBehaviour
 
                 break;
         }
+    }
+
+    private IEnumerator RestoreGameSpeed()
+    {
+        Time.timeScale = 0f;
+        float startTime = Time.realtimeSinceStartup;
+        float startScale = Time.timeScale;
+
+        // 천천히 게임 속도를 원래대로 복구
+        while (Time.timeScale < 1f)
+        {
+            Time.timeScale = Mathf.Lerp(startScale, 1f, (Time.realtimeSinceStartup - startTime) / 3f);
+            Time.fixedDeltaTime = 0.02f * Time.timeScale;  // 물리 연산도 타임스케일에 맞게 조정
+            yield return null;
+        }
+
+        yield return new WaitForSecondsRealtime(1f);
+
+        resultUI.gameObject.SetActive(true);
     }
 
     // 게임 종료

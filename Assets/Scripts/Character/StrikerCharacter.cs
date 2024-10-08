@@ -169,6 +169,13 @@ public class StrikerCharacter : MonoBehaviour
         switch (currentState)
         {
             case States.Idle:
+                if(currentCoverObject != null)
+                {
+                    currentCoverObject.StopCover();
+                    currentCoverObject = null;
+                }
+                
+
                 if (animator != null)
                 {
                     animator.SetBool("IsIDLE", true);
@@ -186,7 +193,6 @@ public class StrikerCharacter : MonoBehaviour
                     animator.SetBool("IsMove", true);
                     animator.SetBool("IsAttack", false);
                     animator.SetBool("IsReload", false);
-                    Debug.Log("aa");
                 }
                 // 이동
                 Move();
@@ -773,8 +779,12 @@ public class StrikerCharacter : MonoBehaviour
         {
             animator.SetBool("IsCover", false);
         }
-        currentCoverObject.StopCover();
-        currentCoverObject = null;
+        
+        if (currentCoverObject != null)
+        {
+            currentCoverObject.StopCover();
+            currentCoverObject = null;
+        }
         coverPosition = Vector3.zero;
     }
     // 가장 가까운 목표물 탐색
