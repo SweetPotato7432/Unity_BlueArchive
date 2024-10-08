@@ -294,11 +294,12 @@ public class GameManager : MonoBehaviour
         if (enemyCount != 0 || limitTime <= 0 ) 
         {
             Debug.Log("ÆÐ¹è");
+            resultUI.SetData(limitTime,false);
         }
         else
         {
             Debug.Log("½Â¸®");
-            
+            resultUI.SetData(limitTime,true);
         }
     }
 
