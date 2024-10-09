@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpecialCharacter : MonoBehaviour
 {
+    GameManager gameManager;
+
     // 스탯 생성
     private Stat stat;
 
@@ -12,7 +14,16 @@ public class SpecialCharacter : MonoBehaviour
 
     private void Awake()
     {
+
+        // 캐릭터 스탯 구현
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         stat = Stat.setUnitStat(unitCode);
+
+        if (this.tag == "Ally")
+        {
+            gameManager.RecordDamage(stat, 0);
+        }
     }
 
     // Start is called before the first frame update

@@ -87,6 +87,11 @@ public class StrikerCharacter : MonoBehaviour
 
         damageUI = (GameObject)AssetDatabase.LoadAssetAtPath("Assets/Prefaps/UI/Damage.prefab", typeof(GameObject));
 
+        if (this.tag == "Ally")
+        {
+            gameManager.RecordDamage(stat, 0);
+        }
+
     }
 
     void Start()

@@ -39,7 +39,19 @@ public class GameManager : MonoBehaviour
     private GameSpeed gameSpeed;
 
     //데미지 저장 Dictionary
-    private Dictionary<UnitCode, float> damageData = new Dictionary<UnitCode, float>();
+    private Dictionary<string, float> strikerDamageData = new Dictionary<string, float>();
+    private Dictionary<string, float> specialDamageData = new Dictionary<string, float>();
+
+    // getter dictionary
+    public Dictionary<string, float> GetStrikerDamageData()
+    {
+        return new Dictionary<string, float>(strikerDamageData);
+    }
+
+    public Dictionary<string, float> GetSpecialDamageData()
+    {
+        return new Dictionary<string, float>(specialDamageData);
+    }
 
 
     private void Awake()
@@ -85,6 +97,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
 
     }
 
@@ -378,22 +391,29 @@ public class GameManager : MonoBehaviour
 
     public void RecordDamage(Stat stat, float damage)
     {
-        if(damageData.ContainsKey(stat.UnitCode))
+        if(stat.BattleTypeCode == BattleTypeCode.Striker)
         {
-            damageData[stat.UnitCode] += damage;
+            if (strikerDamageData.ContainsKey(stat.Name))
+            {
+                strikerDamageData[stat.Name] += damage;
+            }
+            else
+            {
+                strikerDamageData.Add(stat.Name, damage);
+            }
         }
-        else
+        else if(stat.BattleTypeCode == BattleTypeCode.Special)
         {
-            damageData.Add(stat.UnitCode, damage);
+            if (specialDamageData.ContainsKey(stat.Name))
+            {
+                specialDamageData[stat.Name] += damage;
+            }
+            else
+            {
+                specialDamageData.Add(stat.Name, damage);
+            }
         }
-    }
-
-    public void setDamageReport()
-    {
-        foreach(KeyValuePair<UnitCode, float> entry in damageData)
-        {
-            //Debug.Log(entry.Key+":"+entry.Value);
-        }
+       
     }
 
     // 게임 종료
