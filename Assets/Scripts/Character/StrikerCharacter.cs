@@ -541,7 +541,13 @@ public class StrikerCharacter : MonoBehaviour
             {
                 damage *= attakerStat.CriticalDamage;
             }
+            // 데미지 입힘
             stat.CurHp -= damage;
+            // 데미지 저장
+            if(this.tag == "Enemy")
+            {
+                gameManager.RecordDamage(attakerStat, damage);
+            }
             DamagePrefab = Instantiate(damageUI);
             DamagePrefab.transform.position = transform.position;
             //DamagePrefab.transform.position = Camera.main.WorldToScreenPoint(transform.position);

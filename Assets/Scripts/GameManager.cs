@@ -38,6 +38,9 @@ public class GameManager : MonoBehaviour
 
     private GameSpeed gameSpeed;
 
+    //데미지 저장 Dictionary
+    private Dictionary<UnitCode, float> damageData = new Dictionary<UnitCode, float>();
+
 
     private void Awake()
     {
@@ -371,6 +374,26 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1f);
 
         resultUI.gameObject.SetActive(true);
+    }
+
+    public void RecordDamage(Stat stat, float damage)
+    {
+        if(damageData.ContainsKey(stat.UnitCode))
+        {
+            damageData[stat.UnitCode] += damage;
+        }
+        else
+        {
+            damageData.Add(stat.UnitCode, damage);
+        }
+    }
+
+    public void setDamageReport()
+    {
+        foreach(KeyValuePair<UnitCode, float> entry in damageData)
+        {
+            //Debug.Log(entry.Key+":"+entry.Value);
+        }
     }
 
     // 게임 종료
