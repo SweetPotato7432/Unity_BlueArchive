@@ -123,7 +123,7 @@ public class GameManager : MonoBehaviour
 
         }
         // 스폰된 적을 모두 처치시
-        if (enemies.Length <= 0)
+        if (enemies.Length <= 0 && !gameFinish)
         {
             bool result = true;
 

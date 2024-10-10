@@ -563,7 +563,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2a184e48e3527d94d9667f2e84ef8b53, type: 2}
+  - {fileID: 2100000, guid: 225bd4cf9b3af0c44af5915bc7345514, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -3137,11 +3137,11 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9a8e219b49bb3354d9af18690c396bf7, type: 2}
-  - {fileID: 2100000, guid: 64275371f8d85674db65ca21923e5e8e, type: 2}
-  - {fileID: 2100000, guid: e401235cda6455347addb3221afe5419, type: 2}
-  - {fileID: 2100000, guid: a5b19e9a0b3c71647a26432c43c0cba4, type: 2}
-  - {fileID: 2100000, guid: a9f765cf59975c74fbf93c677218c425, type: 2}
+  - {fileID: 2100000, guid: 9decc92e965737a4c90ad6a0fbebee9b, type: 2}
+  - {fileID: 2100000, guid: 2d92be65cf0558f4dabc572f8f2959be, type: 2}
+  - {fileID: 2100000, guid: 0156ffa782b921b4a947a82f123ecfc3, type: 2}
+  - {fileID: 2100000, guid: e93dc05adb9aa124cb06876b81666304, type: 2}
+  - {fileID: 2100000, guid: 786a8f222269be74684bcc8650b5975b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4349,6 +4349,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -4366359956966812569, guid: c1d0aac1c0b19984fad7798f3e75e375, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 60ba6777f39fea847a3739181a136be6, type: 2}
     - target: {fileID: 919132149155446097, guid: c1d0aac1c0b19984fad7798f3e75e375, type: 3}
       propertyPath: m_Name
       value: Kayoko_Original_Halo

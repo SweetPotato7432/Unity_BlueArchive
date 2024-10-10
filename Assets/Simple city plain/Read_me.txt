@@ -1,7 +1,5 @@
 Thank you for buying this POLYGON city package, if you like it, rate our asset in the store to support my work.
 
-Complet City Pack : https://www.assetstore.unity3d.com/en/#!/content/107224
-
 Performance :
 
 If you`re do with the city, i suggest, to use occculus culling, that really save performance and turn the not seen object off, like if something is behind a wall.
@@ -9,10 +7,17 @@ If you`re do with the city, i suggest, to use occculus culling, that really save
 For the collider do i suggest to programm something, where you detect with cordinates, which are needed and which not.
 
 
+The thumbnail of the prefabs isn`t loading ?
+
+Select the prefabs, then clikc o nthe right mouse button and then -> reimport.
+
+
 
 
 
 Placing of the Floor :
+
+If you placed the first floor part, then smooth the cordinates, like : 12.123453 = 12, that will avoid buggy building with the alt key, to move the floor part in metre steps.
 
 
 

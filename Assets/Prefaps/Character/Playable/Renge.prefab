@@ -1470,11 +1470,11 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9a14a249c1beee845b7c2901887f6139, type: 2}
-  - {fileID: 2100000, guid: 00dbb3afc658d7c4591a04edebd279bf, type: 2}
-  - {fileID: 2100000, guid: 45c90a24d70f493429284dd726a527cb, type: 2}
-  - {fileID: 2100000, guid: f01d1e4fd4cb5d14aa6954cfa44b4eb8, type: 2}
-  - {fileID: 2100000, guid: 000b78b8e41452f48afb9f727591886d, type: 2}
+  - {fileID: 2100000, guid: cd1da6a9dc7dfc94d9306fa13eb7947f, type: 2}
+  - {fileID: 2100000, guid: 61a215304a456af42a4bf235e22882ea, type: 2}
+  - {fileID: 2100000, guid: 00a65e0c12b5b2e47b8a4e3144b4bda1, type: 2}
+  - {fileID: 2100000, guid: c4572144548356f468f4a58c4b587b3b, type: 2}
+  - {fileID: 2100000, guid: 417e5bb5832c18f44bc03c89d41ed2b8, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -2192,7 +2192,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6a33ce1c133320f41a43eadc44488253, type: 2}
+  - {fileID: 2100000, guid: 9ec2c5167d560df409c2e2c1efe3f49a, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5433,6 +5433,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: CH0224_Halo
       objectReference: {fileID: 0}
+    - target: {fileID: 4360670268660971221, guid: b56b83e501e2bb74a80fcb888ec2f7ba, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 763760440d2c95d4b9f5d49688322c20, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

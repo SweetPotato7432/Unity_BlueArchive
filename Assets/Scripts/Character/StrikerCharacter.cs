@@ -174,13 +174,6 @@ public class StrikerCharacter : MonoBehaviour
         switch (currentState)
         {
             case States.Idle:
-                if(currentCoverObject != null)
-                {
-                    currentCoverObject.StopCover();
-                    currentCoverObject = null;
-                }
-                
-
                 if (animator != null)
                 {
                     animator.SetBool("IsIDLE", true);
@@ -189,11 +182,17 @@ public class StrikerCharacter : MonoBehaviour
                     animator.SetBool("IsReload", false);
                 }
 
+                if (currentCoverObject != null)
+                {
+                    currentCoverObject.StopCover();
+                    currentCoverObject = null;
+                }
                 Idle();
                 break;
             case States.Move:
                 if (animator != null)
                 {
+                    Debug.Log("이동");
                     animator.SetBool("IsIDLE", false);
                     animator.SetBool("IsMove", true);
                     animator.SetBool("IsAttack", false);
@@ -246,6 +245,9 @@ public class StrikerCharacter : MonoBehaviour
             nav.isStopped = true;
             nav.velocity = Vector3.zero;
         }
+
+        nav.SetDestination(transform.position);
+
         //currentCoverObject = null;
         //coverPosition = Vector3.zero;
 
@@ -852,6 +854,7 @@ public class StrikerCharacter : MonoBehaviour
     // 현 상태 변경
     public void ChangeState(States state)
     {
+
         if(currentState != state)
         {
             currentState = state;
