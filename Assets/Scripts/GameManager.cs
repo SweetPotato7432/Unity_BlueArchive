@@ -416,12 +416,5 @@ public class GameManager : MonoBehaviour
        
     }
 
-    // 게임 종료
-    public void GameQuit()
-    {
-        Debug.Log("게임 종료");
-        Application.Quit();
-    }
-
 
 }
