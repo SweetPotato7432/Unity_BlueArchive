@@ -1388,6 +1388,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2213364576411300316, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
+      propertyPath: avoidancePriority
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 2471691254444057625, guid: c5472cf8904fe9543b7054384c2376a6, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.0011604495
@@ -10794,6 +10798,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0.45021304
       objectReference: {fileID: 0}
+    - target: {fileID: 6144147911421909522, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
+      propertyPath: avoidancePriority
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 6272764031769534557, guid: 625b31c82eca69f4da4e025fac6d8b1d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.00032211328
@@ -11180,6 +11188,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5358412480635417408, guid: c5b4ca6bcb58b49488394b497e067a6f, type: 3}
+      propertyPath: avoidancePriority
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 5498114135811369803, guid: c5b4ca6bcb58b49488394b497e067a6f, type: 3}
       propertyPath: m_Name
       value: Hoshino
@@ -11387,6 +11399,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 134508498567510607, guid: 102d03f161348134d97b2606df2ef0a7, type: 3}
+      propertyPath: avoidancePriority
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3519065131830375796, guid: 102d03f161348134d97b2606df2ef0a7, type: 3}
       propertyPath: m_Name
       value: Renge

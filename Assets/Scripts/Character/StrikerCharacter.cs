@@ -243,6 +243,7 @@ public class StrikerCharacter : MonoBehaviour
         // 캐릭터를 정지시킨다.
         if (!nav.isStopped)
         {
+            nav.avoidancePriority = 50;
             nav.isStopped = true;
             nav.velocity = Vector3.zero;
         }
@@ -260,6 +261,7 @@ public class StrikerCharacter : MonoBehaviour
         // 캐릭터 이동
         if (nav.isStopped)
         {
+            nav.avoidancePriority = 51;
             nav.isStopped = false;
         }
 
@@ -385,6 +387,7 @@ public class StrikerCharacter : MonoBehaviour
         // 캐릭터를 정지시킨다.
         if (!nav.isStopped)
         {
+            nav.avoidancePriority = 49;
             nav.isStopped = true;
             nav.velocity = Vector3.zero;
         }
@@ -659,6 +662,7 @@ public class StrikerCharacter : MonoBehaviour
         // 캐릭터 정지
         if (!nav.isStopped)
         {
+            nav.avoidancePriority = 49;
             nav.isStopped = true;
             nav.velocity = Vector3.zero;
         }
@@ -693,6 +697,7 @@ public class StrikerCharacter : MonoBehaviour
         {
             if (nav.hasPath || nav.velocity.sqrMagnitude == 0f)
             {
+                // 엄폐 위치에 도착
                 OnReachCover();
             }
         }
@@ -703,6 +708,7 @@ public class StrikerCharacter : MonoBehaviour
         // 캐릭터 이동
         if (nav.isStopped)
         {
+            nav.avoidancePriority = 48;
             nav.isStopped = false;
         }
 
@@ -738,6 +744,7 @@ public class StrikerCharacter : MonoBehaviour
                 CoverObject coverObject = tryCoverObject.GetComponent<CoverObject>();
                 if (coverObject.CanCover(this.gameObject, stat, targetTag))
                 {
+                    nav.avoidancePriority = 48;
                     nav.SetDestination(coverObject.coverSpot.transform.position);
                     currentCoverObject = coverObject;
                     currentCoverObject.GetUsedCharacter(this.gameObject);
