@@ -1,5 +1,17 @@
 {
   "dependencies": {
+    "com.heurekagames.assethunterpro": {
+      "version": "file:com.heurekagames.assethunterpro",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
+    "com.heurekagames.utils": {
+      "version": "file:com.heurekagames.utils",
+      "depth": 0,
+      "source": "embedded",
+      "dependencies": {}
+    },
     "com.unity.2d.sprite": {
       "version": "1.0.0",
       "depth": 0,
